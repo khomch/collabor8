@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import router from './router';
 
 dotenv.config();
@@ -28,14 +27,3 @@ const server = app.listen(SERVER_PORT, () => {
 server.on('error', (error) => {
   console.log('Server error: ', error);
 });
-
-async function connectToDatabase() {
-  try {
-    await mongoose.connect('mongodb://127.0.0.1:27017/collabor8');
-    console.log(`Connected to 'collabor8' database successfully`);
-  } catch (err) {
-    console.error('Database connection error', err);
-  }
-}
-
-connectToDatabase();
