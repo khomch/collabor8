@@ -1,0 +1,23 @@
+.button {
+    padding: 14px 20px;
+    border-radius: 58px;
+    color: var(--interface-gray800);
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    background: var(--white);
+    cursor: pointer;
+}
+
+.button__primary {
+    background: var(--primary-color);
+}
+
+.button__blue {
+    background: var(--dynamic-blue);
+}
+
+.button_disabled {
+    background: var(--interface-gray200);
+    color: var(--interface-gray400);
+}

@@ -5,13 +5,13 @@
   --interface-gray400: #C4CFD4;
   --interface-gray200: #E4EAED;
   --interface-gray100: #F6F8F9;
-  --interface-white: #FFFFFF;
-  --interface-black: #000000;
   --dynamic-blue: #50C9FC;
   --dynamic-pink: #FFA1C4;
   --dynamic-orange: #FFAB30;
   --dynamic-green: #17D78E;
   --dynamic-red: #E23F3F;
+  --white: #FFFFFF;
+  --black: #000000;
   --headers-font: 'Montserrat', sans-serif;
   --h1-size: 60px;
   --h2-size: 48px;
