@@ -1,0 +1,30 @@
+.input {
+    display: flex;
+    flex-direction: column;
+}
+
+.input__label {
+    color: var(--interface-gray600);
+    margin-left: 6px;
+    margin-bottom: 3px;
+}
+
+.input__item {
+    padding: 12px 16px;
+    border-radius: 8px 8px 0px 0px;
+    border: none;
+    background: var(--interface-gray100);
+    color: var(--interface-gray800);
+}
+
+.input__item:focus {
+    outline: none;
+}
+
+.default {
+    border-bottom: 3px solid var(--primary-color);
+}
+
+.error {
+    border-bottom: 3px solid var(--dynamic-red);
+}
