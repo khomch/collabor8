@@ -16,3 +16,8 @@
 .button__blue {
     background: var(--dynamic-blue);
 }
+
+.button_disabled {
+    background: var(--interface-gray200);
+    color: var(--interface-gray400);
+}

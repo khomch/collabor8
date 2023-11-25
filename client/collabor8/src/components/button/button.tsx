@@ -5,11 +5,16 @@ export type ButtonProps = {
   type: "primary" | "blue";
   label: string;
   onClick: any;
+  disabled?: boolean;
 };
 
-function Button({ type, label, onClick }: ButtonProps) {
+function Button({ type, label, onClick, disabled }: ButtonProps) {
   return (
-    <button onClick={onClick} className={`button button__${type}`}>
+    <button
+      disabled={disabled}
+      onClick={onClick}
+      className={`button button__${type} ${disabled && "button_disabled"}`}
+    >
       {label}
     </button>
   );
