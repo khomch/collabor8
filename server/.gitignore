@@ -1,2 +1,19 @@
+# .gitignore
+
+# Ignore node modules
+node_modules/
+
+# Ignore environment variables
 .env
-node_modules
+
+# Ignore logs
+*.log
+
+# Ignore the build folder
+/dist
+
+# Ignore IDE specific files
+.idea/
+*.vscode/
+*.swp
+*.swo
