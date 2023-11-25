@@ -30,7 +30,7 @@
 .navbar__menu-item {
   display: flex;
   text-decoration: none;
-  border-bottom: 8px solid transparent;
+  border-bottom: var(--xs) solid transparent;
 }
 
 .navbar__menu-link {

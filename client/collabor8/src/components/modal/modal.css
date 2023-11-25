@@ -1,0 +1,19 @@
+.modal {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 712px;
+  width: 100%;
+  background-color: aqua;
+}
+
+.modal::backdrop {
+  background: rgba(246, 248, 249, 0.5);
+}
+
+.modal__close-icon {
+  position: absolute;
+  top: var(--m);
+  right: var(--m);
+}
