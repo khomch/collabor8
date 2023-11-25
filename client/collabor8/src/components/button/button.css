@@ -9,10 +9,10 @@
     cursor: pointer;
 }
 
-.primary {
+.button__primary {
     background: var(--primary-color);
 }
 
-.blue {
+.button__blue {
     background: var(--dynamic-blue);
 }

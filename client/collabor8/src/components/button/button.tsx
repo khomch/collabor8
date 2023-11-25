@@ -9,7 +9,7 @@ export type ButtonProps = {
 
 function Button({ type, label, onClick }: ButtonProps) {
   return (
-    <button onClick={onClick} className={`button ${type}`}>
+    <button onClick={onClick} className={`button button__${type}`}>
       {label}
     </button>
   );

@@ -21,10 +21,10 @@
     outline: none;
 }
 
-.default {
+.input__default {
     border-bottom: 3px solid var(--primary-color);
 }
 
-.error {
+.input__error {
     border-bottom: 3px solid var(--dynamic-red);
 }
