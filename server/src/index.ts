@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
-
 import router from './router';
 
 dotenv.config();
@@ -28,5 +27,3 @@ const server = app.listen(SERVER_PORT, () => {
 server.on('error', (error) => {
   console.log('Server error: ', error);
 });
-
-
