@@ -21,7 +21,7 @@ router.get('/user/profiledetails',userDetails.userProfile)
 //project details
 
 router.post('/project/create',projectDetails.createProject)
-router.post('/project/edit',projectDetails.editProjectDetails)
+router.put('/project/edit',projectDetails.editProjectDetails)
 router.get('/project/:id',projectDetails.getProjectDetails)
 router.get('/projects',projectDetails.getAllProjectDetails)
 
