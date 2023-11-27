@@ -38,8 +38,8 @@ export default function Login() {
               value={email}
               placeholder='Your email'
               status='default'
-              onChange={() => {
-                setEmail(email);
+              onChange={(e) => {
+                setEmail(e.target.value);
               }}
             />
             <Input
@@ -49,18 +49,15 @@ export default function Login() {
               value={password}
               placeholder='Your password'
               status='default'
-              onChange={() => {
-                setPassword(password);
+              onChange={(e) => {
+                setPassword(e.target.value);
               }}
-            />#
+            />
             <div className="login-form__button">
               <Button
                 variant='primary'
-                type='button'
+                type='submit'
                 label='Login'
-                onClick={() => {
-                  SubmitEvent;
-                }}
                 disabled={false}
                 />
             </div>
