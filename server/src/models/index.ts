@@ -6,10 +6,14 @@ dotenv.config();
 const DB_URL = process.env.DATABASE_URL || 'mongodb://localhost:27017/';
 const DB_NAME = process.env.DATABASE_NAME || 'collabor8';
 
-const client = mongoose;
+const connectDB = async () => {
+  try {
+    await mongoose.connect(`${DB_URL}${DB_NAME}`);
+    console.log(`Collabor8 DB running`);
+  } catch (err) {
+    console.log(`Error connecting to mongoDB: ${err}`);
+    throw err;
+  }
+};
 
-client.connect(`${DB_URL}${DB_NAME}`)
-  .then(() => console.log(`Collabor8 DB running`))
-  .catch((err) => console.log(`Error connecting to mongoDB: ${err}`));
-
-export default client;
+export { connectDB };

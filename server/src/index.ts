@@ -3,8 +3,10 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import router from './router';
+import {connectDB} from './models/index'
 
 dotenv.config();
+
 
 const SERVER_PORT = process.env.SERVER_PORT || 3001;
 
@@ -20,10 +22,17 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(router);
 
-const server = app.listen(SERVER_PORT, () => {
-    console.log(`Server running on port ${SERVER_PORT}`);
-});
+const startServer = async () => {
+  try {
+    await connectDB();
+    const SERVER_PORT = process.env.SERVER_PORT || 3001;
+    
+    app.listen(SERVER_PORT, () => {
+      console.log(`Server running on port ${SERVER_PORT}`);
+    });
+  } catch (err) {
+    console.log(`Error connecting to mongoDB: ${err}`);
+  }
+};
 
-server.on('error', (error) => {
-  console.log('Server error: ', error);
-});
+startServer();
