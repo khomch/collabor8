@@ -8,12 +8,14 @@ import LevelIcon from '../../../public/icon-levels.svg';
 import LinkIcon from '../../../public/icon-link.svg';
 import LinkAbout from '../../../public/icon-about.svg';
 import VStack from '../ui/v-stack/v-stack';
+import Link from "next/link";
 
 type ProjectCardProps = {
   project: TProjectInfo;
+  btnLabel: "Show more" | "Apply";
 };
 
-function ProjectCard({ project }: ProjectCardProps) {
+function ProjectCard({ project, btnLabel }: ProjectCardProps) {
   return (
     <VStack size="9col">
       <div className="project-card">
@@ -58,7 +60,9 @@ function ProjectCard({ project }: ProjectCardProps) {
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            <Button label="Show more" variant="primary" />
+            <Link href={"/projects-detail"}>
+              <Button label={btnLabel} variant="primary" />
+            </Link>
           </div>
         </div>
       </div>

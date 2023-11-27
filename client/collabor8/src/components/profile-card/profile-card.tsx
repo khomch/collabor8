@@ -1,21 +1,21 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import UserProfile from '../user-profile/user-profile';
-import Star from '../../../public/star-black.svg';
-import './profile-card.css';
-import Image from 'next/image';
-import IPerson from '../../../public/icon/i_person.svg';
-import ILink from '../../../public/icon/i_link.svg';
-import ITech from '../../../public/icon/i_tech.svg';
-import Tag from '../tag/tag';
-import Button from '@/components/button/button';
-import Modal from '../modal/modal';
-import Review from '../review/review';
-import VStack from '../ui/v-stack/v-stack';
+import React, { useState } from "react";
+import UserProfile from "../user-profile/user-profile";
+import Star from "../../../public/star-black.svg";
+import "./profile-card.css";
+import Image from "next/image";
+import IPerson from "../../../public/icon/i_person.svg";
+import ILink from "../../../public/icon/i_link.svg";
+import ITech from "../../../public/icon/i_tech.svg";
+import Tag from "../tag/tag";
+import Button from "@/components/button/button";
+import Modal from "../modal/modal";
+import Review from "../review/review";
+import Link from "next/link";
 
 export type ProfileCardProps = {
-  direction: 'column' | 'row';
+  direction: "column" | "row";
   name: string;
   role: string;
   company: string;
@@ -24,21 +24,21 @@ export type ProfileCardProps = {
 function ProfileCard() {
   const [showModal, setShowModal] = useState(false);
   const tempTech = [
-    'Javascript',
-    'Typescript',
-    'AWS',
-    'Git',
-    'Angular JS',
-    'React',
+    "Javascript",
+    "Typescript",
+    "AWS",
+    "Git",
+    "Angular JS",
+    "React",
   ];
 
   return (
-    <VStack size="3col">
+    <div className="card profile-card">
       <UserProfile
-        direction={'column'}
-        name={'Kamil Zmuda'}
-        role={'Fullstack Developer '}
-        company={'Codeworks'}
+        direction={"column"}
+        name={"Kamil Zmuda"}
+        role={"Fullstack Developer "}
+        company={"Codeworks"}
       />
 
       <div className="profile-card__reviews">
@@ -60,7 +60,7 @@ function ProfileCard() {
           <span className="bodytext1 bodytext1_semibold">Bio</span>
         </div>
         <div className="bodytext2 bodytext2_medium">
-          I’m looking for a cool projects!
+          I'm looking for a cool projects!
         </div>
       </div>
 
@@ -81,14 +81,16 @@ function ProfileCard() {
           <span className="bodytext1 bodytext1_semibold">Tech Stack</span>
         </div>
         <div className="profile-card__techs bodytext2 bodytext2_medium">
-          {tempTech?.map((label) => (
-            <Tag color={'gray'} label={label} />
+          {tempTech?.map((label, index) => (
+            <Tag key={index} color={"gray"} label={label} />
           ))}
         </div>
       </div>
 
       <div className="profile-card__btn">
-        <Button variant={'primary'} label={'Start new project'} />
+        <Link href="/profile-edit">
+          <Button variant={"primary"} label={"Start new project"} />
+        </Link>
       </div>
 
       {showModal && (
@@ -96,7 +98,7 @@ function ProfileCard() {
           <Review />
         </Modal>
       )}
-    </VStack>
+    </div>
   );
 }
 

@@ -7,15 +7,16 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    margin-right: 10px;
 }
 
 .member__image {
     width: 90px;
+    position: relative;
 }
 
 .member__emoji {
-    font-size: 33px;
+    font-size: 30px;
     position: absolute;
-    top: 0;
-    margin-top: 6px;
+    margin-bottom: 10px;
 }

@@ -8,11 +8,12 @@ export type TagProps = {
   label: string;
   isIcon?: boolean;
   onClick?: (val?: any) => void;
+  index?: number;
 };
 
-function Tag({ color, label, isIcon, onClick }: TagProps) {
+function Tag({ color, label, isIcon, onClick, index }: TagProps) {
   return (
-    <div className="tag">
+    <div className="tag" key={index}>
       <div className={`tag__item tag__${color} bodytext1_semibold`}>
         {label}
         {isIcon && (

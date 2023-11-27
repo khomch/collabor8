@@ -22,14 +22,14 @@ export default function MyProjects() {
               <h2>Project Owner</h2>
             </div>
 
-            <ProjectCard project={projects[0]} />
+            <ProjectCard btnLabel="Show more" project={projects[0]} />
 
             <div className="projects-page__subtitle">
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
             {projects.map((project) => (
-              <ProjectCard project={project} />
+              <ProjectCard btnLabel="Show more" project={project} />
             ))}
           </div>
         </div>
