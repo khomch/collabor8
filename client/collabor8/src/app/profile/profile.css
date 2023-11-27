@@ -1,0 +1,8 @@
+.profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__button {
+    width: 200px;
+}

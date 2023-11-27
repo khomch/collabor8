@@ -1,0 +1,12 @@
+.star-rating {
+  display: flex;
+  gap: var(--xs);
+}
+.star-rating__button {
+  border: none;
+  background: none;
+}
+
+.star-rating__button:hover {
+  cursor: pointer;
+}
