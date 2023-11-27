@@ -1,0 +1,26 @@
+.review {
+  display: flex;
+  flex-direction: column;
+}
+
+.review__header {
+  background-color: var(--primary-color);
+  padding: var(--l);
+}
+
+.review__content {
+  margin-top: var(--m);
+  padding: var(--l);
+}
+
+.review__rating {
+  margin-top: var(--s);
+  display: flex;
+  gap: var(--xs);
+}
+
+.review__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xxl);
+}

@@ -5,15 +5,46 @@
   transform: translate(-50%, -50%);
   max-width: 712px;
   width: 100%;
-  background-color: aqua;
+  background-color: var(--white);
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  border: none;
+}
+
+.modal__content {
+  min-height: 56px;
 }
 
 .modal::backdrop {
-  background: rgba(246, 248, 249, 0.5);
+  background: rgba(195, 195, 195, 0.5);
+  animation: none;
+}
+
+.modal[open]::backdrop {
+  animation: show-backdrop 0.5s ease-in-out;
 }
 
 .modal__close-icon {
   position: absolute;
   top: var(--m);
   right: var(--m);
+}
+
+.modal__close-icon:hover {
+  cursor: pointer;
+}
+
+@keyframes show-backdrop {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes hide-backdrop {
+  to {
+    opacity: 0;
+  }
 }

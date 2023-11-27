@@ -32,7 +32,6 @@ export default function Modal({ onClose, children }: Props) {
   }, [children]);
 
   const closeModal = () => {
-    console.log('CLOSED');
     modalRef.current?.close();
     onClose && onClose();
   };
@@ -40,8 +39,6 @@ export default function Modal({ onClose, children }: Props) {
   const handleOverlayClick: React.MouseEventHandler<HTMLDialogElement> = (
     e
   ) => {
-    console.log(e.currentTarget);
-    console.log(e.target);
     if (e.currentTarget === e.target) {
       closeModal();
     }
@@ -49,7 +46,7 @@ export default function Modal({ onClose, children }: Props) {
 
   const modal: React.ReactNode = children && (
     <dialog ref={modalRef} className="modal" onClick={handleOverlayClick}>
-      <div className="">
+      <div className="modal__content">
         <Image
           src={IconClose}
           alt="Icon to close modal"
