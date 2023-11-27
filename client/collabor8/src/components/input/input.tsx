@@ -1,5 +1,5 @@
-import React from "react";
-import "./input.css";
+import { ChangeEvent } from 'react';
+import './input.css';
 
 export type InputProps = {
   type: string;
@@ -7,8 +7,8 @@ export type InputProps = {
   value: string;
   label?: string;
   placeholder?: string;
-  status: "default" | "error";
-  onChange?: () => void;
+  status: 'default' | 'error';
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 function Input({

@@ -1,19 +1,21 @@
-import React from "react";
-import "./button.css";
+import React, { ComponentPropsWithoutRef } from 'react';
+import './button.css';
 
-export type ButtonProps = {
-  type: "primary" | "blue";
+interface ButtonPropsOriginal extends ComponentPropsWithoutRef<'button'> {}
+
+export type ButtonProps = ButtonPropsOriginal & {
+  variant: 'primary' | 'blue';
   label: string;
-  onClick: any;
   disabled?: boolean;
 };
 
-function Button({ type, label, onClick, disabled }: ButtonProps) {
+function Button({ variant, label, onClick, disabled, type }: ButtonProps) {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`button button__${type} ${disabled && "button_disabled"}`}
+      type={type}
+      className={`button button__${variant} ${disabled && 'button_disabled'}`}
     >
       {label}
     </button>

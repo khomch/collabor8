@@ -46,6 +46,7 @@ function Navbar() {
                 className={`navbar__menu-item ${
                   pathname === item.path && 'navbar__menu-item_active'
                 }`}
+                key={item.path}
               >
                 <Link
                   className={`bodytext1 navbar__menu-link`}

@@ -10,7 +10,7 @@ export type MemberProps = {
 function Member({ icon }: MemberProps) {
   return (
     <div className="member">
-      <Image className="member__image" src={person} />
+      <Image className="member__image" src={person} alt="member icon"/>
       <div className="member__emoji">{icon}</div>
     </div>
   );
