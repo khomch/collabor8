@@ -7,7 +7,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
 async function register(req: Request, res: Response) {
   try {
-  
+
     const { emailAddress,userName,password,firstName,lastName  } = req.body;
     const existingUser = await User.findOne({ emailAddress: emailAddress });
 
@@ -16,18 +16,18 @@ async function register(req: Request, res: Response) {
     }
 
     if (password === '') throw new Error("Password is missing");
-   
+
     const passwordHash = await bcrypt.hash(password, 10);
 
     const newUser = new User({
       emailAddress: emailAddress,
       userName:userName,
-      password: passwordHash, 
+      password: passwordHash,
       firstName:firstName,
-      lastName:lastName      
+      lastName:lastName
     });
 
-    const { _id } = await newUser.save();    
+    const { _id } = await newUser.save();
     const accessToken = jwt.sign({ _id }, PRIVATE_KEY);
 
     res.status(201).send({ accessToken });
@@ -43,14 +43,14 @@ async function login(req: Request, res: Response) {
       emailAddress: req.body.emailAddress,
       password: req.body.password
     }
-
     const user = await User.findOne({ emailAddress: credentials.emailAddress });
-    
-    if (!user || !user.passwordHash) {
+    console.log(user)
+
+    if (!user) {
       return res.status(401).send({ message: 'User does not exist' });
     }
 
-    const correctCredentials = await bcrypt.compare(credentials.password, user.passwordHash);
+    const correctCredentials = await bcrypt.compare(credentials.password, user.password);
 
     if (!correctCredentials) {
       return res.status(401).send({ message: 'Invalid credentials' });
