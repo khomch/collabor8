@@ -17,7 +17,20 @@
     background: var(--dynamic-blue);
 }
 
+.button__green {
+    background: var(--dynamic-green);
+}
+
+.button__gray {
+    background: var(--interface-gray400);
+}
+
+
 .button_disabled {
     background: var(--interface-gray200);
     color: var(--interface-gray400);
+}
+
+.button__small {
+    padding: 10px 20px;
 }

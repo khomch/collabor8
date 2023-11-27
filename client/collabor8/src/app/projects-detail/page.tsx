@@ -1,14 +1,10 @@
 import ProfileCard from "@/components/profile-card/profile-card";
-import Link from "next/link";
 import "./projects.css";
 import { projects } from "@/_MOCK-DATA_/mock-data";
-import VStack from "@/components/ui/v-stack/v-stack";
 import ProjectCard from "@/components/project-card/project-card";
-import IconOwner from "../../../public/icon-owner.svg";
-import IconTeamMember from "../../../public/icon-teammember.svg";
-import Image from "next/image";
 import ProfileDetailCard from "@/components/project-detail-card/project-detail-card";
 import ProjectDescCard from "@/components/project-desc-card/project-desc-card";
+import ProfileBtnCard from "@/components/profile-btn-card/profile-btn-card";
 
 export default function MyProjects() {
   const tempData = {
@@ -16,11 +12,54 @@ export default function MyProjects() {
     info: "We well sell our project to Codeworks and become billionaires.",
   };
 
+  const tempFinishUser = [
+    {
+      username: "Kamil Zmuda",
+      role: "Fullstack Developer",
+    },
+  ];
+
+  const tempJoinUser = [
+    {
+      username: "Kamil Zmuda",
+      role: "Fullstack Developer",
+    },
+    {
+      username: "Jin Lee",
+      role: "Fullstack Developer",
+    },
+  ];
+
   return (
+    // <section className="projects-page">
+    //   <div className="projects">
+    //     <div className="projects__content">
+    //       <div className="projects-page__filters">
+    //         <ProfileDetailCard />
+    //       </div>
+    //       <div className="projects-page__projects">
+    //         <ProjectCard btnLabel="Apply" project={projects[0]} />
+    //         <ProjectDescCard desc={tempData.desc} info={tempData.info} />
+    //       </div>
+    //     </div>
+    //   </div>
+    // </section>
+
+    // if owner project
     <section className="projects-page">
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
+            <ProfileBtnCard
+              title={"Finished"}
+              status={"finished"}
+              data={tempFinishUser}
+            />
+            <ProfileBtnCard
+              title={"Want to Join"}
+              status={"join"}
+              data={tempJoinUser}
+            />
             <ProfileDetailCard />
           </div>
           <div className="projects-page__projects">
