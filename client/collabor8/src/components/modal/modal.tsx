@@ -2,24 +2,25 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import IconClose from '../../../public/icon-close.svg';
-import './modal.css';
+import UserProfile from "../user-profile/user-profile";
+import "./modal.css";
 
 type Props = {
   onClose: () => void;
   children: React.ReactNode;
 };
 
-export default function Modal({ onClose, children }: Props) {
+export default function Modal({ onClose, children }: Props): any {
   const modalRef = useRef<null | HTMLDialogElement>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         closeModal();
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   useEffect(() => {

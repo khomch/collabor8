@@ -1,19 +1,19 @@
 import React from "react";
 import person from "../../../public/person.svg";
-import "./member.css";
+import "./user.css";
 import Image from "next/image";
 
-export type MemberProps = {
+export type UserProps = {
   icon: "😵‍💫" | "😎" | "🥹" | "😅" | "🤓" | "😉";
 };
 
-function Member({ icon }: MemberProps) {
+function User({ icon }: UserProps) {
   return (
     <div className="member">
-      <Image className="member__image" src={person} alt="member icon"/>
+      <Image className="member__image" src={person} alt="member icon" />
       <div className="member__emoji">{icon}</div>
     </div>
   );
 }
 
-export default Member;
+export default User;

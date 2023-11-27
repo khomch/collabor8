@@ -6,10 +6,11 @@ import Image from 'next/image';
 import Input from '../input/input';
 import Button from '../button/button';
 import StarRating from '../star-rating/star-rating';
+import UserProfile from "../user-profile/user-profile";
 
 function Review() {
   // TODO: Finish rating logic
-  const [feedbackValue, setFeedbackValue] = useState('');
+  const [feedbackValue, setFeedbackValue] = useState("");
   const [rating, setRating] = useState(0);
 
   const handleFeedback = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -19,9 +20,9 @@ function Review() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     // TODO add POST to server
-    console.log('RATING: ', rating);
-    console.log('SUBMIT', feedbackValue);
-    setFeedbackValue('');
+    console.log("RATING: ", rating);
+    console.log("SUBMIT", feedbackValue);
+    setFeedbackValue("");
   };
 
   return (
@@ -33,7 +34,14 @@ function Review() {
         </p>
       </div>
       <div className="review__content">
-        <p className="bodytext1">How was the developer?</p>
+        <UserProfile
+          direction={"row"}
+          name={"Kamil Zmuda"}
+          role={"Fullstack Developer "}
+          company={"Codeworks"}
+        />
+        <p className="review__text bodytext1">How was the developer?</p>
+
         <form className="review__form" onSubmit={handleSubmit}>
           <StarRating rating={rating} setRating={setRating} />
           {/* <p className="bodytext1">Feedback</p> */}
