@@ -96,7 +96,7 @@
   font-size: var(--h6-size);
   font-style: normal;
   font-weight: 700;
-  line-height: 48px;
+  line-height: 44px;
 }
 
 .sub1 {
@@ -124,7 +124,7 @@
   font-size: var(--body1-size);
   font-style: normal;
   font-weight: 500;
-  line-height: 28px;
+  /* line-height: 28px; */
 }
 
 .bodytext1_semibold {
