@@ -20,9 +20,9 @@ router.get('/user/profiledetails',userDetails.userProfile)
 
 //project details
 
-router.post('/user/createproject',projectDetails.CreateProject)
-router.post('/user/editprojectdetails',projectDetails.EditProjectDetails)
-router.get('/user/projectdetails',projectDetails.GetProjectDetails)
-router.get('/allprojects',projectDetails.GetAllProjectDetails)
+router.post('/project/create',projectDetails.createProject)
+router.post('/project/edit',projectDetails.editProjectDetails)
+router.get('/project/:id',projectDetails.getProjectDetails)
+router.get('/projects',projectDetails.getAllProjectDetails)
 
 export default router;

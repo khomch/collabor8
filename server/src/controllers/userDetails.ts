@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { User } from '../models/schema';
 
-async function userInfomation (req: Request, res: Response){
+async function userInfomation(req: Request, res: Response) {
   try {
     const filter = { emailAddress: req.body.emailAddress };
     const update = {
@@ -16,26 +16,26 @@ async function userInfomation (req: Request, res: Response){
       role: req.body.role,
     };
 
-    const UserProfile = await User.findOneAndUpdate(filter, update, { new: true });
+    const userProfile = await User.findOneAndUpdate(filter, update, { new: true });
 
-    if (!UserProfile) {
+    if (!userProfile) {
       return res.status(404).send({ message: 'User not found' });
     }
-    res.status(200).send(UserProfile);
+    res.status(200).send(userProfile);
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(400).send();
   }    
 }
 
-async function userProfile (req: Request, res: Response) {
-    try {
-      const profile = await User.findOne({ emailAddress: req.body.emailAddress });
-      res.status(201).send(profile);
-    } catch (error) {
-      console.log(error);
-      res.status(400).send();
-    }
+async function userProfile(req: Request, res: Response) {
+  try {
+    const profile = await User.findOne({ emailAddress: req.body.emailAddress });
+    res.status(201).send(profile);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
   }
+}
 
-export default {userInfomation,userProfile}
+export default { userInfomation, userProfile };
