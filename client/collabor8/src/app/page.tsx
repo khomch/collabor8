@@ -4,9 +4,5 @@ import Link from "next/link";
 
 export default function LandingPage() {
 
-  return (
-    <div className="landing-page">
-      <Member icon="😵‍💫" />
-    </div>
-  );
+  return <div className="landing-page"></div>;
 }

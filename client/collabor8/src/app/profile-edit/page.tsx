@@ -1,26 +1,26 @@
-'use client';
+"use client";
 
-import Button from '@/components/button/button';
-import Input from '@/components/input/input';
-import Tag from '@/components/tag/tag';
-import React, { useState } from 'react';
-import './profile-edit.css';
+import Button from "@/components/button/button";
+import Input from "@/components/input/input";
+import Tag from "@/components/tag/tag";
+import React, { useState } from "react";
+import "./profile-edit.css";
 
 export default function ProfileEdit() {
   const [profile, setProfile] = useState({
-    username: '',
-    email: '',
-    firstname: '',
-    lastname: '',
-    website: '',
-    company: '',
-    role: '',
-    bio: '',
-    techStack: '',
+    username: "",
+    email: "",
+    firstname: "",
+    lastname: "",
+    website: "",
+    company: "",
+    role: "",
+    bio: "",
+    techStack: "",
   });
 
-  const [techInput, setTechInput] = useState('');
-  const [tech, setTech] = useState(['Typescript']);
+  const [techInput, setTechInput] = useState("");
+  const [tech, setTech] = useState(["Typescript"]);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -31,10 +31,10 @@ export default function ProfileEdit() {
   };
 
   const handleKeyDown = (e: any) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       const enteredTech = e.target.value;
       setTech([...tech, enteredTech]);
-      setTechInput('');
+      setTechInput("");
     }
   };
 
@@ -180,7 +180,7 @@ export default function ProfileEdit() {
                     key={index}
                     onClick={() => handelTagRemove(index)}
                     isIcon={true}
-                    color={'gray'}
+                    color={"gray"}
                     label={item}
                   />
                 ))}
@@ -189,7 +189,7 @@ export default function ProfileEdit() {
           </div>
 
           <div className="profile__button">
-            <Button variant={'primary'} label={'Save'} onClick={handelSubmit} />
+            <Button variant={"primary"} label={"Save"} onClick={handelSubmit} />
           </div>
         </div>
       </div>
