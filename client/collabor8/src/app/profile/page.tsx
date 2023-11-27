@@ -11,9 +11,7 @@ import ProfileCard from "@/components/profile-card/profile-card";
 export default function Profile() {
   return (
     <>
-      {/* <div className="profile"> */}
       <ProfileCard />
-      {/* </div> */}
     </>
   );
 }

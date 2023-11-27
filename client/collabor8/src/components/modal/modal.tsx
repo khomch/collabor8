@@ -9,17 +9,17 @@ type Props = {
   children: React.ReactNode;
 };
 
-export default function Modal({ onClose, children }: Props) {
+export default function Modal({ onClose, children }: Props): any {
   const modalRef = useRef<null | HTMLDialogElement>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         closeModal();
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   useEffect(() => {

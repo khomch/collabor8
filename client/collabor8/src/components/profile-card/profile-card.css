@@ -17,6 +17,8 @@
 .profile-card__star_wrapper {
     display: flex;
     align-items: center;
+    color: var(--dynamic-orange);
+    font-weight: bold;
 }
 
 .profile-card__star {
@@ -27,6 +29,7 @@
     border: 1px solid var(--interface-gray400);
     padding: 4px 28px;
     border-radius: 9px;
+    cursor: pointer;
 }
 
 .profile-card__info {

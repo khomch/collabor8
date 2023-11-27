@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserProfile from "../user-profile/user-profile";
 import Star from "../../../public/star-black.svg";
 import "./profile-card.css";
@@ -8,6 +8,8 @@ import ILink from "../../../public/icon/i_link.svg";
 import ITech from "../../../public/icon/i_tech.svg";
 import Tag from "../tag/tag";
 import Button from "@/components/button/button";
+import Modal from "../modal/modal";
+import Review from "../review/review";
 
 export type ProfileCardProps = {
   direction: "column" | "row";
@@ -17,6 +19,7 @@ export type ProfileCardProps = {
 };
 
 function ProfileCard() {
+  const [showModal, setShowModal] = useState(false);
   const tempTech = [
     "Javascript",
     "Typescript",
@@ -40,7 +43,10 @@ function ProfileCard() {
           <Image className="profile-card__star" src={Star} alt="Star" />
           5.00
         </div>
-        <div className="profile-card__review-btn bodytext2 bodytext2_semibold">
+        <div
+          onClick={() => setShowModal(true)}
+          className="profile-card__review-btn bodytext2 bodytext2_semibold"
+        >
           Reviews
         </div>
       </div>
@@ -81,6 +87,12 @@ function ProfileCard() {
       <div className="profile-card__btn">
         <Button variant={"primary"} label={"Start new project"} />
       </div>
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)}>
+          <Review />
+        </Modal>
+      )}
     </div>
   );
 }
