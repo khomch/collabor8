@@ -42,26 +42,26 @@ export default function Login() {
 
   return (
     <>
-      <div className='login-page'>
-        <div className='logo-container'>
+      <div className="login-page">
+        <div className="logo-container">
           <Image
-            src={'/new-logo-yellow.png'}
-            alt='Collabor8 Logo'
+            src={"/new-logo-yellow.png"}
+            alt="Collabor8 Logo"
             width={249}
             height={61}
             priority
           />
         </div>
-        <div className='login-container'>
-          <form onSubmit={handleSubmit} className='login-form'>
+        <div className="login-container">
+          <form onSubmit={handleSubmit} className="login-form">
             <Input
               required={true}
               type='email'
               name='email'
               label='Email'
               value={email}
-              placeholder='Your email'
-              status='default'
+              placeholder="Your email"
+              status="default"
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
@@ -72,8 +72,8 @@ export default function Login() {
               name='password'
               label='Password'
               value={password}
-              placeholder='Your password'
-              status='default'
+              placeholder="Your password"
+              status="default"
               onChange={(e) => {
                 setPassword(e.target.value);
               }}
@@ -87,18 +87,18 @@ export default function Login() {
             )}
             <div className="login-form__button">
               <Button
-                variant='primary'
-                type='submit'
-                label='Login'
+                variant="primary"
+                type="submit"
+                label="Login"
                 disabled={false}
-                />
+              />
             </div>
           </form>
-          <div className='register'>
-            <span className='bodytext2'>
-              Don't have an account?&nbsp;
-              <Link href='/register'>
-                <span className='register__link'>Register</span>
+          <div className="register">
+            <span className="bodytext2">
+              Don't have an account
+              <Link href="/register">
+                <span className="register__link">Register</span>
               </Link>
             </span>
           </div>

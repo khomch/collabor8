@@ -1,0 +1,17 @@
+.vstack {
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  padding: var(--m);
+  height: max-content;
+  background-color: var(--white);
+}
+
+.vstack_3col {
+  width: 296px;
+}
+
+.vstack_9col {
+  max-width: 920px;
+}

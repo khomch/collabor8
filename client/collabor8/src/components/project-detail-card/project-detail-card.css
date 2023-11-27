@@ -1,0 +1,41 @@
+.profile-detail {
+    display: flex;
+    flex-direction: column;
+    width: 296px;
+    justify-content: flex-start;
+    padding: 19px 16px;
+    margin: 10px;
+}
+.profile-detail__info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+    line-height: 25px;
+}
+
+.profile-detail__title  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-detail_members {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-detail__icon {
+    margin-right: 5px;
+}
+
+.profile-detail__roles {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-detail__tag {
+    display: flex;
+    justify-content: flex-start;
+}
