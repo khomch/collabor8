@@ -10,15 +10,11 @@ export default function Dashboard() {
       <div className="dashboard">
         <div className="dashboard__content">
           <div className="dashboard-page__filters">
-            <VStack size="3col">
-              <FiltersCard />
-            </VStack>
+            <FiltersCard />
           </div>
           <div className="dashboard-page__projects">
             {projects.map((project) => (
-              <VStack size="9col">
-                <ProjectCard project={project} />
-              </VStack>
+              <ProjectCard project={project} />
             ))}
           </div>
         </div>

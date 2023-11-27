@@ -1,19 +1,17 @@
 .user {
-    display: flex;
-    background-color: white;
-    justify-content: flex-start;
+  display: flex;
+  justify-content: flex-start;
 }
 
-.profile__column{
-    flex-direction: column;
+.profile__column {
+  flex-direction: column;
 }
 
-.profile__row{
-    flex-direction: row;
+.profile__row {
+  flex-direction: row;
 }
 
 .user__items {
-    display: flex;
-    flex-direction: column;
-    
+  display: flex;
+  flex-direction: column;
 }

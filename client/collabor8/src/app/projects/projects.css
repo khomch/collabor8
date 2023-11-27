@@ -1,30 +1,30 @@
-.dashboard-page {
+.projects-page {
   display: flex;
   margin-top: var(--xl);
   justify-content: center;
 }
 
-.dashboard {
+.projects {
   display: flex;
   flex-direction: column;
   max-width: var(--width-xxl);
   width: calc(100% - var(--m) * 2);
-}
-
-.dashboard__content {
-  display: flex;
-  gap: var(--m);
   margin-bottom: var(--xl);
 }
 
-.dashboard-page__projects {
+.projects__content {
+  display: flex;
+  gap: var(--m);
+}
+
+.projects-page__projects {
   display: flex;
   flex-direction: column;
   gap: var(--m);
 }
 
-.dashboard-page__filters {
-  align-self: flex-start;
-  position: sticky;
-  top: var(--m);
+.projects-page__subtitle {
+  display: flex;
+  gap: var(--xs);
+  align-items: center;
 }
