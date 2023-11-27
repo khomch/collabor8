@@ -1,0 +1,11 @@
+.select {
+  border-radius: 9px;
+  padding: var(--s);
+  padding-right: 40px;
+  color: var(--black);
+  font-size: var(--body3-size);
+  display: flex;
+  border: none;
+  width: 100%;
+  background-color: var(--interface-gray200);
+}

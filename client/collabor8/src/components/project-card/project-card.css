@@ -1,0 +1,45 @@
+.project-card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--xs);
+}
+
+.project-card__title {
+  margin-top: var(--xs);
+}
+
+.project-card__info {
+  display: flex;
+  width: 100%;
+}
+
+.project-card__general-info {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 460px;
+}
+
+.project-card__about {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.project-card__type {
+  margin-top: var(--xs);
+  margin-bottom: var(--xs);
+}
+
+.project-card__subtitle {
+  display: flex;
+  gap: var(--xs);
+  margin-top: var(--xs);
+}
+
+.project-card__techstack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xxs);
+  margin-bottom: var(--xs);
+}

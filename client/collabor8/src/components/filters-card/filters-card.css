@@ -1,0 +1,21 @@
+.filters-card {
+  width: 100%;
+}
+
+.filters-card__title {
+  margin-bottom: var(--m);
+}
+
+.filters__label {
+  color: var(--interface-gray600);
+  margin-left: 6px;
+  margin-top: var(--l);
+  margin-bottom: var(--xxs);
+  font-size: var(--body3-size);
+}
+
+.filters__technologies {
+  display: flex;
+  gap: var(--xxs);
+  flex-wrap: wrap;
+}
