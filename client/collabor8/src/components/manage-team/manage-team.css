@@ -1,0 +1,30 @@
+.manage-project__form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--l);
+}
+.manage-project__two-inputs {
+  display: flex;
+  width: 100%;
+  gap: var(--m);
+}
+
+.manage-project__select {
+  border-radius: 8px 8px 0px 0px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-bottom: 3px solid var(--primary-color);
+}
+
+.manage-project__select-label {
+  margin: 0;
+  color: var(--interface-gray600);
+}
+
+.manage-project__add-role {
+  display: flex;
+  flex-direction: column;
+  gap: var(--m);
+}
