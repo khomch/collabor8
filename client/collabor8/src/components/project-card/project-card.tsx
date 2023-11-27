@@ -34,8 +34,8 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
             </div>
             <div className="project-card__techstack">
               {project.techstack.length > 0 &&
-                project.techstack?.map((technology) => (
-                  <Tag color="gray" label={technology} />
+                project.techstack?.map((technology, index) => (
+                  <Tag key={index} color="gray" label={technology} />
                 ))}
             </div>
             <div className="project-card__subtitle">
