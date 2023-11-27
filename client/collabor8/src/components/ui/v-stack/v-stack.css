@@ -15,3 +15,7 @@
 .vstack_9col {
   max-width: 920px;
 }
+
+.vstack__bottom {
+  margin-bottom: 10px;
+}

@@ -5,6 +5,7 @@ import ProjectCard from "@/components/project-card/project-card";
 import ProfileDetailCard from "@/components/project-detail-card/project-detail-card";
 import ProjectDescCard from "@/components/project-desc-card/project-desc-card";
 import ProfileBtnCard from "@/components/profile-btn-card/profile-btn-card";
+import ProjectWorkCard from "@/components/project-work-card/project-work-card";
 
 export default function MyProjects() {
   const tempData = {
@@ -61,6 +62,7 @@ export default function MyProjects() {
               data={tempJoinUser}
             />
             <ProfileDetailCard />
+            <ProjectWorkCard />
           </div>
           <div className="projects-page__projects">
             <ProjectCard btnLabel="Apply" project={projects[0]} />

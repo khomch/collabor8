@@ -1,10 +1,5 @@
 .profile-btn-card {
-    display: flex;
-    flex-direction: column;
-    width: 296px;
-    justify-content: flex-start;
-    padding: 19px 16px;
-    margin: 10px;
+    width: 100%;
 }
 
 .profile-btn-card__wrapper {

@@ -1,0 +1,10 @@
+.project-work-card {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.project-work-card__list {
+  display: flex;
+  flex-direction: column;
+}
