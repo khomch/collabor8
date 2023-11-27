@@ -30,7 +30,7 @@ function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <Link href={'/'}>
+        <Link href={"/"}>
           <Image
             src={LogoSmallYellow}
             alt="Collabor8 Logo"
@@ -41,10 +41,11 @@ function Navbar() {
         </Link>
         <menu className="navbar__menu">
           <ul className="navbar__menu-items">
-            {menuItems.map((item) => (
+            {menuItems.map((item, index) => (
               <li
+                key={index}
                 className={`navbar__menu-item ${
-                  pathname === item.path && 'navbar__menu-item_active'
+                  pathname === item.path && "navbar__menu-item_active"
                 }`}
                 key={item.path}
               >

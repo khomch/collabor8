@@ -7,6 +7,7 @@
     color: var(--interface-gray600);
     margin-left: 6px;
     margin-bottom: 3px;
+    font-size: var(--body3-size);
 }
 
 .input__item {

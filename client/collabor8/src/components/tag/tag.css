@@ -10,6 +10,13 @@
     padding: 8px 20px;
     color: var(--black);
     font-size: var(--body3-size);
+    margin-right: 3px;
+    display: flex;
+    align-items: center;
+}
+
+.tag__icon {
+    margin-left: 8px;
 }
 
 .tag__gray {

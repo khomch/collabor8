@@ -160,3 +160,9 @@
 .bodytext3_medium {
   font-weight: 500;
 }
+
+.children {
+  height: 100vh;
+  background-color: var(--interface-gray100);
+  box-sizing: border-box;
+}
