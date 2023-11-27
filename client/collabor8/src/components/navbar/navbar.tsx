@@ -43,7 +43,6 @@ function Navbar() {
           <ul className="navbar__menu-items">
             {menuItems.map((item, index) => (
               <li
-                key={index}
                 className={`navbar__menu-item ${
                   pathname === item.path && "navbar__menu-item_active"
                 }`}
