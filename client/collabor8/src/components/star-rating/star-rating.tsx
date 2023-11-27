@@ -5,19 +5,12 @@ import StarFilled from '../../../public/star-fill.svg';
 import Image from 'next/image';
 
 type StarRatingProps = {
-  onClick?: (index: number) => void;
+  rating: number;
+  setRating: (index: number) => void;
 };
 
-function StarRating({ onClick }: StarRatingProps) {
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
-
-  const handleRatingClick = (index: number) => {
-    setRating(index);
-    //TODO add POST rating to server
-    console.log('RATING: ', index);
-    onClick && onClick(index);
-  };
+function StarRating({ rating, setRating }: StarRatingProps) {
+  const [hover, setHover] = useState(rating);
 
   return (
     <div className="star-rating">
@@ -28,7 +21,7 @@ function StarRating({ onClick }: StarRatingProps) {
             type="button"
             className="star-rating__button"
             key={index}
-            onClick={() => handleRatingClick(index)}
+            onClick={() => setRating(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >

@@ -10,6 +10,7 @@ import StarRating from '../star-rating/star-rating';
 function Review() {
   // TODO: Finish rating logic
   const [feedbackValue, setFeedbackValue] = useState('');
+  const [rating, setRating] = useState(0);
 
   const handleFeedback = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFeedbackValue(e.target.value);
@@ -17,11 +18,12 @@ function Review() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    // TODO add POST to server
+    console.log('RATING: ', rating);
     console.log('SUBMIT', feedbackValue);
     setFeedbackValue('');
   };
 
-  const rating = [1, 0, 0, 0, 0];
   return (
     <div className="review">
       <div className="review__header">
@@ -33,7 +35,7 @@ function Review() {
       <div className="review__content">
         <p className="bodytext1">How was the developer?</p>
         <form className="review__form" onSubmit={handleSubmit}>
-          <StarRating />
+          <StarRating rating={rating} setRating={setRating} />
           {/* <p className="bodytext1">Feedback</p> */}
           <Input
             type="text"
