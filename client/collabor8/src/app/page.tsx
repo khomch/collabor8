@@ -7,7 +7,6 @@ export default function LandingPage() {
     <>
       <h1 className="bodytext1">Landing Page / Login</h1>
       <Link href="/register">Register</Link>
-      <Member icon="😵‍💫" />
     </>
   );
 }

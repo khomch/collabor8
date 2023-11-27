@@ -4,11 +4,11 @@ import './input.css';
 export type InputProps = {
   type: string;
   name: string;
-  value: string;
+  value?: string;
   label?: string;
   placeholder?: string;
-  status: 'default' | 'error';
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
 function Input({
@@ -19,6 +19,7 @@ function Input({
   placeholder,
   status,
   onChange,
+  onKeyDown,
 }: InputProps) {
   return (
     <div className="input">
@@ -30,6 +31,7 @@ function Input({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );
