@@ -2,7 +2,6 @@
     display: flex;
     background-color: white;
     justify-content: flex-start;
-    /* width: 300px; */
 }
 
 .profile__column{
@@ -13,7 +12,7 @@
     flex-direction: row;
 }
 
-.profile__items {
+.user__items {
     display: flex;
     flex-direction: column;
     

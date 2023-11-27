@@ -12,10 +12,17 @@ export type TagProps = {
 
 function Tag({ color, label, isIcon, onClick }: TagProps) {
   return (
-    <div className="tag" onClick={onClick}>
+    <div className="tag">
       <div className={`tag__item tag__${color} bodytext1_semibold`}>
         {label}
-        {isIcon && <Image className="tag__icon" src={icon} alt="icon" />}
+        {isIcon && (
+          <Image
+            onClick={onClick}
+            className="tag__icon"
+            src={icon}
+            alt="icon"
+          />
+        )}
       </div>
     </div>
   );

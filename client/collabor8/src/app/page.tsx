@@ -1,7 +1,6 @@
 "use client";
-
-import Member from "@/components/member/member";
-import "./page.css";
+import Member from "@/components/user/user";
+import Link from "next/link";
 
 export default function LandingPage() {
 
