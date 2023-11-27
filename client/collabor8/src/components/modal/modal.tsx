@@ -2,7 +2,8 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import IconClose from '../../../public/icon-close.svg';
-import './modal.css';
+import UserProfile from "../user-profile/user-profile";
+import "./modal.css";
 
 type Props = {
   onClose: () => void;
