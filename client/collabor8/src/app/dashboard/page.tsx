@@ -14,7 +14,7 @@ export default function Dashboard() {
           </div>
           <div className="dashboard-page__projects">
             {projects.map((project) => (
-              <ProjectCard project={project} />
+              <ProjectCard btnLabel="Show more" project={project} />
             ))}
           </div>
         </div>
