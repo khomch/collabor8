@@ -1,14 +1,15 @@
-import { ChangeEvent } from 'react';
-import './input.css';
+import { ChangeEvent, KeyboardEvent } from "react";
+import "./input.css";
 
 export type InputProps = {
   type: string;
   name: string;
   value?: string;
   label?: string;
+  status?: "default" | "error";
   placeholder?: string;
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
-  onKeyDown?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 };
 
 function Input({

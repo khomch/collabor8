@@ -191,7 +191,7 @@ export default function Profile() {
           </div>
 
           <div className="profile__button">
-            <Button type={"primary"} label={"Save"} onClick={handelSubmit} />
+            <Button variant={"primary"} label={"Save"} onClick={handelSubmit} />
           </div>
         </div>
       </div>
