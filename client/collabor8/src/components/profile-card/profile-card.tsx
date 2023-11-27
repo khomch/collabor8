@@ -93,8 +93,8 @@ function ProfileCard() {
           <span className="bodytext1 bodytext1_semibold">Tech Stack</span>
         </div>
         <div className="profile-card__techs bodytext2 bodytext2_medium">
-          {tempTech?.map((label) => (
-            <Tag color={'gray'} label={label} />
+          {tempTech?.map((label, index) => (
+            <Tag key={index} color={"gray"} label={label} />
           ))}
         </div>
       </div>
