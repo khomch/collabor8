@@ -1,4 +1,4 @@
-.login-page {
+.register-page {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -7,7 +7,7 @@
   row-gap: 57px;
 }
 
-.login-container {
+.register-container {
   display: flex;
   flex-direction: column;
   width: 400px;
@@ -20,13 +20,13 @@
   row-gap: var(--xl);
 }
 
-.login-form {
+.register-form {
   display: flex;
   flex-direction: column;
   row-gap: var(--l);
 }
 
-.login-form__error {
+.register-form__error {
   text-align: center;
 }
 
@@ -34,15 +34,15 @@
   color: var(--dynamic-red);
 }
 
-.login-form__button {
+.register-form__button {
   margin-top: var(--m);
 }
 
-.register {
+.login {
   align-self: center;
 }
 
-.register__link {
+.login__link {
   text-decoration: none;
   color: var(--interface-gray-800, #333);
 }

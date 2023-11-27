@@ -2,6 +2,7 @@ import { ChangeEvent, KeyboardEvent } from "react";
 import "./input.css";
 
 export type InputProps = {
+  required?: boolean;
   type: string;
   name: string;
   value?: string;
@@ -13,6 +14,7 @@ export type InputProps = {
 };
 
 function Input({
+  required,
   type,
   name,
   label,
@@ -26,6 +28,7 @@ function Input({
     <div className="input">
       <label className="input__label bodytext3_semibold">{label}</label>
       <input
+        required={required}
         className={`input__item bodytext3_semibold input__${status}`}
         type={type}
         name={name}

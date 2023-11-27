@@ -3,18 +3,41 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
+import { login } from '../../apiService/userService';
 import './page.css';
 
 export default function Login() {
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [error, setError] = useState({ isError: false, errorMessage: "" });
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log('Submitted!');
-    // TODO: Add login functionality
+    const user = {
+      emailAddress: email,
+      password: password
+    }
+    const response = await login(user);
+    if (response.message) {
+      setError({ isError: true, errorMessage: response.message });
+      setEmail('');
+      setPassword('');
+      return;
+    } else {
+    localStorage.setItem('token', response);
+    setError({ isError: false, errorMessage: "" });
+    setEmail('');
+    setPassword('');
+    router.push('/');
+    // This might need some extra steps as the app grows
+    }
   };
 
   return (
@@ -32,9 +55,10 @@ export default function Login() {
         <div className="login-container">
           <form onSubmit={handleSubmit} className="login-form">
             <Input
-              type="email"
-              name="email"
-              label="Email"
+              required={true}
+              type='email'
+              name='email'
+              label='Email'
               value={email}
               placeholder="Your email"
               status="default"
@@ -43,9 +67,10 @@ export default function Login() {
               }}
             />
             <Input
-              type="password"
-              name="password"
-              label="Password"
+              required={true}
+              type='password'
+              name='password'
+              label='Password'
               value={password}
               placeholder="Your password"
               status="default"
@@ -53,6 +78,13 @@ export default function Login() {
                 setPassword(e.target.value);
               }}
             />
+            {error.isError && (
+              <div className="login-form__error">
+                <span className="bodytext3 bodytext3_semibold error">
+                  {error.errorMessage}
+                </span>
+              </div>
+            )}
             <div className="login-form__button">
               <Button
                 variant="primary"
