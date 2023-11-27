@@ -1,14 +1,15 @@
-import { ChangeEvent } from 'react';
-import './input.css';
+import { ChangeEvent, KeyboardEvent } from "react";
+import "./input.css";
 
 export type InputProps = {
   type: string;
   name: string;
-  value: string;
+  value?: string;
   label?: string;
+  status?: "default" | "error";
   placeholder?: string;
-  status: 'default' | 'error';
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 };
 
 function Input({
@@ -19,6 +20,7 @@ function Input({
   placeholder,
   status,
   onChange,
+  onKeyDown,
 }: InputProps) {
   return (
     <div className="input">
@@ -30,6 +32,7 @@ function Input({
         value={value}
         placeholder={placeholder}
         onChange={onChange}
+        onKeyDown={onKeyDown}
       />
     </div>
   );
