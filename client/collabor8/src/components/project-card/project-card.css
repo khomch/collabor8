@@ -13,6 +13,16 @@
   width: 100%;
 }
 
+.project-card__edit-btn {
+  border: none;
+  background-color: transparent;
+  margin-left: var(--xs);
+}
+
+.project-card__edit-btn:hover {
+  cursor: pointer;
+}
+
 .project-card__general-info {
   display: flex;
   flex-direction: column;

@@ -1,0 +1,29 @@
+.role {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--interface-gray200);
+  border-radius: var(--s);
+  padding: var(--s);
+  background-color: var(--interface-gray100);
+}
+
+.role__header {
+  display: flex;
+  justify-content: space-between;
+}
+
+.role__close-btn {
+  background-color: transparent;
+  border: none;
+}
+
+.role__close-btn:hover {
+  cursor: pointer;
+}
+
+.role__techstack {
+  margin-top: var(--s);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xxs);
+}

@@ -7,7 +7,7 @@ export type UserProfileProps = {
   direction: "column" | "row";
   name: string;
   role: string;
-  company: string;
+  company?: string;
 };
 
 function UserProfile({ direction, name, role, company }: UserProfileProps) {
@@ -17,7 +17,7 @@ function UserProfile({ direction, name, role, company }: UserProfileProps) {
       <div className="user__items">
         <div className="h6"> {name}</div>
         <div className="bodytext1 bodytext3_medium">
-          {role} at {company}
+          {role} {company && `at ${company}`}
         </div>
       </div>
     </div>

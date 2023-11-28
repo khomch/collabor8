@@ -28,3 +28,10 @@
   gap: var(--xs);
   align-items: center;
 }
+
+.projects-page__filters {
+
+  align-self: flex-start;
+  position: sticky;
+  top: var(--m);
+}

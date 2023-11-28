@@ -1,0 +1,7 @@
+.project-edit-page {
+  display: flex;
+  margin-top: var(--xl);
+  justify-content: center;
+  gap: var(--m);
+  /* width: calc(100% - var(--m) * 2); */
+}

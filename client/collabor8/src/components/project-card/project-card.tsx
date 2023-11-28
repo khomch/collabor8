@@ -6,13 +6,14 @@ import Image from 'next/image';
 import TechStackIcon from '../../../public/icon-techstack.svg';
 import LevelIcon from '../../../public/icon-levels.svg';
 import LinkIcon from '../../../public/icon-link.svg';
-import LinkAbout from '../../../public/icon-about.svg';
+import AboutIcon from '../../../public/icon-about.svg';
+import EditIcon from '../../../public/icon-edit.svg';
 import VStack from '../ui/v-stack/v-stack';
-import Link from "next/link";
+import Link from 'next/link';
 
 type ProjectCardProps = {
   project: TProjectInfo;
-  btnLabel: "Show more" | "Apply";
+  btnLabel: 'Show more' | 'Apply';
 };
 
 function ProjectCard({ project, btnLabel }: ProjectCardProps) {
@@ -20,7 +21,12 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
     <VStack size="9col">
       <div className="project-card">
         <div>
-          <h2 className="project-card__title">{project.title}</h2>
+          <h2 className="project-card__title">
+            {project.title}
+            <Link href="/project-edit" className="project-card__edit-btn">
+              <Image src={EditIcon} alt="Icon edit" />
+            </Link>
+          </h2>
           <p className="bodytext3 bodytext3_semibold project-card__type">
             {project.type}
           </p>
@@ -34,8 +40,8 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
             </div>
             <div className="project-card__techstack">
               {project.techstack.length > 0 &&
-                project.techstack?.map((technology) => (
-                  <Tag color="gray" label={technology} />
+                project.techstack?.map((technology, index) => (
+                  <Tag key={index} color="gray" label={technology} />
                 ))}
             </div>
             <div className="project-card__subtitle">
@@ -55,12 +61,12 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
           <div className="project-card__about">
             <div>
               <div className="project-card__subtitle">
-                <Image src={LinkAbout} alt="About project Icon" />
+                <Image src={AboutIcon} alt="About project Icon" />
                 <p className="bodytext3 bodytext3_semibold">About project</p>
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            <Link href={"/projects-detail"}>
+            <Link href={'/projects-detail'}>
               <Button label={btnLabel} variant="primary" />
             </Link>
           </div>
