@@ -34,7 +34,8 @@ const ProjectInfomation = new Schema({
     type: {type:String, required: true},
     description: { type: String, required: true },
     additionalInfo: { type: String, required: true },
-
+    level:{ type: String, required: true },
+    techstack:[ {type: String, required: true} ],
     // status: { type: String, required: true },
   
     projectWorkspaces: [{
@@ -43,7 +44,7 @@ const ProjectInfomation = new Schema({
     }],
     manageTeam: [{
         role: { type: String, required: true },
-        techStack: { type: String, required: true }
+        techStack: [{ type: String, required: true }]
     }]
 });
 
