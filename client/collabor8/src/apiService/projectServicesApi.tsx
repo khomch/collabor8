@@ -20,6 +20,26 @@ export async function createProject(data: object){
     }
 }
 
+export async function addTeamMember(data: object){
+    try {         
+        const createProject = await fetch(`${API_URL}/project/add-member`,{
+            method:"POST",
+            mode:"cors",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(data)
+        });
+
+        if(createProject.ok){
+            const response = await createProject.json();
+            return {status: 201, data: response};
+        } else {
+            return {status: 400, error: 'Error adding member'};
+        }        
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 export async function editProject(data: object){
     try {         
         const editProject = await fetch(`${API_URL}/project/edit`,{

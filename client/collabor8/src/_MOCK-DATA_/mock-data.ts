@@ -1,6 +1,6 @@
 import { TProjectInfo } from '@/types/types';
 
-export const projects: TProjectInfo[] = [
+export const projectsMock: TProjectInfo[] = [
   {
     _id: '1',
     title: 'DevWorks — E-learning management system',

@@ -5,9 +5,9 @@ import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 
 type RoleProps = {
-  roleData: { id: string; role: string; techstack: string[] };
+  roleData: { id: string; role: string; techStack: string[] };
   setOpenedRoles: Dispatch<
-    SetStateAction<{ id: string; role: string; techstack: string[] }[]>
+    SetStateAction<{ id: string; role: string; techStack: string[] }[]>
   >;
 };
 
@@ -27,7 +27,7 @@ function Role({ roleData, setOpenedRoles }: RoleProps) {
         </button>
       </div>
       <div className="role__techstack">
-        {roleData.techstack.map((tech, index) => (
+        {roleData.techStack.map((tech, index) => (
           <Tag label={tech} color="gray" key={index} />
         ))}
       </div>

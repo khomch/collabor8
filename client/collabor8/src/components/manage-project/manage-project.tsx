@@ -1,25 +1,33 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, {
+  ChangeEvent,
+  Dispatch,
+  FormEvent,
+  SetStateAction,
+  useEffect,
+  useState,
+} from 'react';
 import Input from '../input/input';
 import VStack from '../ui/v-stack/v-stack';
 import './manage-project.css';
 import { Select } from '../ui/select/select';
 import Button from '../button/button';
+import { createProject } from '@/apiService/projectServicesApi';
+import { TProjectInfo } from '@/types/types';
 
-const types = ['Dev new project', 'Add feature', 'Design', 'Consulting'];
+const types = ['New project', 'Add feature', 'Design', 'Consulting'];
+export const levels = ['Junior level', 'Middle level', 'Senior level'];
 
-function ManageProject() {
+type ManageProjectProps = {
+  project: TProjectInfo;
+  setProject: Dispatch<SetStateAction<TProjectInfo>>;
+};
+
+function ManageProject({ project, setProject }: ManageProjectProps) {
   const [type, setType] = useState(types[0]);
-  const [project, setProject] = useState({
-    title: '',
-    link: '',
-    aboutProject: '',
-    deadline: '',
-    description: '',
-    additionalInfo: '',
-  });
+  const [level, setLevel] = useState(levels[0]);
   const [workspace, setWorkspace] = useState({ name: '', link: '' });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProject((prevProject) => ({
       ...prevProject,
@@ -27,14 +35,21 @@ function ManageProject() {
     }));
   };
 
-  const handleWorkspacesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleWorkspacesChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setWorkspace((prevWorkspace) => ({ ...prevWorkspace, [name]: value }));
   };
 
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    createProject({ ...project, type, workspace, level }).then((res) =>
+      console.log(res)
+    );
+  };
+
   return (
     <VStack size="6col">
-      <form className="manage-project__form">
+      <form className="manage-project__form" onSubmit={handleSubmit}>
         <div className="h5">Create new project </div>
         <Input
           type="text"
@@ -65,22 +80,34 @@ function ManageProject() {
         />
         <Input
           type={'datetime-local'}
-          name="deadline"
+          name="estimatedDeadline"
           label="Estimated deadline"
           placeholder="Write a short sentence that describes your project"
           status="default"
-          value={project.deadline}
+          value={project.estimatedDeadline}
           onChange={handleChange}
         />
         <div className="manage-project__select">
           <p className="bodytext3 bodytext3_semibold manage-project__select-label">
-            Level
+            Type
           </p>
           <Select
             options={types}
             selected={type}
             onChange={(e: ChangeEvent<HTMLSelectElement>) =>
               setType(e.target.value)
+            }
+          />
+        </div>
+        <div className="manage-project__select">
+          <p className="bodytext3 bodytext3_semibold manage-project__select-label">
+            Level
+          </p>
+          <Select
+            options={levels}
+            selected={level}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+              setLevel(e.target.value)
             }
           />
         </div>
@@ -123,7 +150,11 @@ function ManageProject() {
             onChange={handleWorkspacesChange}
           />
         </div>
-        <Button variant="primary" type="submit" label="Save" />
+        <Button
+          variant="primary"
+          type="submit"
+          label={project._id ? 'Save' : 'Create new project'}
+        />
       </form>
     </VStack>
   );

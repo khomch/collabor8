@@ -6,9 +6,9 @@ import './filters-card.css';
 import Tag from '../tag/tag';
 import { Select } from '../ui/select/select';
 import VStack from '../ui/v-stack/v-stack';
+import { levels } from '../manage-project/manage-project';
 
 const technologies = ['TypeScript', 'React', 'AWS', 'Node.js', 'Jest'];
-const levels = ['Junior level', 'Middle level', 'Senior level'];
 
 function FiltersCard() {
   const [role, setRole] = useState('');

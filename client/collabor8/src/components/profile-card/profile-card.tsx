@@ -90,7 +90,7 @@ function ProfileCard() {
         </div>
 
         <div className="profile-card__btn">
-          <Link href="/profile-edit">
+          <Link href="/project-settings/new">
             <Button variant={"primary"} label={"Start new project"} />
           </Link>
         </div>

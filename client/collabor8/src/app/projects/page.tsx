@@ -1,7 +1,7 @@
 import ProfileCard from '@/components/profile-card/profile-card';
 import Link from 'next/link';
 import './projects.css';
-import { projects } from '@/_MOCK-DATA_/mock-data';
+import { projectsMock } from '@/_MOCK-DATA_/mock-data';
 import VStack from '@/components/ui/v-stack/v-stack';
 import ProjectCard from '@/components/project-card/project-card';
 import IconOwner from '../../../public/icon-owner.svg';
@@ -22,13 +22,13 @@ export default function MyProjects() {
               <h2>Project Owner</h2>
             </div>
 
-            <ProjectCard btnLabel="Show more" project={projects[0]} />
+            <ProjectCard btnLabel="Show more" project={projectsMock[0]} />
 
             <div className="projects-page__subtitle">
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
-            {projects.map((project) => (
+            {projectsMock.map((project) => (
               <ProjectCard btnLabel="Show more" project={project} />
             ))}
           </div>

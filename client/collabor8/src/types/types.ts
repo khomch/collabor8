@@ -1,15 +1,15 @@
 export type TLoginDetails = {
-  emailAddress: string,
-  password: string
-}
+  emailAddress: string;
+  password: string;
+};
 
 export type TRegisterDetails = {
-  emailAddress: string,
-  userName: string,
-  password: string,
-  firstName: string,
-  lastName: string
-}
+  emailAddress: string;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
 
 export type TUserProfile = {
   technologyStack: string[];
@@ -44,6 +44,8 @@ export type TUserState = {
 
 export type TProjectInfo = {
   _id: string;
+  projectOwnerId?: string;
+  projectOwner?: string;
   title: string;
   link: string;
   type: string;
@@ -54,4 +56,3 @@ export type TProjectInfo = {
   additionalInfo: string;
   level: string;
 };
-

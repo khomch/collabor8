@@ -137,6 +137,29 @@ router.get("/user/profiledetails", userDetails.userProfile);
 router.post("/project/create", projectDetails.createProject);
 /**
  * @swagger
+ *  /project/add-member:
+ *    post:
+ *      tags:
+ *      - project
+ *      description: add member to the project
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *        - in: query
+ *          name: projectOwnerId
+ *          required: true
+ *          schema:
+ *            type: string
+ *            description: add another params
+ *      responses:
+ *       201:
+ *        description: success
+ *       400:
+ *        description: error
+ */
+router.post("/project/add-member", projectDetails.addTeamMember);
+/**
+ * @swagger
  *  /project/create:
  *    put:
  *      tags:
