@@ -1,7 +1,7 @@
 'use client';
 
 import ProfileCard from '@/components/profile-card/profile-card';
-import ProfileEdit from "../profile-detail/page";
+import ProfileEdit from "../profile-edit/page";
 import './profile.css';
 
 export default function Profile() {

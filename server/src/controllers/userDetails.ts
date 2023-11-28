@@ -6,7 +6,11 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
 async function userInfomation(req: Request, res: Response) {
   try {
-    const filter = { emailAddress: req.body.emailAddress };
+    const token: any = req.headers.authorization;
+    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
+    const _id = (decryptedToken as JwtPayload)?._id;
+    const filter = { _id };
+
     const update: Users = {
       userName: req.body.userName,
       emailAddress: req.body.emailAddress,
@@ -18,6 +22,7 @@ async function userInfomation(req: Request, res: Response) {
       profile: req.body.profile,
       role: req.body.role,
     };
+    console.log("ddd", update, _id);
 
     const userProfile = await User.findOneAndUpdate(filter, update, {
       new: true,
