@@ -1,21 +1,21 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import UserProfile from "../user-profile/user-profile";
-import Star from "../../../public/star-black.svg";
-import "./project-detail-card.css";
-import Image from "next/image";
-import IPerson from "../../../public/icon/i_person.svg";
-import IPerson2 from "../../../public/icon/i_person_2.svg";
-import ICheck from "../../../public/icon/i_check_circle.svg";
-import IDate from "../../../public/icon/i_date.svg";
-import IPersonBadge from "../../../public/icon/i_person_badge.svg";
-import Tag from "../tag/tag";
-import User from "../user/user";
-import VStack from "../ui/v-stack/v-stack";
+import React, { useState } from 'react';
+import UserProfile from '../user-profile/user-profile';
+import Star from '../../../public/star-black.svg';
+import './project-detail-card.css';
+import Image from 'next/image';
+import IPerson from '../../../public/icon/i_person.svg';
+import IPerson2 from '../../../public/icon/i_person_2.svg';
+import ICheck from '../../../public/icon/i_check_circle.svg';
+import IDate from '../../../public/icon/i_date.svg';
+import IPersonBadge from '../../../public/icon/i_person_badge.svg';
+import Tag from '../tag/tag';
+import User from '../user/user';
+import VStack from '../ui/v-stack/v-stack';
 
 export type ProfileCardProps = {
-  direction: "column" | "row";
+  direction: 'column' | 'row';
   name: string;
   role: string;
   company: string;
@@ -48,9 +48,9 @@ function ProfileDetailCard() {
             <span className="bodytext1 bodytext1_semibold">Team members</span>
           </div>
           <div className="profile-detail_members bodytext2 bodytext2_medium">
-            <User icon={"😵‍💫"} />
-            <User icon={"😎"} />
-            <User icon={"🥹"} />
+            <User icon={'😵‍💫'} />
+            <User icon={'😎'} />
+            <User icon={'🥹'} />
           </div>
         </div>
 
@@ -64,7 +64,7 @@ function ProfileDetailCard() {
             <span className="bodytext1 bodytext1_semibold">Status</span>
           </div>
           <div className="profile-detail__tag">
-            <Tag color={"green"} label={"New project"} />
+            <Tag color={'green'} label={'New project'} />
           </div>
         </div>
 
