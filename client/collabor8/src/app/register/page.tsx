@@ -68,6 +68,7 @@ export default function Register() {
       return;
     }
     localStorage.setItem("token", response);
+    localStorage.setItem('userEmail', form.email);
     router.push('/');
     // This might need some extra steps as the app grows
   };

@@ -16,7 +16,7 @@ router.post('/user/login', userCtrl.login);
 //user details
 
 router.post('/user/details',userDetails.userInfomation)
-router.get('/user/profiledetails',userDetails.userProfile)
+router.post('/user/profiledetails',userDetails.userProfile)
 
 //project details
 
