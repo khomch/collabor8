@@ -34,7 +34,7 @@ export default function Login() {
       setError({ isError: false, errorMessage: "" });
       setEmail('');
       setPassword('');
-      router.push('/');
+      router.push("/profile-detail");
     // This might need some extra steps as the app grows
     }
   };
