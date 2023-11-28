@@ -1,8 +1,8 @@
-import { LoginDetails, RegisterDetails } from "@/types/types"
+import { TLoginDetails, TRegisterDetails } from "@/types/types"
 
 const baseUrl = 'http://localhost:3001/';
 
-const login = async (user: LoginDetails) => {
+const login = async (user: TLoginDetails) => {
   try {
     const response = await fetch (`${baseUrl}user/login`, {
       method: 'POST',
@@ -13,7 +13,7 @@ const login = async (user: LoginDetails) => {
     })
     const responseData = await response.json();
     if (!response.ok) {
-      throw new Error(responseData.message);
+      throw new Error(responseData.errorMsg);
     }
     return responseData;
   } catch (err) {
@@ -21,7 +21,7 @@ const login = async (user: LoginDetails) => {
   };
 }
 
-const register = async (user: RegisterDetails) => {
+const register = async (user: TRegisterDetails) => {
   try {
      const response = await fetch (`${baseUrl}user/register`, {
       method: 'POST',
@@ -32,7 +32,7 @@ const register = async (user: RegisterDetails) => {
     })
     const responseData = await response.json();
     if (!response.ok) {
-      throw new Error(responseData.message);
+      throw new Error(responseData.errorMsg);
     }
     return responseData;
   } catch (err) {

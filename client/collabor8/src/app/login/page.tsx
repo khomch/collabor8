@@ -8,7 +8,6 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import { login } from '../../apiService/userService';
 import './page.css';
-
 export default function Login() {
 
   const [email, setEmail] = useState('');
@@ -25,17 +24,17 @@ export default function Login() {
       password: password
     }
     const response = await login(user);
-    if (response.message) {
+    console.log('RESPONSE = ', response)
+    if (response.name === 'Error') {
       setError({ isError: true, errorMessage: response.message });
       setEmail('');
       setPassword('');
       return;
     } else {
-    localStorage.setItem('token', response);
-    setError({ isError: false, errorMessage: "" });
-    setEmail('');
-    setPassword('');
-    router.push('/');
+      setError({ isError: false, errorMessage: "" });
+      setEmail('');
+      setPassword('');
+      router.push('/');
     // This might need some extra steps as the app grows
     }
   };
