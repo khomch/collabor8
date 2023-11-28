@@ -7,8 +7,6 @@ import { useRouter } from 'next/navigation';
 import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import { login } from '../../apiService/userService';
-import { useDispatch, useSelector } from '../../redux-store/customHooks';
-import { fetchUserDetails } from '../../redux-store/slices/userSlice';
 import './page.css';
 export default function Login() {
 
@@ -17,7 +15,6 @@ export default function Login() {
 
   const [error, setError] = useState({ isError: false, errorMessage: "" });
 
-  const dispatch = useDispatch();
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,25 +24,20 @@ export default function Login() {
       password: password
     }
     const response = await login(user);
-    if (response.message) {
+    console.log('RESPONSE = ', response)
+    if (response.name === 'Error') {
       setError({ isError: true, errorMessage: response.message });
       setEmail('');
       setPassword('');
       return;
     } else {
-    localStorage.setItem('token', response);
-    localStorage.setItem('userEmail', email);
-    dispatch(fetchUserDetails());
-    setError({ isError: false, errorMessage: "" });
-    setEmail('');
-    setPassword('');
-    router.push('/');
+      setError({ isError: false, errorMessage: "" });
+      setEmail('');
+      setPassword('');
+      router.push('/');
     // This might need some extra steps as the app grows
     }
   };
-
-
-
 
   return (
     <>

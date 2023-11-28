@@ -13,7 +13,7 @@ const login = async (user: TLoginDetails) => {
     })
     const responseData = await response.json();
     if (!response.ok) {
-      throw new Error(responseData.message);
+      throw new Error(responseData.errorMsg);
     }
     return responseData;
   } catch (err) {
@@ -32,7 +32,7 @@ const register = async (user: TRegisterDetails) => {
     })
     const responseData = await response.json();
     if (!response.ok) {
-      throw new Error(responseData.message);
+      throw new Error(responseData.errorMsg);
     }
     return responseData;
   } catch (err) {
