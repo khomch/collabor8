@@ -3,12 +3,12 @@ import './v-stack.css';
 
 type VStackProps = {
   children: ReactNode;
-  size: "3col" | "9col";
+  size: '3col' | '6col' | '9col';
 };
 
 function VStack({ children, size }: VStackProps) {
   return (
-    <div className={`vstack vstack_${size} vstack__bottom`}>{children}</div>
+    <section className={`vstack vstack_${size} vstack__bottom`}>{children}</section>
   );
 }
 export default VStack;

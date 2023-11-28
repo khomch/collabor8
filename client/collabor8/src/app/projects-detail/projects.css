@@ -20,7 +20,7 @@
 .projects-page__projects {
   display: flex;
   flex-direction: column;
-  gap: var(--m);
+  gap: var(--s);
 }
 
 .projects-page__subtitle {

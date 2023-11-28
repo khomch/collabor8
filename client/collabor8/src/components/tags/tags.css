@@ -1,0 +1,28 @@
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--xxs);
+}
+
+.tags__input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 8px;
+  border-radius: 9px;
+  color: var(--black);
+  font-size: var(--body3-size);
+  background-color: var(--interface-gray200);
+  border: none;
+  width: auto;
+  max-width: 120px;
+}
+
+.tags__button {
+  border: none;
+  background-color: transparent;
+}
+
+.tags__button:hover {
+  cursor: pointer;
+}

@@ -6,10 +6,16 @@
   padding: var(--m);
   height: max-content;
   background-color: var(--white);
+  margin-bottom: var(--m);
 }
 
 .vstack_3col {
   width: 296px;
+}
+
+.vstack_6col {
+  width: 100%;
+  max-width: 608px;
 }
 
 .vstack_9col {
