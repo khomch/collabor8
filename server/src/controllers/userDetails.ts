@@ -22,7 +22,6 @@ async function userInfomation(req: Request, res: Response) {
       profile: req.body.profile,
       role: req.body.role,
     };
-    console.log("ddd", update, _id);
 
     const userProfile = await User.findOneAndUpdate(filter, update, {
       new: true,

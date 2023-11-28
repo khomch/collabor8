@@ -73,12 +73,31 @@ router.post("/user/login", userCtrl.login);
  *      produces:
  *      - application/json
  *      parameters:
- *        - in: query
- *          name: userName
+ *        - in: body
+ *          name: user
+ *          description: User object to be updated
  *          required: true
  *          schema:
- *            type: string
- *            description: user name
+ *            type: object
+ *            properties:
+ *              userName:
+ *                type: string
+ *              emailAddress:
+ *                type: string
+ *              firstName:
+ *                type: string
+ *              lastName:
+ *                type: string
+ *              website:
+ *                type: string
+ *              company:
+ *                type: string
+ *              github:
+ *                type: string
+ *              profile:
+ *                type: string
+ *              role:
+ *                type: string
  *      responses:
  *       200:
  *        description: success

@@ -84,9 +84,13 @@ function ProfileEdit() {
         technologyStack: [...tech],
       },
     };
-    console.log(update);
-    const resppmse = await userInfomation(update);
-    console.log(resppmse);
+    const response: any = await userInfomation(update);
+    if (response.name === "Error") {
+      return;
+    } else {
+      alert("success!");
+    }
+
   };
 
   return (
