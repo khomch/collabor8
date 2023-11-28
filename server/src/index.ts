@@ -4,7 +4,20 @@ import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import router from './router';
 import {connectDB} from './models/index'
+const swaggerJsdoc = require("swagger-jsdoc");
 
+export const swaggerOptions = {
+  swaggerDefinition: {
+    info: {
+      title: "collabor8 API",
+      version: "1.0.0",
+    },
+  },
+  apis: ["**/*.ts"],
+};
+
+export const swaggerSpec = swaggerJsdoc(swaggerOptions);
+console.log(swaggerSpec);
 dotenv.config();
 
 
