@@ -12,6 +12,8 @@ async function createProject(req: Request, res: Response) {
       type: req.body.type,
       description: req.body.description,
       additionalInfo: req.body.additionalInfo,
+      level:req.body.level,
+      techstack:req.body.techstack,
       projectWorkspaces: req.body.projectWorkspaces,
       manageTeam: req.body.manageTeam,
     });
@@ -36,6 +38,8 @@ async function editProjectDetails(req: Request, res: Response) {
       type: req.body.type,
       description: req.body.description,
       additionalInfo: req.body.additionalInfo,
+      level:req.body.level,
+      techstack:req.body.techstack,      
       projectWorkspaces: req.body.projectWorkspaces,
       manageTeam: req.body.manageTeam,
     };
