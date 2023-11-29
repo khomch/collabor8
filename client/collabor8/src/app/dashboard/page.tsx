@@ -13,8 +13,8 @@ export default function Dashboard() {
             <FiltersCard />
           </div>
           <div className="dashboard-page__projects">
-            {projects.map((project) => (
-              <ProjectCard btnLabel="Show more" project={project} />
+            {projects.map((project, index) => (
+              <ProjectCard key={index} btnLabel="Show more" project={project} />
             ))}
           </div>
         </div>
