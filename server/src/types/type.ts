@@ -22,3 +22,13 @@ export type Profile = {
   projects: string[];
   rating?: string;
 };
+
+export type Review = {
+  technologyStack?: string[];
+  links?: string[];
+  projectHistory?: string[];
+  references?: string[];
+  projects: string[];
+  rating?: string;
+};
+

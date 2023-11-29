@@ -11,6 +11,17 @@ import IconOwner from '../../../public/icon-owner.svg';
 import IconTeamMember from '../../../public/icon-teammember.svg';
 import './projects.css';
 
+import ProfileCard from "@/components/profile-card/profile-card";
+import "./projects.css";
+import { projects } from "@/_MOCK-DATA_/mock-data";
+import ProjectCard from "@/components/project-card/project-card";
+import IconOwner from "../../../public/icon-owner.svg";
+import IconTeamMember from "../../../public/icon-teammember.svg";
+import Image from "next/image";
+import { userProfile } from "@/apiService/profileServiceApi";
+import { useState, useEffect } from "react";
+import { Users } from "../profile/page";
+
 export default function MyProjects() {
   const dispatch = useDispatch();
   const { projects } = useSelector((state) => state.projectsInfo);
