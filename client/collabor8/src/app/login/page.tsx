@@ -12,13 +12,12 @@ import { useDispatch } from '@/redux-store/customHooks';
 import { fetchUserDetails } from '@/redux-store/slices/userSlice';
 
 export default function Login() {
-
   const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const [error, setError] = useState({ isError: false, errorMessage: "" });
+  const [error, setError] = useState({ isError: false, errorMessage: '' });
 
   const router = useRouter();
 
@@ -26,8 +25,8 @@ export default function Login() {
     e.preventDefault();
     const user = {
       emailAddress: email,
-      password: password
-    }
+      password: password,
+    };
     const response = await login(user);
     if (response.name === 'Error') {
       setError({ isError: true, errorMessage: response.message });
@@ -35,11 +34,11 @@ export default function Login() {
       setPassword('');
       return;
     } else {
-      setError({ isError: false, errorMessage: "" });
+      setError({ isError: false, errorMessage: '' });
       setEmail('');
       setPassword('');
-      dispatch(fetchUserDetails())
-      router.push("/profile-edit");
+      dispatch(fetchUserDetails());
+      router.push('/profile');
     }
   };
 
@@ -48,7 +47,7 @@ export default function Login() {
       <div className="login-page">
         <div className="logo-container">
           <Image
-            src={"/new-logo-yellow.png"}
+            src={'/new-logo-yellow.png'}
             alt="Collabor8 Logo"
             width={249}
             height={61}
@@ -59,9 +58,9 @@ export default function Login() {
           <form onSubmit={handleSubmit} className="login-form">
             <Input
               required={true}
-              type='email'
-              name='email'
-              label='Email'
+              type="email"
+              name="email"
+              label="Email"
               value={email}
               placeholder="Your email"
               status="default"
@@ -71,9 +70,9 @@ export default function Login() {
             />
             <Input
               required={true}
-              type='password'
-              name='password'
-              label='Password'
+              type="password"
+              name="password"
+              label="Password"
               value={password}
               placeholder="Your password"
               status="default"

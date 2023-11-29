@@ -1,17 +1,17 @@
 import type { JwtPayload } from 'jwt-decode';
 
 export type TLoginDetails = {
-  emailAddress: string,
-  password: string
-}
+  emailAddress: string;
+  password: string;
+};
 
 export type TRegisterDetails = {
-  emailAddress: string,
-  userName: string,
-  password: string,
-  firstName: string,
-  lastName: string
-}
+  emailAddress: string;
+  userName: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+};
 
 export type TUserProfile = {
   technologyStack: string[];
@@ -35,7 +35,7 @@ export type TUserInfo = {
   role?: string;
   bio?: string;
   yearsExperience?: string;
-  profile: TUserProfile;
+  profile?: TUserProfile;
 };
 
 export type TUserState = {
@@ -46,12 +46,19 @@ export type TUserState = {
   error: string | null | undefined;
 };
 
+export type TRole = {
+  _id?: string;
+  role: string;
+  techstack: string[];
+};
+
 export interface IMyJwtPayload extends JwtPayload {
   _id: string;
 }
 
 export type TProjectInfo = {
-  _id: string;
+  _id?: string;
+  projectOwnerId?: string;
   title: string;
   link: string;
   type: string;
@@ -61,5 +68,9 @@ export type TProjectInfo = {
   description: string;
   additionalInfo: string;
   level: string;
+  projectWorkspaces: {
+    name: string;
+    link: string;
+  }[];
+  openedRoles: TRole[];
 };
-

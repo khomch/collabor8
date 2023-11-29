@@ -1,23 +1,25 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getUserDetails } from '../../apiService/userServicesApi';
 import { TUserState } from '../../types/types';
+import { getUserProfile } from '@/apiService/profileServiceApi';
 
 const fetchUserDetails = createAsyncThunk('getUserDetails', async () => {
-  const userId = localStorage.getItem('userId');
-  if (!userId) {
-    return;
+  try {
+    const response = await getUserProfile();
+    if (response?.status === 200) {
+      return response.data;
+    }
+  } catch (error) {
+    console.log('Error while getting user details', error);
   }
-  const response = await getUserDetails(userId);
-  return response;
-})
+});
 
 const initialState: TUserState = {
   isLogged: false,
   userId: null,
   user: {},
   status: 'idle',
-  error: null
-}
+  error: null,
+};
 
 const userSlice = createSlice({
   name: 'userState',
@@ -30,7 +32,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.userId = localStorage.getItem('userId');
+        state.userId = action.payload?._id || null;
         if (state.userId) {
           state.isLogged = true;
         } else {
@@ -41,9 +43,9 @@ const userSlice = createSlice({
       .addCase(fetchUserDetails.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
-      })
-  }
-})
+      });
+  },
+});
 
 export { fetchUserDetails };
 

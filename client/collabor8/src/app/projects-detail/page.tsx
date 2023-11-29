@@ -1,6 +1,6 @@
 import ProfileCard from "@/components/profile-card/profile-card";
 import "./projects.css";
-import { projects } from "@/_MOCK-DATA_/mock-data";
+import { projectsMock } from "@/_MOCK-DATA_/mock-data";
 import ProjectCard from "@/components/project-card/project-card";
 import ProfileDetailCard from "@/components/project-detail-card/project-detail-card";
 import ProjectDescCard from "@/components/project-desc-card/project-desc-card";
@@ -65,7 +65,7 @@ export default function MyProjects() {
             <ProjectWorkCard />
           </div>
           <div className="projects-page__projects">
-            <ProjectCard btnLabel="Apply" project={projects[0]} />
+            <ProjectCard btnLabel="Apply" project={projectsMock[0]} />
             <ProjectDescCard desc={tempData.desc} info={tempData.info} />
           </div>
         </div>

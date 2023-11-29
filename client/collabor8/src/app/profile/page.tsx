@@ -1,27 +1,12 @@
 'use client';
 
-import { userProfile } from "@/apiService/profileServiceApi";
-import ProfileCard from "@/components/profile-card/profile-card";
-import { useEffect, useState } from "react";
-import ProfileEdit from "../profile-edit/page";
+import { getUserProfile } from '@/apiService/profileServiceApi';
+import ProfileCard from '@/components/profile-card/profile-card';
+import { useEffect, useState } from 'react';
+import ProfileEdit from '../profile-edit/page';
 import './profile.css';
-
-
-export type Users = {
-  userName: string;
-  firstName: string;
-  lastName: string;
-  emailAddress: string;
-  password?: string;
-  github?: string;
-  website?: string;
-  company?: string;
-  socialMediaAccounts?: string;
-  role?: string;
-  bio?: string;
-  yearsExperience?: string;
-  profile?: ProfileProps;
-};
+import { TUserInfo } from '@/types/types';
+import { useRouter } from 'next/navigation';
 
 export type ProfileProps = {
   technologyStack?: string[];
@@ -33,44 +18,40 @@ export type ProfileProps = {
 };
 
 function Profile() {
-  const data: Users = {
-    userName: "",
-    firstName: "",
-    lastName: "",
-    emailAddress: "",
-    profile: {
-      technologyStack: undefined,
-      links: undefined,
-      projectHistory: undefined,
-      references: undefined,
-      projects: [],
-      rating: undefined,
-    },
+  const data: TUserInfo = {
+    userName: '',
+    firstName: '',
+    lastName: '',
+    emailAddress: '',
+    password: '',
   };
-  const [profile, setProfile] = useState<Users>(data);
+  const [profile, setProfile] = useState<TUserInfo>(data);
+  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await userProfile();
+        const response = await getUserProfile();
         if (response?.status === 200) {
           setProfile(response?.data);
         } else {
-          alert(response?.error);
+          console.log(response?.error);
+          router.push('/login');
         }
       } catch (error) {
-        alert(`Error fetching user profile: ${JSON.stringify(error)}`);
+        console.log(`Error fetching user profile: ${JSON.stringify(error)}`);
       }
     };
-
     fetchData();
   }, []);
 
   return (
-    <search className="profile-page">
-      <ProfileCard {...profile} />
-      <ProfileEdit {...profile} />
-    </search>
+    profile.emailAddress && (
+      <search className="profile-page">
+        <ProfileCard {...profile} />
+        <ProfileEdit {...profile} />
+      </search>
+    )
   );
 }
 

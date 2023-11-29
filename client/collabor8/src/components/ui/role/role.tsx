@@ -3,35 +3,47 @@ import './role.css';
 import IconClose from '../../../../public/icon-close.svg';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
+import { TRole } from '@/types/types';
+import { removeRole } from '@/apiService/projectServicesApi';
 
 type RoleProps = {
-  roleData: { id: string; role: string; techstack: string[] };
-  setOpenedRoles: Dispatch<
-    SetStateAction<{ id: string; role: string; techstack: string[] }[]>
-  >;
+  roleData: TRole;
+  projectId: string;
+  setOpenedRoles: Dispatch<SetStateAction<TRole[]>>;
 };
 
-function Role({ roleData, setOpenedRoles }: RoleProps) {
-  const handleDeleteRole = () =>
-    setOpenedRoles((prev) => prev.filter((role) => role.id !== roleData.id));
+function Role({ roleData, setOpenedRoles, projectId }: RoleProps) {
+  const handleDeleteRole = () => {
+    removeRole({
+      projectOwnerId: '6565d9f4b9b5b51e51036c50',
+      projectId,
+      roleToDeleteId: roleData._id,
+    }).then((res) => {
+      if (res?.data.openedRoles) {
+        setOpenedRoles(res.data.openedRoles);
+      }
+    });
+  };
   return (
-    <div className="role">
-      <div className="role__header">
-        <p className="bodytext3 bodytext3_medium">{roleData.role}</p>
-        <button
-          type="button"
-          className="role__close-btn"
-          onClick={handleDeleteRole}
-        >
-          <Image src={IconClose} alt="Icon Close" width={14} />
-        </button>
+    roleData.role && (
+      <div className="role">
+        <div className="role__header">
+          <p className="bodytext3 bodytext3_medium">{roleData.role}</p>
+          <button
+            type="button"
+            className="role__close-btn"
+            onClick={handleDeleteRole}
+          >
+            <Image src={IconClose} alt="Icon Close" width={14} />
+          </button>
+        </div>
+        <div className="role__techstack">
+          {roleData.techstack.map((tech, index) => (
+            <Tag label={tech} color="gray" key={index} />
+          ))}
+        </div>
       </div>
-      <div className="role__techstack">
-        {roleData.techstack.map((tech, index) => (
-          <Tag label={tech} color="gray" key={index} />
-        ))}
-      </div>
-    </div>
+    )
   );
 }
 
