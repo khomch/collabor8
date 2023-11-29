@@ -8,6 +8,8 @@ import Input from "../../components/input/input";
 import Button from "../../components/button/button";
 import { register } from "../../apiService/userService";
 import "./page.css";
+import { useDispatch } from '@/redux-store/customHooks';
+import { fetchUserDetails } from '@/redux-store/slices/userSlice';
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -18,6 +20,8 @@ export default function Register() {
     password: "",
     repeatPassword: "",
   });
+
+  const dispatch = useDispatch();
 
   const [error, setError] = useState({ isError: false, errorMessage: "" });
 
@@ -66,6 +70,8 @@ export default function Register() {
         repeatPassword: "",
       });
       return;
+    } else {
+      dispatch(fetchUserDetails());
     }
     router.push('/');
   };

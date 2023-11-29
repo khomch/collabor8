@@ -8,6 +8,9 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import LogoSmallYellow from '../../../public/logo-yellow.png';
 import './navbar.css';
+import Button from '../button/button';
+import { useRouter } from 'next/navigation';
+import { resetUserState } from '@/redux-store/slices/userSlice';
 
 const menuItems = [
   {
@@ -31,11 +34,17 @@ const menuItems = [
 function Navbar() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(fetchUserDetails());
   }, []);
 
+  const handleLogout = () => {
+    localStorage.removeItem('accessToken');
+    dispatch(resetUserState());
+    router.push('/login');
+  }
   const pathname = usePathname();
   return (
     <nav className="navbar">
@@ -67,6 +76,14 @@ function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className='navbar__menu-link'>
+                <Button
+                  variant='primary'
+                  label='Logout'
+                  onClick={() => handleLogout()}
+                  type='button'
+                />
+              </li>
             </ul>
           )}
         </menu>
