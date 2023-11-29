@@ -8,6 +8,7 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import { login } from '../../apiService/userService';
 import './page.css';
+
 export default function Login() {
 
   const [email, setEmail] = useState('');
@@ -24,7 +25,6 @@ export default function Login() {
       password: password
     }
     const response = await login(user);
-    console.log('RESPONSE = ', response)
     if (response.name === 'Error') {
       setError({ isError: true, errorMessage: response.message });
       setEmail('');
@@ -35,7 +35,6 @@ export default function Login() {
       setEmail('');
       setPassword('');
       router.push('/');
-    // This might need some extra steps as the app grows
     }
   };
 
@@ -95,7 +94,7 @@ export default function Login() {
           </form>
           <div className="register">
             <span className="bodytext2">
-              Don't have an account
+              Don't have an account?&nbsp;
               <Link href="/register">
                 <span className="register__link">Register</span>
               </Link>

@@ -109,7 +109,7 @@ router.post("/user/details", userDetails.userInfomation);
  *       400:
  *        description: user not found
  */
-router.get("/user/profiledetails", userDetails.userProfile);
+router.post("/user/profiledetails", userDetails.userProfile);
 
 //project details
 

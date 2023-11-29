@@ -1,3 +1,5 @@
+import type { JwtPayload } from 'jwt-decode';
+
 export type TLoginDetails = {
   emailAddress: string,
   password: string
@@ -37,10 +39,16 @@ export type TUserInfo = {
 };
 
 export type TUserState = {
-  loggedUser: TUserInfo | null;
+  isLogged: boolean;
+  userId: string | null;
+  user: object | TUserInfo;
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null | undefined;
 };
+
+export interface IMyJwtPayload extends JwtPayload {
+  _id: string;
+}
 
 export type TProjectInfo = {
   _id: string;

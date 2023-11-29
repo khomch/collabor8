@@ -25,12 +25,12 @@ async function userInfomation(req: Request, res: Response) {
   } catch (error) {
     console.error(error);
     res.status(400).send();
-  }    
+  }
 }
 
 async function userProfile(req: Request, res: Response) {
   try {
-    const profile = await User.findOne({ emailAddress: req.body.emailAddress });
+    const profile = await User.findOne({ _id: req.body.id });
     res.status(201).send(profile);
   } catch (error) {
     console.error(error);
