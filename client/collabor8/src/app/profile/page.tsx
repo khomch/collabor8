@@ -20,10 +20,10 @@ export type Users = {
   role?: string;
   bio?: string;
   yearsExperience?: string;
-  profile?: Profile;
+  profile?: ProfileProps;
 };
 
-export type Profile = {
+export type ProfileProps = {
   technologyStack?: string[];
   links?: string[];
   projectHistory?: string[];
@@ -32,7 +32,7 @@ export type Profile = {
   rating?: string;
 };
 
-export default function Profile() {
+function Profile() {
   const data: Users = {
     userName: "",
     firstName: "",
@@ -73,3 +73,5 @@ export default function Profile() {
     </search>
   );
 }
+
+export default Profile;

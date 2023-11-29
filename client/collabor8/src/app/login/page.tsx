@@ -41,7 +41,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="login-page">
+      {/* <div className="login-page">
         <div className="logo-container">
           <Image
             src={"/new-logo-yellow.png"}
@@ -102,7 +102,7 @@ export default function Login() {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }
