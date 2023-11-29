@@ -2,8 +2,8 @@ import { Router } from 'express';
 import userCtrl from './controllers/user';
 import userDetails from './controllers/userDetails';
 import projectDetails from './controllers/projectDetails';
-const swaggerUi = require("swagger-ui-express");
-const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
 
 // TODO authentication
@@ -12,11 +12,11 @@ import { authenticateToken } from './middlewares/auth';
 const swaggerOptions = {
   swaggerDefinition: {
     info: {
-      title: "collabor8 API",
-      version: "1.0.0",
+      title: 'collabor8 API',
+      version: '1.0.0',
     },
   },
-  apis: ["**/*.ts"],
+  apis: ['**/*.ts'],
 };
 const swaggerSpec = swaggerJsdoc(swaggerOptions);
 
@@ -40,7 +40,7 @@ const router = Router();
  *       500:
  *        description: An error occurred while logging in
  */
-router.post("/user/register", userCtrl.register);
+router.post('/user/register', userCtrl.register);
 
 /**
  * @swagger
@@ -59,7 +59,7 @@ router.post("/user/register", userCtrl.register);
  *       500:
  *        description: An error occurred while logging in
  */
-router.post("/user/login", userCtrl.login);
+router.post('/user/login', userCtrl.login);
 
 //user details
 
@@ -99,7 +99,7 @@ router.post("/user/login", userCtrl.login);
  *              role:
  *                type: string
  *      responses:
- *       201:
+ *       200:
  *        description: Success
  *       404:
  *        description: User not found
@@ -109,7 +109,7 @@ router.post("/user/login", userCtrl.login);
  *              status: error
  *              message: User not found
  */
-router.post("/user/profile",authenticateToken, userDetails.updateUserProfile);
+router.put('/user/profile', authenticateToken, userDetails.updateUserProfile);
 
 /**
  * @swagger
@@ -127,8 +127,7 @@ router.post("/user/profile",authenticateToken, userDetails.updateUserProfile);
  *        description: user not found
  */
 
-router.get("/user/profile", authenticateToken, userDetails.getUserProfile);
-
+router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
 
 //project details
 
@@ -154,14 +153,14 @@ router.get("/user/profile", authenticateToken, userDetails.getUserProfile);
  *       400:
  *        description: error
  */
-router.post("/project/create", projectDetails.createProject);
+router.post('/project/create', projectDetails.createProject);
 /**
  * @swagger
- *  /project/add-member:
+ *  /project/role:
  *    post:
  *      tags:
  *      - project
- *      description: add member to the project
+ *      description: add role to the project
  *      produces:
  *      - application/json
  *      parameters:
@@ -177,7 +176,30 @@ router.post("/project/create", projectDetails.createProject);
  *       400:
  *        description: error
  */
-router.post("/project/add-member", projectDetails.addTeamMember);
+router.post('/project/role', projectDetails.addRole);
+/**
+ * @swagger
+ *  /project/role:
+ *    delete:
+ *      tags:
+ *      - project
+ *      description: delete role fromthe project
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *        - in: query
+ *          name: projectOwnerId
+ *          required: true
+ *          schema:
+ *            type: string
+ *            description: add another params
+ *      responses:
+ *       200:
+ *        description: success
+ *       400:
+ *        description: error
+ */
+router.delete('/project/role', projectDetails.removeRole);
 /**
  * @swagger
  *  /project/create:
@@ -200,7 +222,7 @@ router.post("/project/add-member", projectDetails.addTeamMember);
  *       404:
  *        description: user not found
  */
-router.put("/project/edit", projectDetails.editProjectDetails);
+router.put('/project/edit', projectDetails.editProjectDetails);
 /**
  * @swagger
  *  /project/:id:
@@ -223,7 +245,7 @@ router.put("/project/edit", projectDetails.editProjectDetails);
  *       404:
  *        description: user not found
  */
-router.get("/project/:id", projectDetails.getProjectDetails);
+router.get('/project/:id', projectDetails.getProjectDetails);
 /**
  * @swagger
  *  /projects:
@@ -239,8 +261,8 @@ router.get("/project/:id", projectDetails.getProjectDetails);
  *       404:
  *        description: user not found
  */
-router.get("/projects", projectDetails.getAllProjectDetails);
-router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+router.get('/projects', projectDetails.getAllProjectDetails);
+router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // router.get("/api-docs", swaggerUi.setup(swaggerDocument));
 
 export default router;

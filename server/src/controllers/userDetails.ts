@@ -1,20 +1,15 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 import { User } from '../models/schema';
-import { Users } from "../types/type";
-import jwt, { JwtPayload } from "jsonwebtoken";
-const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
+import { Users } from '../types/type';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+const PRIVATE_KEY = process.env.PRIVATE_KEY || 'test';
 
 interface RequestWithUser extends Request {
   id?: string | number;
 }
 
-async function updateUserProfile(req: Request, res: Response) {
+async function updateUserProfile(req: RequestWithUser, res: Response) {
   try {
-    const token: any = req.headers.authorization;
-    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
-    const _id = (decryptedToken as JwtPayload)?._id;
-    const filter = { _id };
-
     const update: Users = {
       userName: req.body.userName,
       emailAddress: req.body.emailAddress,
@@ -28,12 +23,11 @@ async function updateUserProfile(req: Request, res: Response) {
       bio: req.body.bio,
     };
 
-    const userProfile = await User.findOneAndUpdate(filter, update, {
+    const userProfile = await User.findOneAndUpdate({ _id: req.id }, update, {
       new: true,
     });
-
     if (!userProfile) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).send({ message: 'User not found' });
     }
     res.status(200).send(userProfile);
   } catch (error) {
@@ -43,9 +37,8 @@ async function updateUserProfile(req: Request, res: Response) {
 
 async function getUserProfile(req: RequestWithUser, res: Response) {
   try {
-    const token: any = req.headers.authorization;
     const profile = await User.findOne({ _id: req.id });
-    res.status(201).send(profile);
+    res.status(200).send(profile);
   } catch (error) {
     console.error(error);
     res.status(400).send();

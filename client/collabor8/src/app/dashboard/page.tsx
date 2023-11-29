@@ -8,17 +8,10 @@ import { useEffect } from 'react';
 import './dashboard.css';
 
 export default function Dashboard() {
-  // const [projects, setProjects] = useState<TProjectInfo[]>([]);
   const dispatch = useDispatch();
-
   const { projects } = useSelector((state) => state.projectsInfo);
-  // console.log('projects: ', projects);
-
   useEffect(() => {
     dispatch(fetchProjects());
-    // getProjectListing()
-    //   .then((res) => setProjects([...res?.data, ...projectsMock]))
-    //   .catch((err) => console.log('Error: ', err));
   }, []);
 
   return (

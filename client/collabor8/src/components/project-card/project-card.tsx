@@ -20,11 +20,12 @@ type ProjectCardProps = {
 import { TRole } from '@/types/types';
 
 function ProjectCard({ project, btnLabel }: ProjectCardProps) {
-  const techstack = project.openedRoles.reduce((acc: string[], curr: TRole) => {
-    acc.push(...curr.techstack);
-    return acc;
-  }, []);
-  console.log('techstack: ', techstack);
+  const techstack =
+    project.openedRoles &&
+    project.openedRoles.reduce((acc: string[], curr: TRole) => {
+      acc.push(...curr.techstack);
+      return acc;
+    }, []);
   return (
     <VStack size="9col">
       <div className="project-card">
@@ -50,9 +51,13 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
               <p className="bodytext3 bodytext3_semibold">Tech stack</p>
             </div>
             <div className="project-card__techstack">
-              {techstack?.map((technology, index) => (
-                <Tag key={index} color="gray" label={technology} />
-              ))}
+              {techstack && techstack.length > 0 ? (
+                techstack?.map((technology, index) => (
+                  <Tag key={index} color="gray" label={technology} />
+                ))
+              ) : (
+                <Tag color="gray" label="N/A" />
+              )}
             </div>
             <div className="project-card__subtitle">
               <Image src={LevelIcon} alt="Level Icon" />

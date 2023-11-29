@@ -1,36 +1,36 @@
-import { API_URL } from "./projectServicesApi";
+import { API_URL } from './projectServicesApi';
 
-export const userProfile = async () => {
-  const token = localStorage.getItem("token");
+export const getUserProfile = async () => {
+  const token = localStorage.getItem('accessToken');
   try {
-    const projectInfo = await fetch(`${API_URL}/user/profile`, {
-      method: "GET",
-      mode: "cors",
+    const userProfile = await fetch(`${API_URL}/user/profile`, {
+      method: 'GET',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     });
 
-    if (projectInfo.ok) {
-      const response = await projectInfo.json();
+    if (userProfile.ok) {
+      const response = await userProfile.json();
       return { status: 200, data: response };
     } else {
-      return { status: 400, error: "Error getting project info" };
+      return { status: 400, error: 'Error getting userProfile' };
     }
   } catch (error) {
     console.error(error);
   }
 };
 
-export const userInfomation = async (updateData: any) => {
-  const token = localStorage.getItem("token");
+export const updateUserProfile = async (updateData: any) => {
+  const token = localStorage.getItem('accessToken');
   try {
     const projectInfo = await fetch(`${API_URL}/user/profile`, {
-      method: "POST",
-      mode: "cors",
+      method: 'PUT',
+      mode: 'cors',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updateData),
@@ -40,10 +40,9 @@ export const userInfomation = async (updateData: any) => {
       const response = await projectInfo.json();
       return { status: 200, data: response };
     } else {
-      return { status: 400, error: "Error getting project info" };
+      return { status: 400, error: 'Error getting project info' };
     }
   } catch (error) {
     console.error(error);
   }
 };
-

@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Project } from '../models/schema';
+import { TRole } from '../types';
 
 async function createProject(req: Request, res: Response) {
   try {
@@ -58,7 +59,7 @@ async function editProjectDetails(req: Request, res: Response) {
   }
 }
 
-async function addTeamMember(req: Request, res: Response) {
+async function addRole(req: Request, res: Response) {
   try {
     const filter = {
       projectOwnerId: req.body.projectOwnerId,
@@ -68,7 +69,29 @@ async function addTeamMember(req: Request, res: Response) {
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
-    project.openedRoles.push(req.body.teamMemberData);
+    project.openedRoles.push(req.body.newRoleData);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function removeRole(req: Request, res: Response) {
+  try {
+    const filter = {
+      projectOwnerId: req.body.projectOwnerId,
+      _id: req.body.projectId,
+    };
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    const newRoles = project.openedRoles.filter(
+      (role: TRole) => role._id !== req.body.roleToDeleteId
+    );
+    project.openedRoles = newRoles;
     project.save();
     res.status(200).send(project);
   } catch (error) {
@@ -79,7 +102,6 @@ async function addTeamMember(req: Request, res: Response) {
 
 async function getProjectDetails(req: Request, res: Response) {
   try {
-    // const project = await Project.findOne({ projectOwnerId: req.params.id });
     const project = await Project.findOne({ _id: req.params.id });
     res.status(200).send(project);
   } catch (error) {
@@ -103,5 +125,6 @@ export default {
   editProjectDetails,
   getProjectDetails,
   getAllProjectDetails,
-  addTeamMember,
+  addRole,
+  removeRole,
 };

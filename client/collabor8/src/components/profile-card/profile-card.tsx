@@ -1,44 +1,44 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import UserProfile from "../user-profile/user-profile";
-import Star from "../../../public/star-black.svg";
-import "./profile-card.css";
-import Image from "next/image";
-import IPerson from "../../../public/icon/i_person.svg";
-import ILink from "../../../public/icon/i_link.svg";
-import ITech from "../../../public/icon/i_tech.svg";
-import Tag from "../tag/tag";
-import Button from "@/components/button/button";
-import Modal from "../modal/modal";
-import Review from "../review/review";
-import Link from "next/link";
-import VStack from "../ui/v-stack/v-stack";
-import { Users } from "@/app/profile/page";
+import React, { useState } from 'react';
+import UserProfile from '../user-profile/user-profile';
+import Star from '../../../public/star-black.svg';
+import './profile-card.css';
+import Image from 'next/image';
+import IPerson from '../../../public/icon/i_person.svg';
+import ILink from '../../../public/icon/i_link.svg';
+import ITech from '../../../public/icon/i_tech.svg';
+import Tag from '../tag/tag';
+import Button from '@/components/button/button';
+import Modal from '../modal/modal';
+import Review from '../review/review';
+import Link from 'next/link';
+import VStack from '../ui/v-stack/v-stack';
+import { TUserInfo } from '@/types/types';
 
 export type ProfileCardProps = {
-  direction: "column" | "row";
+  direction: 'column' | 'row';
   name: string;
   role: string;
   company: string;
 };
 
-function ProfileCard(data: Users) {
+function ProfileCard(data: TUserInfo) {
   const [showModal, setShowModal] = useState(false);
   const tempTech = [
-    "Javascript",
-    "Typescript",
-    "AWS",
-    "Git",
-    "Angular JS",
-    "React",
+    'Javascript',
+    'Typescript',
+    'AWS',
+    'Git',
+    'Angular JS',
+    'React',
   ];
 
   return (
     <VStack size="3col">
       <div className="profile-card">
         <UserProfile
-          direction={"column"}
+          direction={'column'}
           name={data.userName}
           role={data.role}
           company={data.company}
@@ -86,14 +86,14 @@ function ProfileCard(data: Users) {
           </div>
           <div className="profile-card__techs bodytext2 bodytext2_medium">
             {data?.profile?.technologyStack?.map((label, index) => (
-              <Tag key={index} color={"gray"} label={label} />
+              <Tag key={index} color={'gray'} label={label} />
             ))}
           </div>
         </div>
 
         <div className="profile-card__btn">
           <Link href="/project-settings/new">
-            <Button variant={"primary"} label={"Start new project"} />
+            <Button variant={'primary'} label={'Start new project'} />
           </Link>
         </div>
 

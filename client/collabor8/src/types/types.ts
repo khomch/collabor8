@@ -35,7 +35,7 @@ export type TUserInfo = {
   role?: string;
   bio?: string;
   yearsExperience?: string;
-  profile: TUserProfile;
+  profile?: TUserProfile;
 };
 
 export type TUserState = {

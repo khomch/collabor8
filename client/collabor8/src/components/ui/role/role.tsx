@@ -4,15 +4,26 @@ import IconClose from '../../../../public/icon-close.svg';
 import Image from 'next/image';
 import { Dispatch, SetStateAction } from 'react';
 import { TRole } from '@/types/types';
+import { removeRole } from '@/apiService/projectServicesApi';
 
 type RoleProps = {
   roleData: TRole;
+  projectId: string;
   setOpenedRoles: Dispatch<SetStateAction<TRole[]>>;
 };
 
-function Role({ roleData, setOpenedRoles }: RoleProps) {
-  const handleDeleteRole = () =>
-    setOpenedRoles((prev) => prev.filter((role) => role._id !== roleData._id));
+function Role({ roleData, setOpenedRoles, projectId }: RoleProps) {
+  const handleDeleteRole = () => {
+    removeRole({
+      projectOwnerId: '6565d9f4b9b5b51e51036c50',
+      projectId,
+      roleToDeleteId: roleData._id,
+    }).then((res) => {
+      if (res?.data.openedRoles) {
+        setOpenedRoles(res.data.openedRoles);
+      }
+    });
+  };
   return (
     roleData.role && (
       <div className="role">

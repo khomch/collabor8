@@ -1,4 +1,4 @@
-import { addTeamMember } from '@/apiService/projectServicesApi';
+import { addRole } from '@/apiService/projectServicesApi';
 import { TRole } from '@/types/types';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../button/button';
@@ -11,10 +11,16 @@ import './manage-team.css';
 type ManageTeamProps = {
   existingRoles: TRole[];
   projectId: string;
+  projectOwnerId: string;
 };
 
-function ManageTeam({ existingRoles, projectId }: ManageTeamProps) {
+function ManageTeam({
+  existingRoles,
+  projectId,
+  projectOwnerId,
+}: ManageTeamProps) {
   const [openedRoles, setOpenedRoles] = useState<TRole[]>(existingRoles);
+  console.log('openedRoles: ', openedRoles);
   const [newRole, setNewRole] = useState('');
   const [tech, setTech] = useState<string[]>([]);
   const handleAddNewRole = (e: ChangeEvent<HTMLInputElement>) => {
@@ -23,18 +29,18 @@ function ManageTeam({ existingRoles, projectId }: ManageTeamProps) {
 
   const handelSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const teamMemberData = {
+    const newRoleData = {
       role: newRole,
       techstack: tech,
     };
-    addTeamMember({
-      projectOwnerId: '6565d9f4b9b5b51e51036c50',
+    addRole({
+      projectOwnerId,
       projectId,
-      teamMemberData,
+      newRoleData,
     })
       .then((res) => {
-        if (res?.status === 201) {
-          setOpenedRoles((prev) => [...prev, teamMemberData]);
+        if (res?.data.openedRoles) {
+          setOpenedRoles(res.data.openedRoles);
           setTech([]);
           setNewRole('');
         }
@@ -52,6 +58,7 @@ function ManageTeam({ existingRoles, projectId }: ManageTeamProps) {
               key={roleData._id || index}
               setOpenedRoles={setOpenedRoles}
               roleData={roleData}
+              projectId={projectId}
             />
           ))}
       </div>

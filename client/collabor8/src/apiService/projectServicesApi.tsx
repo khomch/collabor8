@@ -1,11 +1,15 @@
 export const API_URL = 'http://localhost:3001';
 
 export async function createProject(data: object) {
+  const token = localStorage.getItem('accessToken');
   try {
     const createProject = await fetch(`${API_URL}/project/create`, {
       method: 'POST',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(data),
     });
 
@@ -20,12 +24,40 @@ export async function createProject(data: object) {
   }
 }
 
-export async function addTeamMember(data: object) {
+export async function addRole(data: object) {
+  const token = localStorage.getItem('accessToken');
   try {
-    const createProject = await fetch(`${API_URL}/project/add-member`, {
+    const createProject = await fetch(`${API_URL}/project/role`, {
       method: 'POST',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (createProject.ok) {
+      const response = await createProject.json();
+      return { status: 201, data: response };
+    } else {
+      return { status: 400, error: 'Error adding member' };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function removeRole(data: object) {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const createProject = await fetch(`${API_URL}/project/role`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(data),
     });
 
@@ -41,11 +73,15 @@ export async function addTeamMember(data: object) {
 }
 
 export async function editProject(data: object) {
+  const token = localStorage.getItem('accessToken');
   try {
     const editProject = await fetch(`${API_URL}/project/edit`, {
       method: 'PUT',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
       body: JSON.stringify(data),
     });
 
@@ -65,7 +101,9 @@ export async function getProjectInfo(id: string) {
     const projectInfo = await fetch(`${API_URL}/project/${id}`, {
       method: 'GET',
       mode: 'cors',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
     });
 
     if (projectInfo.ok) {

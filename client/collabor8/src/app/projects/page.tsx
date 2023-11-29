@@ -1,24 +1,33 @@
-import ProfileCard from '@/components/profile-card/profile-card';
-import Link from 'next/link';
-import './projects.css';
+'use client';
+
 import { projectsMock } from '@/_MOCK-DATA_/mock-data';
-import VStack from '@/components/ui/v-stack/v-stack';
+import ProfileCard from '@/components/profile-card/profile-card';
 import ProjectCard from '@/components/project-card/project-card';
+import { useDispatch, useSelector } from '@/redux-store/customHooks';
+import { fetchProjects } from '@/redux-store/slices/projectSlice';
+import Image from 'next/image';
+import { useEffect } from 'react';
 import IconOwner from '../../../public/icon-owner.svg';
 import IconTeamMember from '../../../public/icon-teammember.svg';
-import Image from 'next/image';
+import './projects.css';
 
 export default function MyProjects() {
+  const dispatch = useDispatch();
+  const { projects } = useSelector((state) => state.projectsInfo);
+  useEffect(() => {
+    dispatch(fetchProjects());
+  }, []);
+
   return (
     <section className="projects-page">
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
             <ProfileCard
-              userName={""}
-              firstName={""}
-              lastName={""}
-              emailAddress={""}
+              userName={''}
+              firstName={''}
+              lastName={''}
+              emailAddress={''}
             />
           </div>
           <div className="projects-page__projects">
@@ -33,9 +42,14 @@ export default function MyProjects() {
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
-            {projects.map((project, index) => (
-              <ProjectCard key={index} btnLabel="Show more" project={project} />
-            ))}
+            {projects &&
+              projects.map((project) => (
+                <ProjectCard
+                  key={project._id}
+                  btnLabel="Show more"
+                  project={project}
+                />
+              ))}
           </div>
         </div>
       </div>

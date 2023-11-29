@@ -1,10 +1,10 @@
-import { UUID } from 'mongodb';
+import { v4 } from 'uuid';
 
 var mongoose = require('mongoose');
 
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var UserTable = new Schema({
+const UserTable = new Schema({
   userName: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -48,7 +48,10 @@ const ProjectInfomation = new Schema({
   ],
   openedRoles: [
     {
-      _id: UUID,
+      _id: {
+        type: String,
+        default: v4,
+      },
       role: { type: String },
       techstack: [{ type: String }],
     },
