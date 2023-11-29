@@ -11,15 +11,15 @@ import Button from '../button/button';
 import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
 import './project-card.css';
+import { TRole } from '@/types/types';
 
 type ProjectCardProps = {
   project: TProjectInfo;
   btnLabel: 'Show more' | 'Apply';
+  userId: string | null;
 };
 
-import { TRole } from '@/types/types';
-
-function ProjectCard({ project, btnLabel }: ProjectCardProps) {
+function ProjectCard({ project, btnLabel, userId = null }: ProjectCardProps) {
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -32,12 +32,14 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
         <div>
           <h2 className="project-card__title">
             {project.title}
-            <Link
-              href={`/project-settings/${project._id}`}
-              className="project-card__edit-btn"
-            >
-              <Image src={EditIcon} alt="Icon edit" />
-            </Link>
+            {userId === project.projectOwnerId && (
+              <Link
+                href={`/project-settings/${project._id}`}
+                className="project-card__edit-btn"
+              >
+                <Image src={EditIcon} alt="Icon edit" />
+              </Link>
+            )}
           </h2>
           <p className="bodytext3 bodytext3_semibold project-card__type">
             {project.type}
