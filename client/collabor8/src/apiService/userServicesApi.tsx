@@ -18,7 +18,7 @@ const getUserDetails = async (id: null | string ) => {
     console.log(responseData);
     return responseData;
   } catch (err) {
-    console.log(err);
+    console.log('error from apiServie',err)
     return err;
   };
 }

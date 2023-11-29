@@ -4,7 +4,7 @@ import { User } from '../models/schema'
 import { Request, Response, NextFunction } from 'express';
 
 interface RequestWithUser extends Request {
-    user?: string | number;
+    id?: string | number;
 }
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
@@ -18,9 +18,9 @@ export async function authenticateToken(req: RequestWithUser, res: Response, nex
     try {
       const decryptedToken = jwt.verify(token, PRIVATE_KEY) as JwtPayload;
       const _id = decryptedToken._id;
-      const user = await User.findById(_id);
-      if (!user) return res.sendStatus(401);
-      req.user = user;
+      // const user = await User.findById(_id);
+      // if (!user) return res.sendStatus(401);
+      req.id = _id;
       next();
     } catch (error) {
       res.sendStatus(401);
