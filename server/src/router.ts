@@ -4,8 +4,9 @@ import userDetails from './controllers/userDetails';
 import projectDetails from './controllers/projectDetails';
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+import { authenticateToken } from './middlewares/auth';
+
 // TODO authentication
-// import { authMiddleware } from './middlewares/auth';
 ///to update for middleware routes
 
 const swaggerOptions = {
@@ -64,51 +65,68 @@ router.post("/user/login", userCtrl.login);
 
 /**
  * @swagger
- *  /user/details:
+ *  /user/profile:
  *    post:
  *      tags:
  *      - user
- *      description: find and update user
+ *      description: Find and update user
  *      produces:
  *      - application/json
  *      parameters:
- *        - in: query
- *          name: userName
+ *        - in: body
+ *          name: user
+ *          description: User object to be updated
  *          required: true
  *          schema:
- *            type: string
- *            description: user name
+ *            type: object
+ *            properties:
+ *              userName:
+ *                type: string
+ *              emailAddress:
+ *                type: string
+ *              firstName:
+ *                type: string
+ *              lastName:
+ *                type: string
+ *              website:
+ *                type: string
+ *              company:
+ *                type: string
+ *              github:
+ *                type: string
+ *              profile:
+ *                type: string
+ *              role:
+ *                type: string
  *      responses:
- *       200:
- *        description: success
+ *       201:
+ *        description: Success
  *       404:
- *        description: user not found
+ *        description: User not found
+ *        content:
+ *          application/json:
+ *            example:
+ *              status: error
+ *              message: User not found
  */
-router.post("/user/details", userDetails.userInfomation);
+router.post("/user/profile", userDetails.updateUserProfile);
 
 /**
  * @swagger
- *  /user/profiledetails:
+ *  /user/profile:
  *    get:
  *      tags:
  *      - user
  *      description: user profile detail
  *      produces:
  *      - application/json
- *      parameters:
- *        - in: query
- *          name: emailAddress
- *          required: true
- *          schema:
- *            type: string
- *            description: email address
  *      responses:
  *       201:
  *        description: success
  *       400:
  *        description: user not found
  */
-router.get("/user/profiledetails", userDetails.userProfile);
+router.get("/user/profile", userDetails.getUserProfile);
 
 //project details
 

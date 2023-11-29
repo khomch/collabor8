@@ -34,14 +34,14 @@ export default function Login() {
       setError({ isError: false, errorMessage: "" });
       setEmail('');
       setPassword('');
-      router.push('/');
+      router.push("/profile-edit");
     // This might need some extra steps as the app grows
     }
   };
 
   return (
     <>
-      <div className="login-page">
+      {/* <div className="login-page">
         <div className="logo-container">
           <Image
             src={"/new-logo-yellow.png"}
@@ -102,7 +102,7 @@ export default function Login() {
             </span>
           </div>
         </div>
-      </div>
+      </div> */}
     </>
   );
 }

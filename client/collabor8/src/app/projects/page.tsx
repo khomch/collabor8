@@ -14,7 +14,12 @@ export default function MyProjects() {
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
-            <ProfileCard />
+            <ProfileCard
+              userName={""}
+              firstName={""}
+              lastName={""}
+              emailAddress={""}
+            />
           </div>
           <div className="projects-page__projects">
             <div className="projects-page__subtitle">
@@ -28,8 +33,8 @@ export default function MyProjects() {
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
-            {projectsMock.map((project) => (
-              <ProjectCard btnLabel="Show more" project={project} />
+            {projects.map((project, index) => (
+              <ProjectCard key={index} btnLabel="Show more" project={project} />
             ))}
           </div>
         </div>
