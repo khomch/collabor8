@@ -68,7 +68,6 @@ export default function Register() {
       return;
     }
     router.push('/');
-    // This might need some extra steps as the app grows
   };
 
   return (

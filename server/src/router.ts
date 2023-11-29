@@ -109,7 +109,7 @@ router.post("/user/login", userCtrl.login);
  *              status: error
  *              message: User not found
  */
-router.post("/user/profile", userDetails.updateUserProfile);
+router.post("/user/profile",authenticateToken, userDetails.updateUserProfile);
 
 /**
  * @swagger
@@ -126,7 +126,9 @@ router.post("/user/profile", userDetails.updateUserProfile);
  *       400:
  *        description: user not found
  */
-router.get("/user/profile", userDetails.getUserProfile);
+
+router.post("/user/profiledetails", userDetails.userProfile);
+
 
 //project details
 

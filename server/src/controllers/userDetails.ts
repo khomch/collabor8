@@ -38,7 +38,6 @@ async function updateUserProfile(req: Request, res: Response) {
 }
 
 async function getUserProfile(req: Request, res: Response) {
-  try {
     const token: any = req.headers.authorization;
     const decryptedToken = jwt.verify(token, PRIVATE_KEY);
     const _id = (decryptedToken as JwtPayload)?._id;

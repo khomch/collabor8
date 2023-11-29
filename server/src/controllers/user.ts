@@ -31,11 +31,10 @@ async function register(req: Request, res: Response) {
     const { _id } = await newUser.save();
     const accessToken = jwt.sign({ _id }, PRIVATE_KEY);
 
-    res.cookie("accessToken", accessToken, {
-      httpOnly: true, // The cookie is only accesssible by the web server
+    res.status(201).send({
+      message: `${userName} succesfully registered.`,
+      token: accessToken,
     });
-
-    res.status(201).send({ message: `${userName} succesfully registered.` });
   } catch (error) {
     console.log(error);
     res.status(500).send({ errorMsg: "Internal server error." });
@@ -63,10 +62,10 @@ async function login(req: Request, res: Response) {
       return res.status(401).send({ errorMsg: "Invalid credentials" });
     } else {
       const accessToken = jwt.sign({ _id: user._id }, PRIVATE_KEY);
-      res.cookie("accessToken", accessToken, {
-        httpOnly: true, // The cookie is only accesssible by the web server
+      res.status(200).send({
+        message: `${user.userName} logged in.`,
+        token: accessToken,
       });
-      res.status(200).send({ message: `${user.userName} logged in.` });
     }
   } catch (error) {
     console.log(error);
