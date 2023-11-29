@@ -26,10 +26,14 @@ function ProfileEdit() {
     const fetchData = async () => {
       try {
         const response = await userProfile();
-        console.log(response);
-        setProfile(response?.data);
+        if (response?.status === 200) {
+          setProfile(response?.data);
+          setTech(response?.data?.profile?.technologyStack);
+        } else {
+          alert(response?.error);
+        }
       } catch (error) {
-        console.error("Error fetching user profile:", error);
+        alert(`Error fetching user profile: ${JSON.stringify(error)}`);
       }
     };
 

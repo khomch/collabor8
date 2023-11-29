@@ -3,7 +3,7 @@ import { API_URL } from "./projectServicesApi";
 export const userProfile = async () => {
   const token = localStorage.getItem("token");
   try {
-    const projectInfo = await fetch(`${API_URL}/user/profiledetails`, {
+    const projectInfo = await fetch(`${API_URL}/user/profile`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -26,7 +26,7 @@ export const userProfile = async () => {
 export const userInfomation = async (updateData: any) => {
   const token = localStorage.getItem("token");
   try {
-    const projectInfo = await fetch(`${API_URL}/user/details`, {
+    const projectInfo = await fetch(`${API_URL}/user/profile`, {
       method: "POST",
       mode: "cors",
       headers: {

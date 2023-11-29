@@ -4,7 +4,7 @@ import { Users } from "../types/type";
 import jwt, { JwtPayload } from "jsonwebtoken";
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
-async function userInfomation(req: Request, res: Response) {
+async function updateUserProfile(req: Request, res: Response) {
   try {
     const token: any = req.headers.authorization;
     const decryptedToken = jwt.verify(token, PRIVATE_KEY);
@@ -21,6 +21,7 @@ async function userInfomation(req: Request, res: Response) {
       github: req.body.github,
       profile: req.body.profile,
       role: req.body.role,
+      bio: req.body.bio,
     };
 
     const userProfile = await User.findOneAndUpdate(filter, update, {
@@ -32,18 +33,16 @@ async function userInfomation(req: Request, res: Response) {
     }
     res.status(200).send(userProfile);
   } catch (error) {
-    console.error(error);
     res.status(400).send();
   }
 }
 
-async function userProfile(req: Request, res: Response) {
+async function getUserProfile(req: Request, res: Response) {
   try {
     const token: any = req.headers.authorization;
     const decryptedToken = jwt.verify(token, PRIVATE_KEY);
     const _id = (decryptedToken as JwtPayload)?._id;
     const profile = await User.findOne({ _id });
-
     res.status(201).send(profile);
   } catch (error) {
     console.error(error);
@@ -51,34 +50,4 @@ async function userProfile(req: Request, res: Response) {
   }
 }
 
-async function userProfileCreate(req: Request, res: Response) {
-  try {
-    const profile = await User.findOne({ emailAddress: req.body.emailAddress });
-    if (!profile) {
-      res.status(404).send("Not found user");
-    }
-
-    res.status(201).send(profile);
-  } catch (error) {
-    console.error(error);
-    res.status(400).send();
-  }
-}
-
-async function userProfileEdit(req: Request, res: Response) {
-  try {
-    const profile = await User.findOne({ emailAddress: req.body.emailAddress });
-    if (!profile) {
-      res.status(404).send("Not found user");
-    }
-
-    res.status(201).send(profile);
-  } catch (error) {
-    console.error(error);
-    res.status(400).send();
-  }
-}
-
-
-
-export default { userInfomation, userProfile };
+export default { updateUserProfile, getUserProfile };

@@ -65,11 +65,11 @@ router.post("/user/login", userCtrl.login);
 
 /**
  * @swagger
- *  /user/details:
+ *  /user/profile:
  *    post:
  *      tags:
  *      - user
- *      description: find and update user
+ *      description: Find and update user
  *      produces:
  *      - application/json
  *      parameters:
@@ -99,36 +99,34 @@ router.post("/user/login", userCtrl.login);
  *              role:
  *                type: string
  *      responses:
- *       200:
- *        description: success
+ *       201:
+ *        description: Success
  *       404:
- *        description: user not found
+ *        description: User not found
+ *        content:
+ *          application/json:
+ *            example:
+ *              status: error
+ *              message: User not found
  */
-router.post("/user/details", userDetails.userInfomation);
+router.post("/user/profile", userDetails.updateUserProfile);
 
 /**
  * @swagger
- *  /user/profiledetails:
+ *  /user/profile:
  *    get:
  *      tags:
  *      - user
  *      description: user profile detail
  *      produces:
  *      - application/json
- *      parameters:
- *        - in: query
- *          name: emailAddress
- *          required: true
- *          schema:
- *            type: string
- *            description: email address
  *      responses:
  *       201:
  *        description: success
  *       400:
  *        description: user not found
  */
-router.get("/user/profiledetails", userDetails.userProfile);
+router.get("/user/profile", userDetails.getUserProfile);
 
 //project details
 
