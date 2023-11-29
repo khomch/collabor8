@@ -23,7 +23,15 @@ const UserTable = new Schema({
     projectHistory: [{ type: String }],
     references: [{ type: String }],
     projects: [{ type: String }],
-    rating: { type: String },
+    reviews: [
+      {
+        type: {
+          fromUserName: String,
+          rating: Number,
+          feedback: String,
+        },
+      },
+    ],
   },
 });
 

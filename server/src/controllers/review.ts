@@ -1,38 +1,37 @@
 import { Request, Response } from "express";
 import { User } from "../models/schema";
-import { Users } from "../types/type";
+import { Review, Users } from "../types/type";
 import jwt, { JwtPayload } from "jsonwebtoken";
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
-async function writeReview(req: Request, res: Response) {
+interface RequestWithUser extends Request {
+  id?: string | number;
+}
+
+async function writeReview(req: RequestWithUser, res: Response) {
   try {
-    const token: any = req.headers.authorization;
-    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
-    const _id = (decryptedToken as JwtPayload)?._id;
-    const filter = { _id };
+    console.log("testttß", req.id);
+    const fromUser = await User.findOne({ _id: req.id });
 
-    const update: Users = {
-      userName: req.body.userName,
-      emailAddress: req.body.emailAddress,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      website: req.body.website,
-      company: req.body.company,
-      github: req.body.github,
-      profile: req.body.profile,
-      role: req.body.role,
-      bio: req.body.bio,
+    const update: Review = {
+      toUserId: req.body.toUserId,
+      rating: req.body.rating,
+      feedback: req.body.feedback,
+      fromUser: fromUser.userName,
     };
+    console.log(update);
+    const filter = { _id: update.toUserId };
 
-    const userProfile = await User.findOneAndUpdate(filter, update, {
-      new: true,
+    const updateReview = await User.updateOne(filter, {
+      $push: { "profile.reviews": update },
     });
 
-    if (!userProfile) {
+    if (!updateReview) {
       return res.status(404).send({ message: "User not found" });
     }
-    res.status(200).send(userProfile);
+    res.status(200).send(updateReview);
   } catch (error) {
+    console.log("testttß", error);
     res.status(400).send();
   }
 }

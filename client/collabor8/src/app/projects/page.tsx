@@ -10,21 +10,11 @@ import { useEffect } from 'react';
 import IconOwner from '../../../public/icon-owner.svg';
 import IconTeamMember from '../../../public/icon-teammember.svg';
 import './projects.css';
-
-import ProfileCard from "@/components/profile-card/profile-card";
-import "./projects.css";
-import { projects } from "@/_MOCK-DATA_/mock-data";
-import ProjectCard from "@/components/project-card/project-card";
-import IconOwner from "../../../public/icon-owner.svg";
-import IconTeamMember from "../../../public/icon-teammember.svg";
-import Image from "next/image";
-import { userProfile } from "@/apiService/profileServiceApi";
-import { useState, useEffect } from "react";
-import { Users } from "../profile/page";
+import { TProjectInfo } from "@/types/types";
 
 export default function MyProjects() {
   const dispatch = useDispatch();
-  const { projects } = useSelector((state) => state.projectsInfo);
+  const { projects } = useSelector((state: any) => state.projectsInfo);
   useEffect(() => {
     dispatch(fetchProjects());
   }, []);
@@ -35,10 +25,10 @@ export default function MyProjects() {
         <div className="projects__content">
           <div className="projects-page__filters">
             <ProfileCard
-              userName={''}
-              firstName={''}
-              lastName={''}
-              emailAddress={''}
+              userName={""}
+              firstName={""}
+              lastName={""}
+              emailAddress={""}
             />
           </div>
           <div className="projects-page__projects">
@@ -54,7 +44,7 @@ export default function MyProjects() {
               <h2>Team member in</h2>
             </div>
             {projects &&
-              projects.map((project) => (
+              projects.map((project: TProjectInfo) => (
                 <ProjectCard
                   key={project._id}
                   btnLabel="Show more"

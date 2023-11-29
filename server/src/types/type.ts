@@ -24,11 +24,9 @@ export type Profile = {
 };
 
 export type Review = {
-  technologyStack?: string[];
-  links?: string[];
-  projectHistory?: string[];
-  references?: string[];
-  projects: string[];
-  rating?: string;
+  toUserId?: string;
+  rating?: Number;
+  feedback?: string;
+  fromUser?: string;
 };
 
