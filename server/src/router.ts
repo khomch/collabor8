@@ -126,7 +126,9 @@ router.post("/user/profile", userDetails.updateUserProfile);
  *       400:
  *        description: user not found
  */
-router.get("/user/profile", userDetails.getUserProfile);
+
+router.post("/user/profiledetails", userDetails.userProfile);
+
 
 //project details
 

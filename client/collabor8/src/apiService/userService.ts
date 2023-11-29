@@ -1,4 +1,6 @@
 import { TLoginDetails, TRegisterDetails } from "@/types/types"
+import { jwtDecode } from 'jwt-decode';
+import { IMyJwtPayload } from '../types/types';
 
 const baseUrl = 'http://localhost:3001/';
 
@@ -15,6 +17,9 @@ const login = async (user: TLoginDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
+    localStorage.setItem('accessToken', responseData.token);
+    const decodedToken = jwtDecode<IMyJwtPayload>(responseData.token);
+    localStorage.setItem('userId', decodedToken._id);
     return responseData;
   } catch (err) {
     return err;
@@ -34,6 +39,9 @@ const register = async (user: TRegisterDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
+    localStorage.setItem('accessToken', responseData.token);
+    const decodedToken = jwtDecode<IMyJwtPayload>(responseData.token);
+    localStorage.setItem('userId', decodedToken._id);
     return responseData;
   } catch (err) {
     return err;
