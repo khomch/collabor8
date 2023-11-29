@@ -4,7 +4,7 @@ import { User } from '../models/schema'
 import { Request, Response, NextFunction } from 'express';
 
 interface RequestWithUser extends Request {
-    user: string | number;
+    user?: string | number;
 }
 
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
