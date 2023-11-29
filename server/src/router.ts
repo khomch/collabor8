@@ -4,8 +4,9 @@ import userDetails from './controllers/userDetails';
 import projectDetails from './controllers/projectDetails';
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
+import { authenticateToken } from './middlewares/auth';
+
 // TODO authentication
-// import { authMiddleware } from './middlewares/auth';
 ///to update for middleware routes
 
 const swaggerOptions = {
