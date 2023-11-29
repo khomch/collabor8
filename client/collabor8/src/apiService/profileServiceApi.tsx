@@ -8,7 +8,7 @@ export const userProfile = async () => {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
 
@@ -31,7 +31,7 @@ export const userInfomation = async (updateData: any) => {
       mode: "cors",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `${token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(updateData),
     });

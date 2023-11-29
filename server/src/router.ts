@@ -127,7 +127,7 @@ router.post("/user/profile",authenticateToken, userDetails.updateUserProfile);
  *        description: user not found
  */
 
-router.post("/user/profiledetails", authenticateToken, userDetails.getUserProfile);
+router.get("/user/profile", authenticateToken, userDetails.getUserProfile);
 
 
 //project details
