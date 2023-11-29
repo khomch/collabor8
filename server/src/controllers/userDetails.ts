@@ -1,10 +1,17 @@
 import { Request, Response } from "express";
 import { User } from '../models/schema';
+import { Users } from "../types/type";
+import jwt, { JwtPayload } from "jsonwebtoken";
+const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
-async function userInfomation(req: Request, res: Response) {
+async function updateUserProfile(req: Request, res: Response) {
   try {
-    const filter = { emailAddress: req.body.emailAddress };
-    const update = {
+    const token: any = req.headers.authorization;
+    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
+    const _id = (decryptedToken as JwtPayload)?._id;
+    const filter = { _id };
+
+    const update: Users = {
       userName: req.body.userName,
       emailAddress: req.body.emailAddress,
       firstName: req.body.firstName,
@@ -12,25 +19,30 @@ async function userInfomation(req: Request, res: Response) {
       website: req.body.website,
       company: req.body.company,
       github: req.body.github,
-      profile: req.body.bio,
+      profile: req.body.profile,
       role: req.body.role,
+      bio: req.body.bio,
     };
 
-    const userProfile = await User.findOneAndUpdate(filter, update, { new: true });
+    const userProfile = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    });
 
     if (!userProfile) {
-      return res.status(404).send({ message: 'User not found' });
+      return res.status(404).send({ message: "User not found" });
     }
     res.status(200).send(userProfile);
   } catch (error) {
-    console.error(error);
     res.status(400).send();
-  }    
+  }
 }
 
-async function userProfile(req: Request, res: Response) {
+async function getUserProfile(req: Request, res: Response) {
   try {
-    const profile = await User.findOne({ emailAddress: req.body.emailAddress });
+    const token: any = req.headers.authorization;
+    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
+    const _id = (decryptedToken as JwtPayload)?._id;
+    const profile = await User.findOne({ _id });
     res.status(201).send(profile);
   } catch (error) {
     console.error(error);
@@ -38,4 +50,4 @@ async function userProfile(req: Request, res: Response) {
   }
 }
 
-export default { userInfomation, userProfile };
+export default { updateUserProfile, getUserProfile };

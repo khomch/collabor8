@@ -1,26 +1,52 @@
 "use client";
 
+import { userInfomation, userProfile } from "@/apiService/profileServiceApi";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Tag from "@/components/tag/tag";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useEffect, useState } from "react";
+import { Users } from "../profile/page";
 import "./profile-edit.css";
 
-export default function ProfileEdit() {
-  const [profile, setProfile] = useState({
-    username: "",
-    email: "",
-    firstname: "",
-    lastname: "",
+function ProfileEdit(data: Users) {
+  const [profile, setProfile] = useState<Users>({
+    userName: "",
+    emailAddress: "",
+    firstName: "",
+    lastName: "",
     website: "",
     company: "",
     role: "",
     bio: "",
-    techStack: "",
   });
 
   const [techInput, setTechInput] = useState("");
   const [tech, setTech] = useState(["Typescript"]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!data?.emailAddress) {
+      const fetchData = async () => {
+        try {
+          const response = await userProfile();
+          if (response?.status === 200) {
+            setProfile(response?.data);
+            setTech(response?.data?.profile?.technologyStack);
+          } else {
+            alert(response?.error);
+          }
+        } catch (error) {
+          alert(`Error fetching user profile: ${JSON.stringify(error)}`);
+        }
+      };
+
+      fetchData();
+    } else {
+      setProfile(data);
+      setTech(data?.profile?.technologyStack as any);
+    }
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -44,9 +70,39 @@ export default function ProfileEdit() {
     setTech(_tect);
   };
 
-  const handelSubmit = () => {
+  const handelSubmit = async () => {
     // TODO: save to DB
-    console.log(profile, tech);
+    const {
+      bio,
+      company,
+      emailAddress,
+      firstName,
+      lastName,
+      userName,
+      website,
+      role,
+    } = profile;
+    const update = {
+      bio,
+      company,
+      role,
+      website,
+      emailAddress,
+      firstName,
+      lastName,
+      userName,
+      profile: {
+        links: [website],
+        technologyStack: [...tech],
+      },
+    };
+    const response: any = await userInfomation(update);
+    if (response.name === "Error") {
+      return;
+    } else {
+      alert("success!");
+      router.push("/");
+    }
   };
 
   return (
@@ -59,22 +115,22 @@ export default function ProfileEdit() {
             <div className="prifile__item right">
               <Input
                 type="text"
-                name="username"
+                name="userName"
                 label="Username"
-                placeholder="username"
+                placeholder="userName"
                 status="default"
-                value={profile.username}
+                value={profile?.userName}
                 onChange={handleChange}
               />
             </div>
             <div className="prifile__item">
               <Input
                 type="text"
-                name="email"
+                name="emailAddress"
                 label="Email"
-                placeholder="email"
+                placeholder="emailAddress"
                 status="default"
-                value={profile.email}
+                value={profile?.emailAddress}
                 onChange={handleChange}
               />
             </div>
@@ -84,22 +140,22 @@ export default function ProfileEdit() {
             <div className="prifile__item right">
               <Input
                 type="text"
-                name="firstname"
+                name="firstName"
                 label="Firstname"
-                placeholder="firstname"
+                placeholder="firstName"
                 status="default"
-                value={profile.firstname}
+                value={profile?.firstName}
                 onChange={handleChange}
               />
             </div>
             <div className="prifile__item">
               <Input
                 type="text"
-                name="lastname"
+                name="lastName"
                 label="Lastname"
-                placeholder="lastname"
+                placeholder="lastName"
                 status="default"
-                value={profile.lastname}
+                value={profile?.lastName}
                 onChange={handleChange}
               />
             </div>
@@ -113,7 +169,7 @@ export default function ProfileEdit() {
                 label="Website"
                 placeholder="website"
                 status="default"
-                value={profile.website}
+                value={profile?.website}
                 onChange={handleChange}
               />
             </div>
@@ -124,7 +180,7 @@ export default function ProfileEdit() {
                 label="Company"
                 placeholder="company"
                 status="default"
-                value={profile.company}
+                value={profile?.company}
                 onChange={handleChange}
               />
             </div>
@@ -136,11 +192,11 @@ export default function ProfileEdit() {
             <div className="prifile__item right">
               <Input
                 type="text"
-                name="username"
+                name="role"
                 label="Role"
                 placeholder="role"
                 status="default"
-                value={profile.role}
+                value={profile?.role}
                 onChange={handleChange}
               />
             </div>
@@ -155,7 +211,7 @@ export default function ProfileEdit() {
                 label="Bio"
                 placeholder="bio"
                 status="default"
-                value={profile.bio}
+                value={profile?.bio}
                 onChange={handleChange}
               />
             </div>
@@ -196,3 +252,4 @@ export default function ProfileEdit() {
     </>
   );
 }
+export default ProfileEdit;

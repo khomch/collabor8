@@ -51,8 +51,12 @@ function ManageTeam() {
     <VStack size="6col">
       <div className="h5">Manage team </div>
       <div className="manage-team__roles">
-        {openedRoles.map((roleData) => (
-          <Role setOpenedRoles={setOpenedRoles} roleData={roleData} />
+        {openedRoles.map((roleData, index) => (
+          <Role
+            key={index}
+            setOpenedRoles={setOpenedRoles}
+            roleData={roleData}
+          />
         ))}
       </div>
       <form className="manage-team__form">
