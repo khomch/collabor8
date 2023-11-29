@@ -4,11 +4,13 @@ import { userInfomation, userProfile } from "@/apiService/profileServiceApi";
 import Button from "@/components/button/button";
 import Input from "@/components/input/input";
 import Tag from "@/components/tag/tag";
+import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { Users } from "../profile/page";
 import "./profile-edit.css";
 
-function ProfileEdit() {
-  const [profile, setProfile] = useState({
+function ProfileEdit(data: Users) {
+  const [profile, setProfile] = useState<Users>({
     userName: "",
     emailAddress: "",
     firstName: "",
@@ -21,23 +23,29 @@ function ProfileEdit() {
 
   const [techInput, setTechInput] = useState("");
   const [tech, setTech] = useState(["Typescript"]);
+  const router = useRouter();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await userProfile();
-        if (response?.status === 200) {
-          setProfile(response?.data);
-          setTech(response?.data?.profile?.technologyStack);
-        } else {
-          alert(response?.error);
+    if (!data?.emailAddress) {
+      const fetchData = async () => {
+        try {
+          const response = await userProfile();
+          if (response?.status === 200) {
+            setProfile(response?.data);
+            setTech(response?.data?.profile?.technologyStack);
+          } else {
+            alert(response?.error);
+          }
+        } catch (error) {
+          alert(`Error fetching user profile: ${JSON.stringify(error)}`);
         }
-      } catch (error) {
-        alert(`Error fetching user profile: ${JSON.stringify(error)}`);
-      }
-    };
+      };
 
-    fetchData();
+      fetchData();
+    } else {
+      setProfile(data);
+      setTech(data?.profile?.technologyStack as any);
+    }
   }, []);
 
   const handleChange = (e: any) => {
@@ -93,8 +101,8 @@ function ProfileEdit() {
       return;
     } else {
       alert("success!");
+      router.push("/");
     }
-
   };
 
   return (
