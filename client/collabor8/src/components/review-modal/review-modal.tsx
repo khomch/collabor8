@@ -1,21 +1,18 @@
-import React, { FormEvent, useState } from 'react';
-import './review.css';
-import Star from '../../../public/star-border.svg';
-import StarFilled from '../../../public/star-fill.svg';
-import Image from 'next/image';
-import Input from '../input/input';
-import Button from '../button/button';
-import StarRating from '../star-rating/star-rating';
+import React, { FormEvent, useState } from "react";
+import "./review-modal.css";
+import Input from "../input/input";
+import Button from "../button/button";
+import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
 import { TReview, TUserInfo, TUserProfile } from "@/types/types";
-import { writeReview } from "@/apiService/userServicesApi";
+import { writeReview } from "@/apiService/userService";
 
 interface ReviewProps {
   user: TUserInfo;
   onClose: () => void; // Adjust the type of onClose based on your needs
 }
 
-function Review({ user, onClose }: ReviewProps) {
+function ReviewModal({ user, onClose }: ReviewProps) {
   // TODO: Finish rating logic
   const [feedbackValue, setFeedbackValue] = useState("");
   const [rating, setRating] = useState(0);
@@ -26,9 +23,6 @@ function Review({ user, onClose }: ReviewProps) {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    // TODO add POST to server
-    console.log("RATING: ", rating);
-    console.log("SUBMIT", feedbackValue);
 
     const update: TReview = {
       rating,
@@ -61,7 +55,9 @@ function Review({ user, onClose }: ReviewProps) {
         <p className="review__text bodytext1">How was the developer?</p>
 
         <form className="review__form" onSubmit={handleSubmit}>
-          <StarRating rating={rating} setRating={setRating} />
+          <div className="review__rating">
+            <StarRating rating={rating} setRating={setRating} />
+          </div>
           {/* <p className="bodytext1">Feedback</p> */}
           <Input
             type="text"
@@ -78,4 +74,4 @@ function Review({ user, onClose }: ReviewProps) {
   );
 }
 
-export default Review;
+export default ReviewModal;

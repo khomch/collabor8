@@ -10,8 +10,9 @@ interface RequestWithUser extends Request {
 
 async function writeReview(req: RequestWithUser, res: Response) {
   try {
-    console.log("testttß", req.id);
     const fromUser = await User.findOne({ _id: req.id });
+
+    console.log("testttß", fromUser);
 
     const update: Review = {
       toUserId: req.body.toUserId,
@@ -19,11 +20,17 @@ async function writeReview(req: RequestWithUser, res: Response) {
       feedback: req.body.feedback,
       fromUser: fromUser.userName,
     };
-    console.log(update);
+
     const filter = { _id: update.toUserId };
 
     const updateReview = await User.updateOne(filter, {
-      $push: { "profile.reviews": update },
+      $push: {
+        "profile.reviews": {
+          rating: req.body.rating,
+          feedback: req.body.feedback,
+          fromUserName: fromUser.userName,
+        },
+      },
     });
 
     if (!updateReview) {

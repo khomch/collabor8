@@ -28,7 +28,7 @@ export type TUserInfo = {
   firstName: string;
   lastName: string;
   emailAddress: string;
-  password: string;
+  password?: string;
   github?: string;
   website?: string;
   company?: string;

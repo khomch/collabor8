@@ -6,11 +6,14 @@ import Image from 'next/image';
 
 type StarRatingProps = {
   rating: number;
-  setRating: (index: number) => void;
+  setRating?: (index: number) => void;
 };
 
 function StarRating({ rating, setRating }: StarRatingProps) {
   const [hover, setHover] = useState(rating);
+  const handleButtonClick = (index: number) => {
+    setRating && setRating(index);
+  };
 
   return (
     <div className="star-rating">
@@ -21,7 +24,7 @@ function StarRating({ rating, setRating }: StarRatingProps) {
             type="button"
             className="star-rating__button"
             key={index}
-            onClick={() => setRating(index)}
+            onClick={() => handleButtonClick(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(rating)}
           >

@@ -7,6 +7,8 @@ import ProfileEdit from '../profile-edit/page';
 import './profile.css';
 import { TUserInfo } from '@/types/types';
 import { useRouter } from 'next/navigation';
+import VStack from "@/components/ui/v-stack/v-stack";
+import ReviewsCard from "@/components/reviews-card/reviews-card";
 
 export type ProfileProps = {
   technologyStack?: string[];
@@ -19,11 +21,11 @@ export type ProfileProps = {
 
 function Profile() {
   const data: TUserInfo = {
-    userName: '',
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    password: '',
+    userName: "",
+    firstName: "",
+    lastName: "",
+    emailAddress: "",
+    password: "",
   };
   const [profile, setProfile] = useState<TUserInfo>(data);
   const router = useRouter();
@@ -36,7 +38,7 @@ function Profile() {
           setProfile(response?.data);
         } else {
           console.log(response?.error);
-          router.push('/login');
+          router.push("/login");
         }
       } catch (error) {
         console.log(`Error fetching user profile: ${JSON.stringify(error)}`);
@@ -48,8 +50,19 @@ function Profile() {
   return (
     profile.emailAddress && (
       <search className="profile-page">
-        <ProfileCard {...profile} />
-        <ProfileEdit {...profile} />
+        <section className="profile-page">
+          <div className="profile">
+            <div className="profile__content">
+              <div className="profile-page__filters">
+                <ProfileCard {...profile} />
+                <ReviewsCard reviews={profile.profile?.reviews} />
+              </div>
+              <div className="profile-page__edit">
+                <ProfileEdit {...profile} />
+              </div>
+            </div>
+          </div>
+        </section>
       </search>
     )
   );

@@ -1,0 +1,10 @@
+.review-item {
+  border-radius: 6px;
+  background: var(--interface-gray100);
+  margin-bottom: 14px;
+  padding: 10px;
+}
+
+.review-item__feeback {
+
+}

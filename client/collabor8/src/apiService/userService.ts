@@ -1,13 +1,13 @@
-import { TLoginDetails, TRegisterDetails } from '@/types/types';
+import { TLoginDetails, TRegisterDetails, TReview } from "@/types/types";
 
-const baseUrl = 'http://localhost:3001/';
+const baseUrl = "http://localhost:3001/";
 
 const login = async (user: TLoginDetails) => {
   try {
     const response = await fetch(`${baseUrl}user/login`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
@@ -15,7 +15,7 @@ const login = async (user: TLoginDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
-    localStorage.setItem('accessToken', responseData.token);
+    localStorage.setItem("accessToken", responseData.token);
     return responseData;
   } catch (err) {
     return err;
@@ -25,9 +25,9 @@ const login = async (user: TLoginDetails) => {
 const register = async (user: TRegisterDetails) => {
   try {
     const response = await fetch(`${baseUrl}user/register`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(user),
     });
@@ -35,11 +35,29 @@ const register = async (user: TRegisterDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
-    localStorage.setItem('accessToken', responseData.token);
+    localStorage.setItem("accessToken", responseData.token);
     return responseData;
   } catch (err) {
     return err;
   }
 };
 
-export { login, register };
+const writeReview = async (update: TReview) => {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const response: { status: number } = await fetch(`${baseUrl}user/review`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(update),
+    });
+    return response;
+  } catch (err) {
+    console.log("error from apiServie", err);
+    return err;
+  }
+};
+
+export { login, register, writeReview };

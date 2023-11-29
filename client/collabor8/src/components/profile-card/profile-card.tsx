@@ -11,13 +11,13 @@ import ITech from '../../../public/icon/i_tech.svg';
 import Tag from '../tag/tag';
 import Button from '@/components/button/button';
 import Modal from '../modal/modal';
-import Review from '../review/review';
-import Link from 'next/link';
-import VStack from '../ui/v-stack/v-stack';
-import { TUserInfo } from '@/types/types';
+import ReviewModal from "../review-modal/review-modal";
+import Link from "next/link";
+import VStack from "../ui/v-stack/v-stack";
+import { TUserInfo } from "@/types/types";
 
 export type ProfileCardProps = {
-  direction: 'column' | 'row';
+  direction: "column" | "row";
   name: string;
   role: string;
   company: string;
@@ -25,14 +25,6 @@ export type ProfileCardProps = {
 
 function ProfileCard(data: TUserInfo) {
   const [showModal, setShowModal] = useState(false);
-  const tempTech = [
-    'Javascript',
-    'Typescript',
-    'AWS',
-    'Git',
-    'Angular JS',
-    'React',
-  ];
 
   return (
     <VStack size="3col">
@@ -104,7 +96,7 @@ function ProfileCard(data: TUserInfo) {
 
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <Review onClose={() => setShowModal(false)} user={data} />
+            <ReviewModal onClose={() => setShowModal(false)} user={data} />
           </Modal>
         )}
       </div>
