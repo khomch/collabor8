@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import LogoSmallYellow from '../../../public/logo-yellow.png';
 import './navbar.css';
 import Button from '../button/button';
+import { useRouter } from 'next/navigation';
 
 const menuItems = [
   {
@@ -33,12 +34,16 @@ function Navbar() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
 
+  const router = useRouter();
+
   useEffect(() => {
     dispatch(fetchUserDetails());
   }, []);
 
   const handleLogout = () => {
-    console.log('logout')
+    localStorage.removeItem('accessToken');
+    dispatch(fetchUserDetails());
+    router.push('/login');
   }
 
   const pathname = usePathname();
