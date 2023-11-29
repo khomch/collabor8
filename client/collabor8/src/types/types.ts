@@ -42,10 +42,15 @@ export type TUserState = {
   error: string | null | undefined;
 };
 
+export type TRole = {
+  _id?: string;
+  role: string;
+  techstack: string[];
+};
+
 export type TProjectInfo = {
-  _id: string;
+  _id?: string;
   projectOwnerId?: string;
-  projectOwner?: string;
   title: string;
   link: string;
   type: string;
@@ -55,4 +60,9 @@ export type TProjectInfo = {
   description: string;
   additionalInfo: string;
   level: string;
+  projectWorkspaces: {
+    name: string;
+    link: string;
+  }[];
+  openedRoles: TRole[];
 };

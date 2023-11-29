@@ -42,15 +42,15 @@ const ProjectInfomation = new Schema({
 
   projectWorkspaces: [
     {
-      Name: { type: String, required: true },
+      name: { type: String, required: true },
       link: { type: String, required: true },
     },
   ],
-  manageTeam: [
+  openedRoles: [
     {
       _id: UUID,
-      role: { type: String, required: true },
-      techStack: [{ type: String, required: true }],
+      role: { type: String },
+      techstack: [{ type: String }],
     },
   ],
 });

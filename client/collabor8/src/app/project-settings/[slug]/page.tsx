@@ -1,38 +1,38 @@
 'use client';
 
-import Button from '@/components/button/button';
-import Input from '@/components/input/input';
-import Tag from '@/components/tag/tag';
-import React, { useEffect, useState } from 'react';
-import './project-edit.css';
-import VStack from '@/components/ui/v-stack/v-stack';
+import { getProjectInfo } from '@/apiService/projectServicesApi';
 import ManageProject from '@/components/manage-project/manage-project';
 import ManageTeam from '@/components/manage-team/manage-team';
-import { useSelector } from '@/redux-store/customHooks';
-import { useParams } from 'next/navigation';
-import { getProjectInfo } from '@/apiService/projectServicesApi';
 import { TProjectInfo } from '@/types/types';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import './project-edit.css';
+
+const projectInitialData: TProjectInfo = {
+  type: '',
+  techstack: [],
+  level: '',
+  projectOwnerId: '6565d9f4b9b5b51e51036c50', // TODO change to current userId
+  title: '',
+  link: '',
+  aboutProject: '',
+  estimatedDeadline: '',
+  description: '',
+  additionalInfo: '',
+  projectWorkspaces: [],
+  openedRoles: [
+    {
+      role: '',
+      techstack: [],
+    },
+  ],
+};
 
 export default function ProjectEdit() {
-  const projectInitialData: TProjectInfo = {
-    _id: '',
-    projectOwner: '',
-    type: '',
-    techstack: [],
-    level: '',
-    projectOwnerId: '6565d9f4b9b5b51e51036c50',
-    title: '',
-    link: '',
-    aboutProject: '',
-    estimatedDeadline: '',
-    description: '',
-    additionalInfo: '',
-  };
+  const params = useParams();
   const [openedProject, setOpenedProject] =
     useState<TProjectInfo>(projectInitialData);
   const [isLoading, setIsLoading] = useState(true);
-
-  const params = useParams();
 
   useEffect(() => {
     if (typeof params.slug === 'string') {
@@ -41,12 +41,8 @@ export default function ProjectEdit() {
       } else {
         getProjectInfo(params.slug)
           .then((response) => {
-            if (response && response.status === 200) {
-              setOpenedProject(response.data);
-              setIsLoading(false);
-            } else {
-              console.log('Error:', response && response.error);
-            }
+            setOpenedProject(response?.data);
+            setIsLoading(false);
           })
           .catch((err) => console.log('error', err));
       }
@@ -56,9 +52,19 @@ export default function ProjectEdit() {
   return (
     <div className="project-edit-page">
       {!isLoading && (
-        <ManageProject project={openedProject} setProject={setOpenedProject} />
+        <>
+          <ManageProject
+            project={openedProject}
+            setProject={setOpenedProject}
+          />
+          {openedProject._id && (
+            <ManageTeam
+              existingRoles={openedProject?.openedRoles}
+              projectId={openedProject?._id}
+            />
+          )}
+        </>
       )}
-      <ManageTeam />
     </div>
   );
 }

@@ -1,18 +1,17 @@
-import React, {
+import { createProject } from '@/apiService/projectServicesApi';
+import { TProjectInfo } from '@/types/types';
+import {
   ChangeEvent,
   Dispatch,
   FormEvent,
   SetStateAction,
-  useEffect,
-  useState,
+  useState
 } from 'react';
+import Button from '../button/button';
 import Input from '../input/input';
+import { Select } from '../ui/select/select';
 import VStack from '../ui/v-stack/v-stack';
 import './manage-project.css';
-import { Select } from '../ui/select/select';
-import Button from '../button/button';
-import { createProject } from '@/apiService/projectServicesApi';
-import { TProjectInfo } from '@/types/types';
 
 const types = ['New project', 'Add feature', 'Design', 'Consulting'];
 export const levels = ['Junior level', 'Middle level', 'Senior level'];
@@ -43,7 +42,7 @@ function ManageProject({ project, setProject }: ManageProjectProps) {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     createProject({ ...project, type, workspace, level }).then((res) =>
-      console.log(res)
+      setProject(res?.data)
     );
   };
 

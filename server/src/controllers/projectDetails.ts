@@ -15,7 +15,7 @@ async function createProject(req: Request, res: Response) {
       level: req.body.level,
       techstack: req.body.techstack,
       projectWorkspaces: req.body.projectWorkspaces,
-      manageTeam: req.body.manageTeam,
+      openedRoles: req.body.openedRoles,
     });
 
     const addProject = await newProject.save();
@@ -41,7 +41,7 @@ async function editProjectDetails(req: Request, res: Response) {
       level: req.body.level,
       techstack: req.body.techstack,
       projectWorkspaces: req.body.projectWorkspaces,
-      manageTeam: req.body.manageTeam,
+      openedRoles: req.body.openedRoles,
     };
 
     const projectDetails = await Project.findOneAndUpdate(filter, update, {
@@ -68,7 +68,7 @@ async function addTeamMember(req: Request, res: Response) {
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
-    project.manageTeam.push(req.body.teamMemberData);
+    project.openedRoles.push(req.body.teamMemberData);
     project.save();
     res.status(200).send(project);
   } catch (error) {
@@ -81,7 +81,6 @@ async function getProjectDetails(req: Request, res: Response) {
   try {
     // const project = await Project.findOne({ projectOwnerId: req.params.id });
     const project = await Project.findOne({ _id: req.params.id });
-    console.log('project: ', project);
     res.status(200).send(project);
   } catch (error) {
     console.error(error);

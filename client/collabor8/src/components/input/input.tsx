@@ -1,7 +1,9 @@
-import { ChangeEvent, KeyboardEvent } from 'react';
+import { ChangeEvent, ComponentPropsWithoutRef, KeyboardEvent } from 'react';
 import './input.css';
 
-export type InputProps = {
+interface InputPropsOriginal extends ComponentPropsWithoutRef<'input'> {}
+
+export type InputProps = InputPropsOriginal & {
   variant?: 'primary' | 'blue';
   required?: boolean;
   type: string;
@@ -28,7 +30,9 @@ function Input({
 }: InputProps) {
   return (
     <div className="input">
-      <label className="input__label bodytext3 bodytext3_semibold">{label}</label>
+      <label className="input__label bodytext3 bodytext3_semibold">
+        {label}
+      </label>
       <input
         required={required}
         className={`input__item input__item_${variant} bodytext3 input__${status}`}

@@ -17,7 +17,14 @@ type ProjectCardProps = {
   btnLabel: 'Show more' | 'Apply';
 };
 
+import { TRole } from '@/types/types';
+
 function ProjectCard({ project, btnLabel }: ProjectCardProps) {
+  const techstack = project.openedRoles.reduce((acc: string[], curr: TRole) => {
+    acc.push(...curr.techstack);
+    return acc;
+  }, []);
+  console.log('techstack: ', techstack);
   return (
     <VStack size="9col">
       <div className="project-card">
@@ -43,11 +50,9 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
               <p className="bodytext3 bodytext3_semibold">Tech stack</p>
             </div>
             <div className="project-card__techstack">
-              {project.techstack &&
-                project.techstack.length > 0 &&
-                project.techstack?.map((technology, index) => (
-                  <Tag key={index} color="gray" label={technology} />
-                ))}
+              {techstack?.map((technology, index) => (
+                <Tag key={index} color="gray" label={technology} />
+              ))}
             </div>
             <div className="project-card__subtitle">
               <Image src={LevelIcon} alt="Level Icon" />

@@ -18,7 +18,9 @@ function ManageTags({ tags, setTags }: ManageTagsProps) {
   };
   const handleAddNewTech = (e: FormEvent) => {
     e.preventDefault();
-    setTags && setTags((prev) => prev && [...prev, newTag]);
+    newTag.length > 0 &&
+      setTags &&
+      setTags((prev) => prev && [...prev, newTag]);
     setNewTag('');
   };
 
