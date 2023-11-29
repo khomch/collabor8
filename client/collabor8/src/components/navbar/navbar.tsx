@@ -8,6 +8,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import LogoSmallYellow from '../../../public/logo-yellow.png';
 import './navbar.css';
+import Button from '../button/button';
 
 const menuItems = [
   {
@@ -35,6 +36,10 @@ function Navbar() {
   useEffect(() => {
     dispatch(fetchUserDetails());
   }, []);
+
+  const handleLogout = () => {
+    console.log('logout')
+  }
 
   const pathname = usePathname();
   return (
@@ -67,6 +72,14 @@ function Navbar() {
                   </Link>
                 </li>
               ))}
+              <li className='navbar__menu-link'>
+                <Button
+                  variant='primary'
+                  label='Logout'
+                  onClick={() => handleLogout()}
+                  type='button'
+                />
+              </li>
             </ul>
           )}
         </menu>
