@@ -8,8 +8,12 @@ import Input from '../../components/input/input';
 import Button from '../../components/button/button';
 import { login } from '../../apiService/userService';
 import './page.css';
+import { useDispatch } from '@/redux-store/customHooks';
+import { fetchUserDetails } from '@/redux-store/slices/userSlice';
 
 export default function Login() {
+
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,14 +38,14 @@ export default function Login() {
       setError({ isError: false, errorMessage: "" });
       setEmail('');
       setPassword('');
-
+      dispatch(fetchUserDetails())
       router.push("/profile-edit");
     }
   };
 
   return (
     <>
-      {/* <div className="login-page">
+      <div className="login-page">
         <div className="logo-container">
           <Image
             src={"/new-logo-yellow.png"}
@@ -102,7 +106,7 @@ export default function Login() {
             </span>
           </div>
         </div>
-      </div> */}
+      </div>
     </>
   );
 }

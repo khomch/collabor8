@@ -4,6 +4,10 @@ import { Users } from "../types/type";
 import jwt, { JwtPayload } from "jsonwebtoken";
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "test";
 
+interface RequestWithUser extends Request {
+  id?: string | number;
+}
+
 async function updateUserProfile(req: Request, res: Response) {
   try {
     const token: any = req.headers.authorization;
@@ -37,11 +41,10 @@ async function updateUserProfile(req: Request, res: Response) {
   }
 }
 
-async function getUserProfile(req: Request, res: Response) {
+async function getUserProfile(req: RequestWithUser, res: Response) {
+  try {
     const token: any = req.headers.authorization;
-    const decryptedToken = jwt.verify(token, PRIVATE_KEY);
-    const _id = (decryptedToken as JwtPayload)?._id;
-    const profile = await User.findOne({ _id });
+    const profile = await User.findOne({ _id: req.id });
     res.status(201).send(profile);
   } catch (error) {
     console.error(error);

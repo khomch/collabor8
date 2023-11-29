@@ -32,11 +32,13 @@ function Navbar() {
 
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
+  const userDetails = useSelector((state) => state.userState.user);
 
   useEffect(() => {
       dispatch(fetchUserDetails());
-    });
+    }, []);
 
+  console.log(userDetails)
   const pathname = usePathname();
   return (
     <nav className="navbar">
