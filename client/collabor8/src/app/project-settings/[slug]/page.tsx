@@ -30,6 +30,7 @@ export default function ProjectEdit() {
         techstack: [],
       },
     ],
+    appliedUsers: [],
   };
 
   const params = useParams();
