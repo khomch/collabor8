@@ -50,6 +50,7 @@
 
 .profile-card__link {
     text-decoration: underline;
+    color: var(--interface-gray800);
 }
 
 .profile-card__techs {

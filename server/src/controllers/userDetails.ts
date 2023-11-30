@@ -1,8 +1,5 @@
 import { Request, Response } from 'express';
-import { User } from '../models/schema';
-import { Users } from '../types/type';
-import jwt, { JwtPayload } from 'jsonwebtoken';
-const PRIVATE_KEY = process.env.PRIVATE_KEY || 'test';
+import { User } from "../models/schema";
 
 interface RequestWithUser extends Request {
   id?: string | number;
@@ -10,17 +7,23 @@ interface RequestWithUser extends Request {
 
 async function updateUserProfile(req: RequestWithUser, res: Response) {
   try {
-    const update: Users = {
-      userName: req.body.userName,
-      emailAddress: req.body.emailAddress,
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      website: req.body.website,
-      company: req.body.company,
-      github: req.body.github,
-      profile: req.body.profile,
-      role: req.body.role,
-      bio: req.body.bio,
+    const update = {
+      $set: {
+        userName: req.body.userName,
+        emailAddress: req.body.emailAddress,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        website: req.body.website,
+        company: req.body.company,
+        github: req.body.github,
+        role: req.body.role,
+        bio: req.body.bio,
+        "profile.technologyStack": req.body.profile.technologyStack,
+        "profile.links": req.body.profile.links,
+        "profile.projectHistory": req.body.profile.projectHistory,
+        "profile.references": req.body.profile.references,
+        "profile.projects": req.body.profile.projects,
+      },
     };
 
     const userProfile = await User.findOneAndUpdate({ _id: req.id }, update, {

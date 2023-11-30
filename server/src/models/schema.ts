@@ -4,31 +4,36 @@ var mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const UserTable = new Schema(
-  {
-    userName: { type: String, required: true },
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
-    emailAddress: { type: String, required: true },
-    password: { type: String, required: true },
-    github: { type: String },
-    website: { type: String },
-    company: { type: String },
-    socialMediaAccounts: { type: String },
-    role: { type: String },
-    bio: { type: String },
-    yearsExperience: { type: String },
-    profile: {
-      technologyStack: [{ type: String }],
-      links: [{ type: String }],
-      projectHistory: [{ type: String }],
-      references: [{ type: String }],
-      projects: [{ type: String }],
-      rating: { type: String },
-    },
+const UserTable = new Schema({
+  userName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  emailAddress: { type: String, required: true },
+  password: { type: String, required: true },
+  github: { type: String },
+  website: { type: String },
+  company: { type: String },
+  socialMediaAccounts: { type: String },
+  role: { type: String },
+  bio: { type: String },
+  yearsExperience: { type: String },
+  profile: {
+    technologyStack: [{ type: String }],
+    links: [{ type: String }],
+    projectHistory: [{ type: String }],
+    references: [{ type: String }],
+    projects: [{ type: String }],
+    reviews: [
+      {
+        type: {
+          fromUserName: String,
+          rating: Number,
+          feedback: String,
+        },
+      },
+    ],
   },
-  { timestamps: true }
-);
+});
 
 const ProjectInfomation = new Schema(
   {

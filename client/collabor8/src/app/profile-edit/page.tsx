@@ -7,6 +7,7 @@ import {
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import Tag from '@/components/tag/tag';
+import VStack from "@/components/ui/v-stack/v-stack";
 import { TUserInfo } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -112,152 +113,154 @@ function ProfileEdit(data: TUserInfo) {
   return (
     profile.emailAddress && (
       <>
-        <div className="profile">
-          <div className="profile__container">
-            <div className="profile__title h5">Edit Profile</div>
+        <VStack size="9col">
+          <div className="profile">
+            <div className="profile__container">
+              <div className="profile__title h5">Edit Profile</div>
 
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="userName"
-                  label="Username"
-                  placeholder="userName"
-                  status="default"
-                  value={profile?.userName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="prifile__item">
-                <Input
-                  type="text"
-                  name="emailAddress"
-                  label="Email"
-                  placeholder="emailAddress"
-                  status="default"
-                  value={profile?.emailAddress}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="firstName"
-                  label="Firstname"
-                  placeholder="firstName"
-                  status="default"
-                  value={profile?.firstName}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="prifile__item">
-                <Input
-                  type="text"
-                  name="lastName"
-                  label="Lastname"
-                  placeholder="lastName"
-                  status="default"
-                  value={profile?.lastName}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="website"
-                  label="Website"
-                  placeholder="website"
-                  status="default"
-                  value={profile?.website}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="prifile__item">
-                <Input
-                  type="text"
-                  name="company"
-                  label="Company"
-                  placeholder="company"
-                  status="default"
-                  value={profile?.company}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="profile__title h5 top">Additional info</div>
-
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="role"
-                  label="Role"
-                  placeholder="role"
-                  status="default"
-                  value={profile?.role}
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="prifile__item"></div>
-            </div>
-
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="bio"
-                  label="Bio"
-                  placeholder="bio"
-                  status="default"
-                  value={profile?.bio}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            <div className="profile__input">
-              <div className="prifile__item right">
-                <Input
-                  type="text"
-                  name="tech"
-                  label="Tech Stack"
-                  placeholder="Write Your Tech Stack!"
-                  status="default"
-                  value={techInput}
-                  onChange={(e) => setTechInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                />
-
-                <div className="profile__tag">
-                  {tech?.map((item, index) => (
-                    <Tag
-                      key={index}
-                      onClick={() => handelTagRemove(index)}
-                      isIcon={true}
-                      color={'gray'}
-                      label={item}
-                    />
-                  ))}
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="userName"
+                    label="Username"
+                    placeholder="userName"
+                    status="default"
+                    value={profile?.userName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="prifile__item">
+                  <Input
+                    type="text"
+                    name="emailAddress"
+                    label="Email"
+                    placeholder="emailAddress"
+                    status="default"
+                    value={profile?.emailAddress}
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
-            </div>
 
-            <div className="profile__button">
-              <Button
-                variant={'primary'}
-                label={'Save'}
-                onClick={handelSubmit}
-              />
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="firstName"
+                    label="Firstname"
+                    placeholder="firstName"
+                    status="default"
+                    value={profile?.firstName}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="prifile__item">
+                  <Input
+                    type="text"
+                    name="lastName"
+                    label="Lastname"
+                    placeholder="lastName"
+                    status="default"
+                    value={profile?.lastName}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="website"
+                    label="Website"
+                    placeholder="website"
+                    status="default"
+                    value={profile?.website}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="prifile__item">
+                  <Input
+                    type="text"
+                    name="company"
+                    label="Company"
+                    placeholder="company"
+                    status="default"
+                    value={profile?.company}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="profile__title h5 top">Additional info</div>
+
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="role"
+                    label="Role"
+                    placeholder="role"
+                    status="default"
+                    value={profile?.role}
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="prifile__item"></div>
+              </div>
+
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="bio"
+                    label="Bio"
+                    placeholder="bio"
+                    status="default"
+                    value={profile?.bio}
+                    onChange={handleChange}
+                  />
+                </div>
+              </div>
+
+              <div className="profile__input">
+                <div className="prifile__item right">
+                  <Input
+                    type="text"
+                    name="tech"
+                    label="Tech Stack"
+                    placeholder="Write Your Tech Stack!"
+                    status="default"
+                    value={techInput}
+                    onChange={(e) => setTechInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                  />
+
+                  <div className="profile__tag">
+                    {tech?.map((item, index) => (
+                      <Tag
+                        key={index}
+                        onClick={() => handelTagRemove(index)}
+                        isIcon={true}
+                        color={"gray"}
+                        label={item}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="profile__button">
+                <Button
+                  variant={"primary"}
+                  label={"Save"}
+                  onClick={handelSubmit}
+                />
+              </div>
             </div>
           </div>
-        </div>
+        </VStack>
       </>
     )
   );
