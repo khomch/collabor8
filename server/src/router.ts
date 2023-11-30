@@ -5,6 +5,7 @@ import projectDetails from './controllers/projectDetails';
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
+import review from "./controllers/review";
 
 // TODO authentication
 ///to update for middleware routes
@@ -128,6 +129,44 @@ router.put('/user/profile', authenticateToken, userDetails.updateUserProfile);
  */
 
 router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
+
+/**
+ * @swagger
+*  /user/review:
+ *    post:
+ *      tags:
+ *      - user
+ *      description: write review to user
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *        - in: body
+ *          name: review
+ *          description: Review object to be updated
+ *          required: true
+ *          schema:
+ *            type: object
+ *            properties:
+ *              fromUserName:
+ *                type: string
+ *              rating:
+ *                type: number
+ *              feedback:
+ *                type: string
+ *      responses:
+ *       201:
+ *        description: Success
+ *       404:
+ *        description: Wrong path
+ *        content:
+ *          application/json:
+ *            example:
+ *              status: error
+ *              message: User not found
+ */
+router.post("/user/review", authenticateToken, review.writeReview);
+
+
 
 //project details
 
@@ -268,5 +307,6 @@ router.post('/project/apply', projectDetails.applyToProject)
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // router.get("/api-docs", swaggerUi.setup(swaggerDocument));
+
 
 export default router;

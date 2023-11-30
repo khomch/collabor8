@@ -14,20 +14,21 @@ export type TRegisterDetails = {
 };
 
 export type TUserProfile = {
-  technologyStack: string[];
-  links: string[];
-  projectHistory: string[];
-  references: string[];
-  projects: string[];
-  rating?: string;
+  technologyStack?: string[];
+  links?: string[];
+  projectHistory?: string[];
+  references?: string[];
+  projects?: string[];
+  reviews?: TReview[];
 };
 
 export type TUserInfo = {
+  _id?: string;
   userName: string;
   firstName: string;
   lastName: string;
   emailAddress: string;
-  password: string;
+  password?: string;
   github?: string;
   website?: string;
   company?: string;
@@ -42,7 +43,7 @@ export type TUserState = {
   isLogged: boolean;
   userId: string | null;
   user: object | TUserInfo;
-  status: 'idle' | 'loading' | 'succeeded' | 'failed';
+  status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
 };
 
@@ -68,9 +69,15 @@ export type TProjectInfo = {
   description: string;
   additionalInfo: string;
   level: string;
-  projectWorkspaces: {
+  projectWorkspaces?: {
     name: string;
     link: string;
   }[];
-  openedRoles: TRole[];
+  openedRoles?: TRole[];
+};
+
+export type TReview = {
+  toUserId?: string;
+  rating?: Number;
+  feedback?: string;
 };

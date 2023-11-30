@@ -28,3 +28,7 @@
 .review__text {
   margin-top: 24px;
 }
+
+.review__rating {
+  margin-top: 15px;
+}

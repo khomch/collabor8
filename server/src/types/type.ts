@@ -22,3 +22,11 @@ export type Profile = {
   projects: string[];
   rating?: string;
 };
+
+export type Review = {
+  toUserId?: string;
+  rating?: Number;
+  feedback?: string;
+  fromUser?: string;
+};
+
