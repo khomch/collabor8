@@ -12,7 +12,7 @@ import { useParams } from "next/navigation";
 import { getProjectInfo } from "@/apiService/projectServicesApi";
 import { useEffect, useState } from "react";
 import { TProjectInfo } from "@/types/types";
-
+import { useSelector } from "@/redux-store/customHooks";
 
 export default function MyProjects() {
 
@@ -38,7 +38,7 @@ export default function MyProjects() {
   };
 
   const params = useParams();
-
+  const userId = useSelector((state) => state.userState.userId);
   const [openedProject, setOpenedProject] = useState(projectInitialData);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function MyProjects() {
             <ProjectWorkCard />
           </div>
           <div className="projects-page__projects">
-            <ProjectCard btnLabel="Apply" project={openedProject} />
+            <ProjectCard btnLabel="Apply" project={openedProject} userId={userId} />
             <ProjectDescCard desc={openedProject.description} info={openedProject.additionalInfo} />
           </div>
         </div>

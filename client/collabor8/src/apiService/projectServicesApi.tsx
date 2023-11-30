@@ -72,7 +72,7 @@ export async function removeRole(data: object) {
   }
 }
 
-export async function editProject(data: object) {
+export async function updateProject(data: object) {
   const token = localStorage.getItem('accessToken');
   try {
     const editProject = await fetch(`${API_URL}/project/edit`, {

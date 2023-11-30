@@ -1,11 +1,12 @@
 import { Request, Response } from 'express';
 import { Project } from '../models/schema';
 import { TRole } from '../types';
+import { RequestWithUser } from './userDetails';
 
-async function createProject(req: Request, res: Response) {
+async function createProject(req: RequestWithUser, res: Response) {
   try {
     const newProject = new Project({
-      projectOwnerId: req.body.projectOwnerId,
+      projectOwnerId: req.id,
       title: req.body.title,
       link: req.body.link,
       aboutProject: req.body.aboutProject,
@@ -27,11 +28,10 @@ async function createProject(req: Request, res: Response) {
   }
 }
 
-async function editProjectDetails(req: Request, res: Response) {
+async function editProjectDetails(req: RequestWithUser, res: Response) {
   try {
-    const filter = { projectOwnerId: req.body._id };
+    const filter = { projectOwnerId: req.id, _id: req.body._id };
     const update = {
-      projectOwnerId: req.body._id,
       title: req.body.title,
       link: req.body.link,
       aboutProject: req.body.aboutProject,
@@ -59,10 +59,10 @@ async function editProjectDetails(req: Request, res: Response) {
   }
 }
 
-async function addRole(req: Request, res: Response) {
+async function addRole(req: RequestWithUser, res: Response) {
   try {
     const filter = {
-      projectOwnerId: req.body.projectOwnerId,
+      projectOwnerId: req.id,
       _id: req.body.projectId,
     };
     const project = await Project.findOne(filter);
@@ -78,10 +78,10 @@ async function addRole(req: Request, res: Response) {
   }
 }
 
-async function removeRole(req: Request, res: Response) {
+async function removeRole(req: RequestWithUser, res: Response) {
   try {
     const filter = {
-      projectOwnerId: req.body.projectOwnerId,
+      projectOwnerId: req.id,
       _id: req.body.projectId,
     };
     const project = await Project.findOne(filter);

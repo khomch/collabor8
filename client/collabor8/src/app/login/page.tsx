@@ -38,7 +38,7 @@ export default function Login() {
       setEmail('');
       setPassword('');
       dispatch(fetchUserDetails());
-      router.push('/profile');
+      router.push('/dashboard');
     }
   };
 
