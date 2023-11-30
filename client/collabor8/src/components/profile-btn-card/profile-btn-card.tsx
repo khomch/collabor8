@@ -5,6 +5,8 @@ import Button from "../button/button";
 import VStack from "../ui/v-stack/v-stack";
 import UserProfile from "../user-profile/user-profile";
 import "./profile-btn-card.css";
+import { approveUser, denyUser } from "@/apiService/projectServicesApi";
+import { useParams } from "next/navigation";
 
 export type ProfileCardProps = {
   title: string;
@@ -13,11 +15,26 @@ export type ProfileCardProps = {
 };
 
 type User = {
+  _id: string;
   username: string;
   role: string;
 };
 
 function ProfileBtnCard({ title, status, data }: ProfileCardProps) {
+
+  const params = useParams();
+  const projectId = params.slug;
+
+  const handleApprove = (userId: string) => {
+    console.log("approve");
+  };
+const handleDeny = (userId: string) => {
+    denyUser({
+      userId: userId,
+      projectId: projectId,
+    })
+  }
+
   return (
     <VStack size="3col">
       <div className="profile-btn-card">
@@ -41,10 +58,10 @@ function ProfileBtnCard({ title, status, data }: ProfileCardProps) {
               ) : (
                 <>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="green" label={"Approve"} />
+                    <Button isSmall={true} variant="green" label={"Approve"} onClick={() => handleApprove(item._id)}/>
                   </div>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="gray" label={"Deny"} />
+                    <Button isSmall={true} variant="gray" label={"Deny"} onClick={() => handleDeny(item._id)}/>
                   </div>
                 </>
               )}

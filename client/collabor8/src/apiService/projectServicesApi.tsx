@@ -159,8 +159,8 @@ export async function applyToProject(data: object) {
     console.error(error);
   }
 }
-
-export async function approveUser(ids: object) {
+// TODO figure out new logic for this
+export async function approveUser(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
     const approveUser = await fetch(`${API_URL}/project/approve`, {
@@ -170,7 +170,7 @@ export async function approveUser(ids: object) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(ids),
+      body: JSON.stringify(data),
     });
     if (approveUser.ok) {
       const response = await approveUser.json();
@@ -178,6 +178,31 @@ export async function approveUser(ids: object) {
     } else {
       const statusCode = approveUser.status;
       const response = await approveUser.json();
+      return { status: statusCode, error: response.message };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function denyUser(data: object) {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const denyUser = await fetch(`${API_URL}/project/deny`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (denyUser.ok) {
+      const response = await denyUser.json();
+      return { status: 200, data: response };
+    } else {
+      const statusCode = denyUser.status;
+      const response = await denyUser.json();
       return { status: statusCode, error: response.message };
     }
   } catch (error) {

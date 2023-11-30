@@ -162,7 +162,7 @@ async function getProjectOwner(req: RequestWithUser, res: Response) {
     res.status(400).send();
   }
 }
-// TODO figure out this logic once handling apply correctly
+
 async function approveUser(req: Request, res: Response) {
   try {
     const filter = {
@@ -187,6 +187,26 @@ async function approveUser(req: Request, res: Response) {
   }
 }
 
+async function denyUser(req: Request, res: Response) {
+  try {
+    const filter = {
+      _id: req.body.projectId,
+    }
+    const idToDeny = req.body._id;
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    const indexToDeny = project.appliedUsers.findIndex((user: TUserInProject) => user._id === idToDeny);
+    project.appliedUsers.splice(indexToDeny, 1);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
 export default {
   createProject,
   editProjectDetails,
@@ -196,6 +216,6 @@ export default {
   removeRole,
   applyToProject,
   approveUser,
+  denyUser,
   getProjectOwner,
-
 };

@@ -10,27 +10,26 @@ import ProfileBtnCard from "@/components/profile-btn-card/profile-btn-card";
 import ProjectWorkCard from "@/components/project-work-card/project-work-card";
 import { useParams } from "next/navigation";
 import { getProjectInfo } from "@/apiService/projectServicesApi";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { TProjectInfo } from "@/types/types";
 import { useSelector } from "@/redux-store/customHooks";
 
 export default function MyProjects() {
-
   const projectInitialData: TProjectInfo = {
-    type: '',
+    type: "",
     techstack: [],
-    level: '',
-    projectOwnerId: '',
-    title: 'Loading...',
-    link: '',
-    aboutProject: '',
-    estimatedDeadline: '',
-    description: 'Loading information...',
-    additionalInfo: 'Loading information...',
+    level: "",
+    projectOwnerId: "",
+    title: "Loading...",
+    link: "",
+    aboutProject: "",
+    estimatedDeadline: "",
+    description: "Loading information...",
+    additionalInfo: "Loading information...",
     projectWorkspaces: [],
     openedRoles: [
       {
-        role: '',
+        role: "",
         techstack: [],
       },
     ],
@@ -44,31 +43,13 @@ export default function MyProjects() {
   const userInfo = useSelector((state) => state.userState.user);
 
   useEffect(() => {
-    const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
-    getProjectInfo(slug)
+    const projectId = Array.isArray(params.slug) ? params.slug[0] : params.slug;
+    getProjectInfo(projectId)
       .then((response) => {
         setOpenedProject(response?.data);
       })
       .catch((err) => console.log("error", err));
-  }, []);
-
-  const tempFinishUser = [
-    {
-      username: "Kamil Zmuda",
-      role: "Fullstack Developer",
-    },
-  ];
-
-  const tempJoinUser = [
-    {
-      username: "Kamil Zmuda",
-      role: "Fullstack Developer",
-    },
-    {
-      username: "Jin Lee",
-      role: "Fullstack Developer",
-    },
-  ];
+  }, [openedProject.appliedUsers, openedProject.finishedUsers]);
 
   return (
     // <section className="projects-page">
@@ -90,22 +71,33 @@ export default function MyProjects() {
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
-            <ProfileBtnCard
-              title={"Finished"}
-              status={"finished"}
-              data={tempFinishUser}
-            />
-            <ProfileBtnCard
-              title={"Want to Join"}
-              status={"join"}
-              data={tempJoinUser}
-            />
+            {openedProject.finishedUsers === null ? (
+              <ProfileBtnCard
+                title={"Finished"}
+                status={"finished"}
+                data={openedProject.finishedUsers}
+              />
+            ) : null}
+            {openedProject.appliedUsers ? (
+              <ProfileBtnCard
+                title={"Want to Join"}
+                status={"join"}
+                data={openedProject.appliedUsers}
+              />
+            ) : null}
             <ProfileDetailCard />
             <ProjectWorkCard />
           </div>
           <div className="projects-page__projects">
-            <ProjectCard btnLabel="Apply" project={openedProject} userInfo={userInfo} />
-            <ProjectDescCard desc={openedProject.description} info={openedProject.additionalInfo} />
+            <ProjectCard
+              btnLabel="Apply"
+              project={openedProject}
+              userInfo={userInfo}
+            />
+            <ProjectDescCard
+              desc={openedProject.description}
+              info={openedProject.additionalInfo}
+            />
           </div>
         </div>
       </div>

@@ -36,7 +36,6 @@ function ProjectCard({ project, btnLabel, userInfo = null }: ProjectCardProps) {
 
     const handleApply = async () => {
       const response = await applyToProject(applyData);
-      console.log('APPLY RESPONSE', response);
     }
 
   return (
