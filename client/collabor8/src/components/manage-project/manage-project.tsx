@@ -1,17 +1,18 @@
-import { createProject } from '@/apiService/projectServicesApi';
+import { createProject, updateProject } from '@/apiService/projectServicesApi';
 import { TProjectInfo } from '@/types/types';
 import {
   ChangeEvent,
   Dispatch,
   FormEvent,
   SetStateAction,
-  useState
+  useState,
 } from 'react';
 import Button from '../button/button';
 import Input from '../input/input';
 import { Select } from '../ui/select/select';
 import VStack from '../ui/v-stack/v-stack';
 import './manage-project.css';
+import { useRouter } from 'next/navigation';
 
 const types = ['New project', 'Add feature', 'Design', 'Consulting'];
 export const levels = ['Junior level', 'Middle level', 'Senior level'];
@@ -22,8 +23,9 @@ type ManageProjectProps = {
 };
 
 function ManageProject({ project, setProject }: ManageProjectProps) {
+  const router = useRouter();
   const [type, setType] = useState(types[0]);
-  const [level, setLevel] = useState(levels[0]);
+  const [level, setLevel] = useState(project.level);
   const [workspace, setWorkspace] = useState({ name: '', link: '' });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -41,9 +43,16 @@ function ManageProject({ project, setProject }: ManageProjectProps) {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    createProject({ ...project, type, workspace, level }).then((res) =>
-      setProject(res?.data)
-    );
+    if (project._id) {
+      updateProject({ ...project, type, workspace, level }).then((res) =>
+        setProject(res?.data)
+      );
+    } else {
+      createProject({ ...project, type, workspace, level }).then((res) => {
+        setProject(res?.data);
+        router.push(`/project-settings/${res?.data._id}`);
+      });
+    }
   };
 
   return (

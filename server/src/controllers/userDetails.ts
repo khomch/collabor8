@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { User } from "../models/schema";
 
-interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request {
   id?: string | number;
 }
 

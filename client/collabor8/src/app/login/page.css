@@ -1,9 +1,9 @@
 .login-page {
+  margin-top: var(--xxl);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   row-gap: 57px;
 }
 

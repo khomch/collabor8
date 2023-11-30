@@ -5,7 +5,7 @@ import projectDetails from './controllers/projectDetails';
 const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
-import review from "./controllers/review";
+import review from './controllers/review';
 
 // TODO authentication
 ///to update for middleware routes
@@ -132,7 +132,7 @@ router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
 
 /**
  * @swagger
-*  /user/review:
+ *  /user/review:
  *    post:
  *      tags:
  *      - user
@@ -164,9 +164,7 @@ router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
  *              status: error
  *              message: User not found
  */
-router.post("/user/review", authenticateToken, review.writeReview);
-
-
+router.post('/user/review', authenticateToken, review.writeReview);
 
 //project details
 
@@ -192,7 +190,7 @@ router.post("/user/review", authenticateToken, review.writeReview);
  *       400:
  *        description: error
  */
-router.post('/project/create', projectDetails.createProject);
+router.post('/project/create', authenticateToken, projectDetails.createProject);
 /**
  * @swagger
  *  /project/role:
@@ -215,7 +213,7 @@ router.post('/project/create', projectDetails.createProject);
  *       400:
  *        description: error
  */
-router.post('/project/role', projectDetails.addRole);
+router.post('/project/role', authenticateToken, projectDetails.addRole);
 /**
  * @swagger
  *  /project/role:
@@ -238,7 +236,7 @@ router.post('/project/role', projectDetails.addRole);
  *       400:
  *        description: error
  */
-router.delete('/project/role', projectDetails.removeRole);
+router.delete('/project/role', authenticateToken, projectDetails.removeRole);
 /**
  * @swagger
  *  /project/create:
@@ -261,7 +259,11 @@ router.delete('/project/role', projectDetails.removeRole);
  *       404:
  *        description: user not found
  */
-router.put('/project/edit', projectDetails.editProjectDetails);
+router.put(
+  '/project/edit',
+  authenticateToken,
+  projectDetails.editProjectDetails
+);
 /**
  * @swagger
  *  /project/:id:
@@ -303,6 +305,5 @@ router.get('/project/:id', projectDetails.getProjectDetails);
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 // router.get("/api-docs", swaggerUi.setup(swaggerDocument));
-
 
 export default router;

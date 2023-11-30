@@ -9,9 +9,9 @@ import VStack from '../ui/v-stack/v-stack';
 import './manage-team.css';
 
 type ManageTeamProps = {
-  existingRoles: TRole[];
+  existingRoles: TRole[] | undefined;
   projectId: string;
-  projectOwnerId: string;
+  projectOwnerId: string | null;
 };
 
 function ManageTeam({
@@ -19,8 +19,7 @@ function ManageTeam({
   projectId,
   projectOwnerId,
 }: ManageTeamProps) {
-  const [openedRoles, setOpenedRoles] = useState<TRole[]>(existingRoles);
-  console.log('openedRoles: ', openedRoles);
+  const [openedRoles, setOpenedRoles] = useState<TRole[]>(existingRoles || []);
   const [newRole, setNewRole] = useState('');
   const [tech, setTech] = useState<string[]>([]);
   const handleAddNewRole = (e: ChangeEvent<HTMLInputElement>) => {

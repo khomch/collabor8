@@ -16,8 +16,8 @@ import { levels } from '../manage-project/manage-project';
 import { TProjectInfo, TRole } from '@/types/types';
 
 type FiltersCardProps = {
-  projects: TProjectInfo[] | null;
-  projectsToRender: TProjectInfo[] | null;
+  projects: TProjectInfo[];
+  projectsToRender: TProjectInfo[];
   setProjectsToRender: Dispatch<SetStateAction<TProjectInfo[] | null>>;
 };
 
@@ -28,11 +28,13 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
   const techstackArrWithDuplicates =
     projects &&
     projects.reduce((acc: string[], curr: TProjectInfo) => {
-      acc.push(
-        ...curr.openedRoles.flatMap((role: TRole) =>
-          role.techstack.flatMap((tech: string) => tech)
-        )
-      );
+      if (curr.openedRoles) {
+        acc.push(
+          ...curr.openedRoles.flatMap((role: TRole) =>
+            role.techstack.flatMap((tech: string) => tech)
+          )
+        );
+      }
       return acc;
     }, []);
 
@@ -43,8 +45,8 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
       setProjectsToRender(
         projects &&
           projects.filter((project) =>
-            project.openedRoles.some((roleInfo: TRole) =>
-              selectedTags.every((tag) => roleInfo.techstack.includes(tag))
+            project.openedRoles?.some((roleInfo: TRole) =>
+              selectedTags.every((tag) => roleInfo?.techstack.includes(tag))
             )
           )
       );
@@ -58,13 +60,19 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
       setProjectsToRender(
         projects &&
           projects.filter((project) =>
-            project.openedRoles.some((roleInfo: TRole) =>
+            project.openedRoles?.some((roleInfo: TRole) =>
               roleInfo.role.toLowerCase().includes(role.toLowerCase())
             )
           )
       );
     }
   }, [role]);
+
+  useEffect(() => {
+    setProjectsToRender(
+      projects && projects.filter((project) => project.level === level)
+    );
+  }, [level]);
 
   const techstack = Array.from(new Set(techstackArrWithDuplicates));
 
@@ -78,6 +86,7 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
           name="desired-role"
           value={role}
           status="default"
+          placeholder="Enter role"
           onChange={(e) => setRole(e.target.value)}
         />
         <h4 className="filters__label bodytext3_semibold">Tech stack</h4>
