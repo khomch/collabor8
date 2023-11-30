@@ -1,14 +1,10 @@
 import { Request, Response } from 'express';
 import { Project } from '../models/schema';
-import { TRole } from '../types';
-import { RequestWithUser } from './userDetails';
+import { TRole } from "../types";
+import { RequestWithUser } from "./userDetails";
+
 
 async function createProject(req: RequestWithUser, res: Response) {
-interface RequestWithUser extends Request {
-  id?: string | number;
-}
-
-async function createProject(req: Request, res: Response) {
   try {
     const newProject = new Project({
       projectOwnerId: req.id,
