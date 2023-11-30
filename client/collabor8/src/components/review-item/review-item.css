@@ -1,0 +1,15 @@
+.review-item {
+  border-radius: 6px;
+  background: var(--interface-gray100);
+  margin-bottom: 14px;
+  padding: 10px;
+  height: auto;
+  max-height: 300px;
+}
+
+.review-item__feeback {
+  height: auto;
+  max-width: 300px;
+  line-height: 24px;
+  margin-top: 10px;
+}

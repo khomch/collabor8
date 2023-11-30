@@ -11,13 +11,13 @@ import ITech from '../../../public/icon/i_tech.svg';
 import Tag from '../tag/tag';
 import Button from '@/components/button/button';
 import Modal from '../modal/modal';
-import Review from '../review/review';
-import Link from 'next/link';
-import VStack from '../ui/v-stack/v-stack';
-import { TUserInfo } from '@/types/types';
+import ReviewModal from "../review-modal/review-modal";
+import Link from "next/link";
+import VStack from "../ui/v-stack/v-stack";
+import { TUserInfo } from "@/types/types";
 
 export type ProfileCardProps = {
-  direction: 'column' | 'row';
+  direction: "column" | "row";
   name: string;
   role: string;
   company: string;
@@ -25,20 +25,12 @@ export type ProfileCardProps = {
 
 function ProfileCard(data: TUserInfo) {
   const [showModal, setShowModal] = useState(false);
-  const tempTech = [
-    'Javascript',
-    'Typescript',
-    'AWS',
-    'Git',
-    'Angular JS',
-    'React',
-  ];
 
   return (
     <VStack size="3col">
       <div className="profile-card">
         <UserProfile
-          direction={'column'}
+          direction={"column"}
           name={data.userName}
           role={data.role}
           company={data.company}
@@ -72,9 +64,14 @@ function ProfileCard(data: TUserInfo) {
           </div>
           <div className="profile-card__links bodytext2 bodytext2_medium">
             {data?.profile?.links?.map((link: string, index: number) => (
-              <span key={index} className="profile-card__link">
+              <a
+                href={link}
+                target="_blank"
+                key={index}
+                className="profile-card__link"
+              >
                 {link}
-              </span>
+              </a>
             ))}
           </div>
         </div>
@@ -86,20 +83,20 @@ function ProfileCard(data: TUserInfo) {
           </div>
           <div className="profile-card__techs bodytext2 bodytext2_medium">
             {data?.profile?.technologyStack?.map((label, index) => (
-              <Tag key={index} color={'gray'} label={label} />
+              <Tag key={index} color={"gray"} label={label} />
             ))}
           </div>
         </div>
 
         <div className="profile-card__btn">
-          <Link href="/project-settings/new">
-            <Button variant={'primary'} label={'Start new project'} />
+          <Link href="/profile">
+            <Button variant={"primary"} label={"Edit Profile"} />
           </Link>
         </div>
 
         {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <Review />
+            <ReviewModal onClose={() => setShowModal(false)} user={data} />
           </Modal>
         )}
       </div>
