@@ -18,10 +18,10 @@ import { TRole } from '@/types/types';
 type ProjectCardProps = {
   project: TProjectInfo;
   btnLabel: 'Show more' | 'Apply';
-  userId: string | null;
+  userId: string | undefined;
 };
 
-function ProjectCard({ project, btnLabel, userId = null }: ProjectCardProps) {
+function ProjectCard({ project, btnLabel, userId }: ProjectCardProps) {
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {

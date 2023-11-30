@@ -1,8 +1,9 @@
 .profile-page {
   display: flex;
-  margin-top: var(--xl);
+  margin-top: var(--m);
   justify-content: center;
   gap: var(--m);
+  width: 100%;
 }
 
 
@@ -23,12 +24,6 @@
 
 .profile__button {
   margin-top: 40px;
-}
-
-.profile-page {
-  display: flex;
-  margin-top: var(--xl);
-  justify-content: center;
 }
 
 .profile {

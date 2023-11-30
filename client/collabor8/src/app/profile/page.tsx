@@ -2,13 +2,12 @@
 
 import { getUserProfile } from '@/apiService/profileServiceApi';
 import ProfileCard from '@/components/profile-card/profile-card';
+import ReviewsCard from "@/components/reviews-card/reviews-card";
+import { TUserInfo } from '@/types/types';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProfileEdit from '../profile-edit/page';
 import './profile.css';
-import { TUserInfo } from '@/types/types';
-import { useRouter } from 'next/navigation';
-import VStack from "@/components/ui/v-stack/v-stack";
-import ReviewsCard from "@/components/reviews-card/reviews-card";
 
 export type ProfileProps = {
   technologyStack?: string[];

@@ -39,14 +39,6 @@ export type TUserInfo = {
   profile?: TUserProfile;
 };
 
-export type TUserState = {
-  isLogged: boolean;
-  userId: string | null;
-  user: object | TUserInfo;
-  status: "idle" | "loading" | "succeeded" | "failed";
-  error: string | null | undefined;
-};
-
 export type TRole = {
   _id?: string;
   role: string;

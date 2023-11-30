@@ -85,6 +85,7 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
           label="Desired role"
           name="desired-role"
           value={role}
+          variant='blue'
           status="default"
           placeholder="Enter role"
           onChange={(e) => setRole(e.target.value)}

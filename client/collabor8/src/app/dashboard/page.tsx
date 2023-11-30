@@ -41,7 +41,7 @@ export default function Dashboard() {
                 />
                 <VStack size="3col">
                   <Link href="/project-settings/new">
-                    <Button variant={'primary'} label={'Start new project'} />
+                    <Button variant={'blue'} label={'Start new project'} />
                   </Link>
                 </VStack>
               </>
@@ -49,6 +49,7 @@ export default function Dashboard() {
           </div>
           <div className="dashboard-page__projects">
             {projectsToRender &&
+              userId &&
               projectsToRender.length > 0 &&
               projectsToRender.map((project) => (
                 <ProjectCard

@@ -44,7 +44,9 @@ const unauthMenuItems = [
 
 function Navbar() {
   const dispatch = useDispatch();
-  const isLogged = useSelector((state) => state.userState.isLogged);
+  const { isLogged, isLoading } = useSelector((state) => state.userState);
+  console.log('isLoading: ', isLoading);
+  console.log('isLogged: ', isLogged);
   const router = useRouter();
 
   useEffect(() => {
@@ -98,23 +100,26 @@ function Navbar() {
                 </li>
               </>
             ) : (
-              <>
-                {unauthMenuItems.map((item, index) => (
-                  <li
-                    className={`navbar__menu-item ${
-                      pathname === item.path && 'navbar__menu-item_active'
-                    }`}
-                    key={item.path}
-                  >
-                    <Link
-                      className={`bodytext1 navbar__menu-link`}
-                      href={item.path}
+              !isLogged &&
+              !isLoading && (
+                <>
+                  {unauthMenuItems.map((item, index) => (
+                    <li
+                      className={`navbar__menu-item ${
+                        pathname === item.path && 'navbar__menu-item_active'
+                      }`}
+                      key={item.path}
                     >
-                      {item.label}
-                    </Link>
-                  </li>
-                ))}
-              </>
+                      <Link
+                        className={`bodytext1 navbar__menu-link`}
+                        href={item.path}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </>
+              )
             )}
           </ul>
         </menu>

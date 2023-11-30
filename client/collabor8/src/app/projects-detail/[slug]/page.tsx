@@ -1,21 +1,20 @@
-"use client";
+'use client';
 
-import ProfileCard from "@/components/profile-card/profile-card";
-import "./projects.css";
-import { projectsMock } from "@/_MOCK-DATA_/mock-data";
-import ProjectCard from "@/components/project-card/project-card";
-import ProfileDetailCard from "@/components/project-detail-card/project-detail-card";
-import ProjectDescCard from "@/components/project-desc-card/project-desc-card";
-import ProfileBtnCard from "@/components/profile-btn-card/profile-btn-card";
-import ProjectWorkCard from "@/components/project-work-card/project-work-card";
-import { useParams } from "next/navigation";
-import { getProjectInfo } from "@/apiService/projectServicesApi";
-import { useEffect, useState } from "react";
-import { TProjectInfo } from "@/types/types";
-import { useSelector } from "@/redux-store/customHooks";
+import ProfileCard from '@/components/profile-card/profile-card';
+import './projects.css';
+import { projectsMock } from '@/_MOCK-DATA_/mock-data';
+import ProjectCard from '@/components/project-card/project-card';
+import ProfileDetailCard from '@/components/project-detail-card/project-detail-card';
+import ProjectDescCard from '@/components/project-desc-card/project-desc-card';
+import ProfileBtnCard from '@/components/profile-btn-card/profile-btn-card';
+import ProjectWorkCard from '@/components/project-work-card/project-work-card';
+import { useParams } from 'next/navigation';
+import { getProjectInfo } from '@/apiService/projectServicesApi';
+import { useEffect, useState } from 'react';
+import { TProjectInfo } from '@/types/types';
+import { useSelector } from '@/redux-store/customHooks';
 
 export default function MyProjects() {
-
   const projectInitialData: TProjectInfo = {
     type: '',
     techstack: [],
@@ -47,24 +46,24 @@ export default function MyProjects() {
       .then((response) => {
         setOpenedProject(response?.data);
       })
-      .catch((err) => console.log("error", err));
+      .catch((err) => console.log('error', err));
   }, []);
 
   const tempFinishUser = [
     {
-      username: "Kamil Zmuda",
-      role: "Fullstack Developer",
+      username: 'Kamil Zmuda',
+      role: 'Fullstack Developer',
     },
   ];
 
   const tempJoinUser = [
     {
-      username: "Kamil Zmuda",
-      role: "Fullstack Developer",
+      username: 'Kamil Zmuda',
+      role: 'Fullstack Developer',
     },
     {
-      username: "Jin Lee",
-      role: "Fullstack Developer",
+      username: 'Jin Lee',
+      role: 'Fullstack Developer',
     },
   ];
 
@@ -89,22 +88,31 @@ export default function MyProjects() {
         <div className="projects__content">
           <div className="projects-page__filters">
             <ProfileBtnCard
-              title={"Finished"}
-              status={"finished"}
+              title={'Finished'}
+              status={'finished'}
               data={tempFinishUser}
             />
             <ProfileBtnCard
-              title={"Want to Join"}
-              status={"join"}
+              title={'Want to Join'}
+              status={'join'}
               data={tempJoinUser}
             />
             <ProfileDetailCard />
             <ProjectWorkCard />
           </div>
-          <div className="projects-page__projects">
-            <ProjectCard btnLabel="Apply" project={openedProject} userId={userId} />
-            <ProjectDescCard desc={openedProject.description} info={openedProject.additionalInfo} />
-          </div>
+          {userId && openedProject && (
+            <div className="projects-page__projects">
+              <ProjectCard
+                btnLabel="Apply"
+                project={openedProject}
+                userId={userId}
+              />
+              <ProjectDescCard
+                desc={openedProject.description}
+                info={openedProject.additionalInfo}
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>

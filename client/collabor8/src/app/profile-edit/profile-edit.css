@@ -1,51 +1,50 @@
 .profile {
-    display: flex;
-    flex-direction: column;;
-    padding: var(--xs);
-    width: 920px;
+  display: flex;
+  flex-direction: column;
+  
 }
 
 .profile__container {
-    border-radius: 24px;
+  border-radius: 24px;
 }
 
 .profile__title {
-    color: var(--interface-black, #000);
-    font-family: var(--headers-font);
-    font-size: var(--h5-size);   
+  color: var(--interface-black, #000);
+  font-family: var(--headers-font);
+  font-size: var(--h5-size);
 }
 
 .profile__input {
-    display: flex;
-    margin-top: 24px;
+  display: flex;
+  margin-top: 24px;
 }
 .prifile__item {
-    flex: 1;
+  flex: 1;
 }
 
 .right {
-    margin-right: 16px;
+  margin-right: 16px;
 }
 
 .top {
-    margin-top: 24px;
+  margin-top: 24px;
 }
 
 .input__label {
-    color: var(--interface-gray600);
-    margin-left: 6px;
-    margin-bottom: 3px;
-    font-size: var(--body3-size);
+  color: var(--interface-gray600);
+  margin-left: 6px;
+  margin-bottom: 3px;
+  font-size: var(--body3-size);
 }
 
 .profile__tag {
-    display: flex;
-    margin-top: 10px;
-    overflow: hidden;
-    overflow-x: scroll;
-    max-width: 540px;
+  display: flex;
+  margin-top: 10px;
+  overflow: hidden;
+  overflow-x: scroll;
+  max-width: 540px;
 }
 
 .profile__button {
-    margin-top: 40px;
+  margin-top: 40px;
 }

@@ -28,6 +28,9 @@ export default function LandingPage() {
           width={620}
         />
       </div>
+      <div className="values">
+        <h2 className='h3'>Some cool text</h2>
+      </div>
       <div className="about">
         <VStack size="12col">
           <div className="about__info">...add some info...</div>
