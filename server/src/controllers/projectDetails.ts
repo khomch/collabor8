@@ -119,6 +119,28 @@ async function getAllProjectDetails(req: Request, res: Response) {
     res.status(400).send();
   }
 }
+async function applyToProject(req: Request, res: Response) {
+  try {
+    const filter = {
+      _id: req.body.projectId,
+    };
+    const userId = req.body.userId;
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    const isAlreadyApplied = project.appliedUsers.some( (appliedId: string) => appliedId === userId )
+    if (isAlreadyApplied) {
+      return res.status(409).send({ message: 'User already applied' });
+    }
+    project.appliedUsers.push(userId);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
 
 export default {
   createProject,
@@ -127,4 +149,5 @@ export default {
   getAllProjectDetails,
   addRole,
   removeRole,
+  applyToProject
 };

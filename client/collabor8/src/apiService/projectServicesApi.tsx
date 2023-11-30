@@ -135,3 +135,27 @@ export async function getProjectListing() {
     console.error(error);
   }
 }
+export async function applyToProject(ids: object ) {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const applyToProject = await fetch(`${API_URL}/project/apply`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (applyToProject.ok) {
+      const response = await applyToProject.json();
+      return { status: 200, data: response };
+    } else {
+      const statusCode = applyToProject.status;
+      const response = await applyToProject.json();
+      return { status: statusCode, error: response.message };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}

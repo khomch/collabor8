@@ -65,9 +65,11 @@ const ProjectInfomation = new Schema(
         techstack: [{ type: String }],
       },
     ],
+    appliedUsers: [{ type: String }],
   },
   { timestamps: true }
 );
+
 
 export const User = mongoose.model('User', UserTable);
 export const Project = mongoose.model('Project', ProjectInfomation);

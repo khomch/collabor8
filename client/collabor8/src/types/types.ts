@@ -74,6 +74,7 @@ export type TProjectInfo = {
     link: string;
   }[];
   openedRoles?: TRole[];
+  appliedUsers: string[];
 };
 
 export type TReview = {
