@@ -1,6 +1,5 @@
 'use client';
 
-
 import React, { useEffect, useState } from 'react';
 import UserProfile from '../user-profile/user-profile';
 import Router, { usePathname } from 'next/navigation';
@@ -46,11 +45,11 @@ function ProfileDetailCard() {
   const pathSegments = path.split('/');
   const param = pathSegments[pathSegments.length - 1];
 
-    async function fetchProjectInfo(params:string) {
+  async function fetchProjectInfo(params:string) {
     try {
       const projectInfo : any = await getProjectInfo(param)
       setProjectInfo(projectInfo.data)  
-      setProjectInfo(projectInfo.data.type)
+      setProjectStatus(projectInfo.data.type)
       
       
     } catch (error) {

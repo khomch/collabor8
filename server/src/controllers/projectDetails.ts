@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Project } from '../models/schema';
+import { Project, User} from '../models/schema';
 import { TRole } from "../types";
 import { RequestWithUser } from "./userDetails";
 
