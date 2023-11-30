@@ -20,13 +20,14 @@ export type ProfileCardProps = {
   name: string;
   role: string;
   company: string;
-  projectinfo: any ;
+  projectinfo: string ;
   estimatedDeadline: any;
-  openedRoles: string[];
+  openedRoles: { _id: string; role: string }[];
   teamMembers:string[];
-  status:any;
+  status:string;
   firstName:string;
   lastName:string;
+  
 };
 
 function ProfileDetailCard() {
@@ -74,9 +75,6 @@ function ProfileDetailCard() {
   
     return `${day} ${monthNames[monthIndex]} ${year}`;
   }
-
-
-
 
   return (
     <VStack size="3col">
