@@ -19,8 +19,8 @@
 
 .dashboard-page__projects {
   display: flex;
-  flex-direction: column;
-  gap: var(--m);
+  flex-direction: column-reverse;
+  justify-content: flex-end;
   width: 100%;
 }
 

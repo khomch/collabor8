@@ -6,7 +6,6 @@
   padding: var(--m);
   height: max-content;
   background-color: var(--white);
-  margin-bottom: var(--m);
   width: 100%;
 }
 
@@ -24,5 +23,5 @@
 }
 
 .vstack__bottom {
-  margin-bottom: 10px;
+  margin-bottom: var(--m);
 }

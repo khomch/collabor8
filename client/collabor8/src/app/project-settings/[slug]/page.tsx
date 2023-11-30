@@ -60,11 +60,11 @@ export default function ProjectEdit() {
             project={openedProject}
             setProject={setOpenedProject}
           />
-          {openedProject._id && userId && (
+          {openedProject && openedProject._id && (
             <ManageTeam
               projectOwnerId={userId}
               existingRoles={openedProject?.openedRoles}
-              projectId={openedProject?._id}
+              projectId={openedProject._id}
             />
           )}
         </>

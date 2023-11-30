@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import React, { useState } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Input from "../../components/input/input";
-import Button from "../../components/button/button";
-import { register } from "../../apiService/userService";
-import "./page.css";
+import React, { useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Input from '../../components/input/input';
+import Button from '../../components/button/button';
+import { register } from '../../apiService/userService';
+import './page.css';
 import { useDispatch } from '@/redux-store/customHooks';
 import { fetchUserDetails } from '@/redux-store/slices/userSlice';
 
 export default function Register() {
   const [form, setForm] = useState({
-    email: "",
-    username: "",
-    firstname: "",
-    lastname: "",
-    password: "",
-    repeatPassword: "",
+    email: '',
+    username: '',
+    firstname: '',
+    lastname: '',
+    password: '',
+    repeatPassword: '',
   });
 
   const dispatch = useDispatch();
 
-  const [error, setError] = useState({ isError: false, errorMessage: "" });
+  const [error, setError] = useState({ isError: false, errorMessage: '' });
 
   const router = useRouter();
 
@@ -40,13 +40,13 @@ export default function Register() {
     if (form.password !== form.repeatPassword) {
       setForm({
         ...form,
-        password: "",
-        repeatPassword: "",
+        password: '',
+        repeatPassword: '',
       });
-      setError({ isError: true, errorMessage: "Passwords did not match." });
+      setError({ isError: true, errorMessage: 'Passwords did not match.' });
       return;
     } else {
-      setError({ isError: false, errorMessage: "" });
+      setError({ isError: false, errorMessage: '' });
     }
 
     const newUser = {
@@ -62,18 +62,18 @@ export default function Register() {
     if (response.name === 'Error') {
       setError({ isError: true, errorMessage: response.message });
       setForm({
-        email: "",
-        username: "",
-        firstname: "",
-        lastname: "",
-        password: "",
-        repeatPassword: "",
+        email: '',
+        username: '',
+        firstname: '',
+        lastname: '',
+        password: '',
+        repeatPassword: '',
       });
       return;
     } else {
       dispatch(fetchUserDetails());
     }
-    router.push('/');
+    router.push('/profile');
   };
 
   return (
@@ -81,7 +81,7 @@ export default function Register() {
       <div className="register-page">
         <div className="logo-container">
           <Image
-            src={"/new-logo-yellow.png"}
+            src={'/new-logo-yellow.png'}
             alt="Collabor8 Logo"
             width={249}
             height={61}
@@ -147,8 +147,8 @@ export default function Register() {
               placeholder="Your password"
               status={
                 error.errorMessage === `Passwords did not match.`
-                  ? "error"
-                  : "default"
+                  ? 'error'
+                  : 'default'
               }
               onChange={(e) => {
                 handleChange(e);
@@ -163,8 +163,8 @@ export default function Register() {
               placeholder="Repeat your password"
               status={
                 error.errorMessage === `Passwords did not match.`
-                  ? "error"
-                  : "default"
+                  ? 'error'
+                  : 'default'
               }
               onChange={(e) => {
                 handleChange(e);

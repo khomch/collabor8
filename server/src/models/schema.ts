@@ -35,36 +35,39 @@ const UserTable = new Schema({
   },
 });
 
-const ProjectInfomation = new Schema({
-  projectOwnerId: { type: String, required: true, ref: 'User' },
-  title: { type: String, required: true },
-  link: { type: String, required: true },
-  aboutProject: { type: String, required: true },
-  estimatedDeadline: { type: String, required: true },
-  type: { type: String, required: true },
-  description: { type: String, required: true },
-  additionalInfo: { type: String },
-  level: { type: String },
-  // techstack:[ {type: String, required: true} ],
-  // status: { type: String, required: true },
+const ProjectInfomation = new Schema(
+  {
+    projectOwnerId: { type: String, required: true, ref: 'User' },
+    title: { type: String, required: true },
+    link: { type: String, required: true },
+    aboutProject: { type: String, required: true },
+    estimatedDeadline: { type: String, required: true },
+    type: { type: String, required: true },
+    description: { type: String, required: true },
+    additionalInfo: { type: String },
+    level: { type: String },
+    // techstack:[ {type: String, required: true} ],
+    // status: { type: String, required: true },
 
-  projectWorkspaces: [
-    {
-      name: { type: String, required: true },
-      link: { type: String, required: true },
-    },
-  ],
-  openedRoles: [
-    {
-      _id: {
-        type: String,
-        default: v4,
+    projectWorkspaces: [
+      {
+        name: { type: String, required: true },
+        link: { type: String, required: true },
       },
-      role: { type: String },
-      techstack: [{ type: String }],
-    },
-  ],
-});
+    ],
+    openedRoles: [
+      {
+        _id: {
+          type: String,
+          default: v4,
+        },
+        role: { type: String },
+        techstack: [{ type: String }],
+      },
+    ],
+  },
+  { timestamps: true }
+);
 
 export const User = mongoose.model('User', UserTable);
 export const Project = mongoose.model('Project', ProjectInfomation);
