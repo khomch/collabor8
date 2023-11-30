@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
 import { Project } from '../models/schema';
-import { TRole } from '../types';
-import { RequestWithUser } from './userDetails';
+import { TRole } from "../types";
+import { RequestWithUser } from "./userDetails";
+
 
 async function createProject(req: RequestWithUser, res: Response) {
   try {
@@ -50,7 +51,7 @@ async function editProjectDetails(req: RequestWithUser, res: Response) {
     });
 
     if (!projectDetails) {
-      return res.status(404).send({ message: 'User not found' });
+      return res.status(404).send({ message: "User not found" });
     }
     res.status(200).send(projectDetails);
   } catch (error) {
@@ -67,7 +68,7 @@ async function addRole(req: RequestWithUser, res: Response) {
     };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: 'Project not found' });
+      return res.status(404).send({ message: "Project not found" });
     }
     project.openedRoles.push(req.body.newRoleData);
     project.save();
@@ -86,7 +87,7 @@ async function removeRole(req: RequestWithUser, res: Response) {
     };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: 'Project not found' });
+      return res.status(404).send({ message: "Project not found" });
     }
     const newRoles = project.openedRoles.filter(
       (role: TRole) => role._id !== req.body.roleToDeleteId
@@ -146,6 +147,15 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     res.status(400).send();
   }
 }
+async function getProjectOwner(req: RequestWithUser, res: Response) {
+  try {
+    const project = await Project.find({ projectOwnerId: req.id });
+    res.status(200).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
 
 async function approveUser(req: Request, res: Response) {
   try {
@@ -177,4 +187,6 @@ export default {
   removeRole,
   applyToProject,
   approveUser,
+  getProjectOwner,
+
 };

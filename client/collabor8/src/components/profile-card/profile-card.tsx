@@ -25,6 +25,13 @@ export type ProfileCardProps = {
 
 function ProfileCard(data: TUserInfo) {
   const [showModal, setShowModal] = useState(false);
+  const ratings: any =
+    data?.profile?.reviews?.map((review) => review.rating) || [];
+  const avgRating =
+    ratings.length > 0
+      ? ratings.reduce((sum: number, rating: number) => sum + rating, 0) /
+        ratings.length
+      : 0;
 
   return (
     <VStack size="3col">
@@ -39,7 +46,7 @@ function ProfileCard(data: TUserInfo) {
         <div className="profile-card__reviews">
           <div className="profile-card__star_wrapper">
             <Image className="profile-card__star" src={Star} alt="Star" />
-            5.00
+            {avgRating ? `${avgRating}.00` : "no reviews"}
           </div>
           <div
             onClick={() => setShowModal(true)}

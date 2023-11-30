@@ -166,6 +166,7 @@ router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
  */
 router.post('/user/review', authenticateToken, review.writeReview);
 
+
 //project details
 
 /**
@@ -309,6 +310,29 @@ router.post('/project/approve', authenticateToken, projectDetails.approveUser);
 
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// router.get("/api-docs", swaggerUi.setup(swaggerDocument));
+
+/**
+ * @swagger
+ *  /project/owner:
+ *    get:
+ *      tags:
+ *      - project
+ *      description: get owner my projects
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *        - in: query
+ *          name: projectOwnerId
+ *          required: true
+ *          schema:
+ *            type: string
+ *            description: add another params
+ *      responses:
+ *       201:
+ *        description: success
+ *       404:
+ *        description: user not found
+ */
+ router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
 
 export default router;

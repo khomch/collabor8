@@ -34,7 +34,7 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserDetails.fulfilled, (state, action) => {
         state.status = 'succeeded';
-        state.userId = action.payload?._id || null;
+        state.userId = action?.payload?._id || null;
         if (state.userId) {
           state.isLogged = true;
         } else {

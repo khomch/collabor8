@@ -11,9 +11,6 @@ interface RequestWithUser extends Request {
 async function writeReview(req: RequestWithUser, res: Response) {
   try {
     const fromUser = await User.findOne({ _id: req.id });
-
-    console.log("testttß", fromUser);
-
     const update: Review = {
       toUserId: req.body.toUserId,
       rating: req.body.rating,

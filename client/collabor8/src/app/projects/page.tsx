@@ -6,17 +6,33 @@ import ProjectCard from '@/components/project-card/project-card';
 import { useDispatch, useSelector } from '@/redux-store/customHooks';
 import { fetchProjects } from '@/redux-store/slices/projectSlice';
 import Image from 'next/image';
-import { useEffect } from 'react';
-import IconOwner from '../../../public/icon-owner.svg';
-import IconTeamMember from '../../../public/icon-teammember.svg';
-import './projects.css';
-import { TProjectInfo } from "@/types/types";
+import { useEffect, useState } from "react";
+import IconOwner from "../../../public/icon-owner.svg";
+import IconTeamMember from "../../../public/icon-teammember.svg";
+import "./projects.css";
+import { TProjectInfo, TUserInfo } from "@/types/types";
+import { getOwnerProjects } from "@/apiService/projectServicesApi";
+import { fetchUserDetails } from "@/redux-store/slices/userSlice";
 
 export default function MyProjects() {
   const dispatch = useDispatch();
-  const { projects } = useSelector((state: any) => state.projectsInfo);
+  // const { projects } = useSelector((state: any) => state.projectsInfo);
+
+  const user: TUserInfo | any = useSelector((state) => state.userState.user);
+  const [ownerProjects, setOwnerProjects] = useState([]);
+
   useEffect(() => {
     dispatch(fetchProjects());
+
+    dispatch(fetchUserDetails());
+  }, []);
+
+  useEffect(() => {
+    getOwnerProjects()
+      .then((res) => {
+        setOwnerProjects(res?.data);
+      })
+      .catch((err) => console.log("error", err));
   }, []);
 
   return (
@@ -24,27 +40,27 @@ export default function MyProjects() {
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
-            <ProfileCard
-              userName={""}
-              firstName={""}
-              lastName={""}
-              emailAddress={""}
-            />
+            <ProfileCard {...user} />
           </div>
           <div className="projects-page__projects">
             <div className="projects-page__subtitle">
               <Image src={IconOwner} alt="Icon Project Owner" />
               <h2>Project Owner</h2>
             </div>
-
-            <ProjectCard btnLabel="Show more" project={projectsMock[0]} />
+            {ownerProjects?.map((project: TProjectInfo) => (
+              <ProjectCard
+                key={project._id}
+                btnLabel="Show more"
+                project={project}
+              />
+            ))}
 
             <div className="projects-page__subtitle">
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
-            {projects &&
-              projects.map((project: TProjectInfo) => (
+            {user &&
+              user?.profile?.projects.map((project: TProjectInfo) => (
                 <ProjectCard
                   key={project._id}
                   btnLabel="Show more"
