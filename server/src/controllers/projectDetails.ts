@@ -159,6 +159,6 @@ export default {
   getAllProjectDetails,
   addRole,
   removeRole,
-  applyToProject
+  applyToProject,
   getProjectOwner,
 };
