@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Project } from '../models/schema';
+import { Project, User} from '../models/schema';
 import { TRole } from "../types";
 import { RequestWithUser } from "./userDetails";
 
@@ -19,6 +19,7 @@ async function createProject(req: RequestWithUser, res: Response) {
       techstack: req.body.techstack,
       projectWorkspaces: req.body.projectWorkspaces,
       openedRoles: req.body.openedRoles,
+      status: "New Project"
     });
 
     const addProject = await newProject.save();
@@ -104,7 +105,16 @@ async function removeRole(req: RequestWithUser, res: Response) {
 async function getProjectDetails(req: Request, res: Response) {
   try {
     const project = await Project.findOne({ _id: req.params.id });
-    res.status(200).send(project);
+    const projectOwnerId = project.projectOwnerId;
+    const user = await User.findOne({ _id: projectOwnerId });
+    const firstName = user.firstName
+    const lastName = user.lastName
+
+
+    const projectWithOwnerName = {...project._doc,firstName,lastName}
+    
+
+    res.status(200).send(projectWithOwnerName);
   } catch (error) {
     console.error(error);
     res.status(400).send();
