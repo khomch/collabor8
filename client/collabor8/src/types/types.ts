@@ -42,7 +42,7 @@ export type TUserInfo = {
 export type TUserState = {
   isLogged: boolean;
   userId: string | null;
-  user: object | TUserInfo;
+  user: null | TUserInfo;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null | undefined;
 };
@@ -58,6 +58,7 @@ export interface IMyJwtPayload extends JwtPayload {
 }
 
 export type TUserInProject = {
+  _id: string;
   username: string;
   role: string;
 }

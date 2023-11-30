@@ -67,18 +67,21 @@ const ProjectInfomation = new Schema(
     ],
     appliedUsers: [
       {
+        _id: { type: String },
         username: { type: String },
         role: { type: String },
       },
     ],
     approvedUsers: [
       {
+        _id: { type: String },
         username: { type: String },
         role: { type: String },
       },
     ],
     finishedUsers: [
       {
+        _id: { type: String },
         username: { type: String },
         role: { type: String },
       },

@@ -135,7 +135,7 @@ export async function getProjectListing() {
     console.error(error);
   }
 }
-export async function applyToProject(projectId: object) {
+export async function applyToProject(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
     const applyToProject = await fetch(`${API_URL}/project/apply`, {
@@ -145,7 +145,7 @@ export async function applyToProject(projectId: object) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify(projectId),
+      body: JSON.stringify(data),
     });
     if (applyToProject.ok) {
       const response = await applyToProject.json();

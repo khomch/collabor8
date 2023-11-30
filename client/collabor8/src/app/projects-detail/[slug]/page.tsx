@@ -10,10 +10,9 @@ import ProfileBtnCard from "@/components/profile-btn-card/profile-btn-card";
 import ProjectWorkCard from "@/components/project-work-card/project-work-card";
 import { useParams } from "next/navigation";
 import { getProjectInfo } from "@/apiService/projectServicesApi";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { TProjectInfo } from "@/types/types";
 import { useSelector } from "@/redux-store/customHooks";
-import { getUserProfile } from "@/apiService/profileServiceApi";
 
 export default function MyProjects() {
 
@@ -42,7 +41,7 @@ export default function MyProjects() {
 
   const [openedProject, setOpenedProject] = useState(projectInitialData);
   const params = useParams();
-  const userId = useSelector((state) => state.userState.userId);
+  const userInfo = useSelector((state) => state.userState.user);
 
   useEffect(() => {
     const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;
@@ -105,7 +104,7 @@ export default function MyProjects() {
             <ProjectWorkCard />
           </div>
           <div className="projects-page__projects">
-            <ProjectCard btnLabel="Apply" project={openedProject} userId={userId} />
+            <ProjectCard btnLabel="Apply" project={openedProject} userInfo={userInfo} />
             <ProjectDescCard desc={openedProject.description} info={openedProject.additionalInfo} />
           </div>
         </div>

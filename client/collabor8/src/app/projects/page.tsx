@@ -52,6 +52,7 @@ export default function MyProjects() {
                 key={project._id}
                 btnLabel="Show more"
                 project={project}
+                userInfo={user}
               />
             ))}
 
@@ -65,6 +66,7 @@ export default function MyProjects() {
                   key={project._id}
                   btnLabel="Show more"
                   project={project}
+                  userInfo={user}
                 />
               ))}
           </div>
