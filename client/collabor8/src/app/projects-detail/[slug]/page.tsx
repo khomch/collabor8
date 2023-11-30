@@ -13,6 +13,7 @@ import { getProjectInfo } from "@/apiService/projectServicesApi";
 import { useEffect, useState } from "react";
 import { TProjectInfo } from "@/types/types";
 
+
 export default function MyProjects() {
 
   const projectInitialData: TProjectInfo = {

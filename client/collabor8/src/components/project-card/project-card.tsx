@@ -11,6 +11,8 @@ import Button from '../button/button';
 import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
 import './project-card.css';
+import { applyToProject } from '@/apiService/projectServicesApi';
+import { useSelector } from '@/redux-store/customHooks';
 
 type ProjectCardProps = {
   project: TProjectInfo;
@@ -26,6 +28,19 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
       acc.push(...curr.techstack);
       return acc;
     }, []);
+
+    const { userId } = useSelector((state) => state.userState);
+
+    const applyData = {
+      projectId: project._id,
+      userId: userId,
+    }
+
+    const handleApply = async () => {
+      const response = await applyToProject(applyData);
+      console.log('APPLY RESPONSE', response);
+    }
+
   return (
     <VStack size="9col">
       <div className="project-card">
@@ -81,9 +96,14 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
+            { btnLabel === 'Show more' &&
             <Link href={`/projects-detail/${project._id}`}>
               <Button label={btnLabel} variant="primary" />
             </Link>
+            }
+            { btnLabel === 'Apply' &&
+              <Button label={btnLabel} variant="primary" onClick={() => handleApply()} />
+            }
           </div>
         </div>
       </div>
