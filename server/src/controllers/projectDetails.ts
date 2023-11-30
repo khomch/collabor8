@@ -130,10 +130,36 @@ async function applyToProject(req: RequestWithUser, res: Response) {
       return res.status(404).send({ message: 'Project not found' });
     }
     const isAlreadyApplied = project.appliedUsers.some( (appliedId: string) => appliedId === userId )
-    if (isAlreadyApplied) {
-      return res.status(409).send({ message: 'User already applied' });
+    const isAlreadyApproved = project.approvedUsers.some( (approvedId: string) => approvedId === userId )
+    if (isAlreadyApplied | isAlreadyApproved) {
+      return res.status(409).send({
+        message: isAlreadyApplied
+        ? 'User already applied'
+        : 'User already participating in the project'
+      });
     }
     project.appliedUsers.push(userId);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function approveUser(req: Request, res: Response) {
+  try {
+    const filter = {
+      _id: req.body.projectId,
+    }
+    const userToApprove = req.body.userId;
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    project.approvedUsers.push(userToApprove);
+    const appliedIndex = project.appliedUsers.indexOf(userToApprove);
+    project.appliedUsers.splice(appliedIndex, 1);
     project.save();
     res.status(201).send(project);
   } catch (error) {
@@ -149,5 +175,6 @@ export default {
   getAllProjectDetails,
   addRole,
   removeRole,
-  applyToProject
+  applyToProject,
+  approveUser,
 };

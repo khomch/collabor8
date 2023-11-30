@@ -303,7 +303,9 @@ router.get('/project/:id', projectDetails.getProjectDetails);
  *        description: user not found
  */
 
-router.post('/project/apply', authenticateToken, projectDetails.applyToProject)
+router.post('/project/apply', authenticateToken, projectDetails.applyToProject);
+
+router.post('/project/approve', authenticateToken, projectDetails.approveUser);
 
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

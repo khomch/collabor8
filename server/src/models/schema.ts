@@ -66,6 +66,8 @@ const ProjectInfomation = new Schema(
       },
     ],
     appliedUsers: [{ type: String }],
+    approvedUsers: [{ type: String }],
+    finishedUsers: [{ type: String }],
   },
   { timestamps: true }
 );
