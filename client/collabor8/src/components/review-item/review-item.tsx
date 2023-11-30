@@ -8,8 +8,8 @@ import UserProfile from "../user-profile/user-profile";
 function ReviewItem({ userName, rating, feedback, index }: any) {
   return (
     <div className="review-item" key={index}>
-      <UserProfile direction={"row"} name={userName} />
-      <StarRating rating={rating} />
+      <UserProfile direction={"row"} name={userName} rating={rating} />
+      <div style={{ width: 100 }}></div>
 
       <div className="review-item__feeback">{feedback}</div>
     </div>
