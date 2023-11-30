@@ -22,6 +22,10 @@
   max-width: 920px;
 }
 
+.vstack_12col {
+  max-width: 1232px;
+}
+
 .vstack__bottom {
   margin-bottom: var(--m);
 }

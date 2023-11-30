@@ -1,3 +1,46 @@
 body {
   min-height: 100%;
 }
+
+.landing-page {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--xl);
+  justify-content: center;
+  align-items: center;
+}
+
+.cta {
+  margin-top: 120px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  max-width: var(--width-xxl);
+}
+
+.cta__text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xl);
+  max-width: 460px;
+}
+
+.cta__button {
+  width: 100%;
+}
+
+.cta__image {
+  border: var(--m) solid var(--interface-gray200);
+  border-radius: var(--xl);
+}
+
+.about {
+  margin-top: 160px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.about__info {
+  height: 300px;
+}
