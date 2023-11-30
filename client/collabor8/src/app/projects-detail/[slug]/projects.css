@@ -21,6 +21,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--s);
+  width: 100%;
 }
 
 .projects-page__subtitle {

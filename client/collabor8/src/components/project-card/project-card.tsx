@@ -31,7 +31,6 @@ function ProjectCard({ project, btnLabel, userId = null }: ProjectCardProps) {
 
     const applyData = {
       projectId: project._id,
-      userId: userId,
     }
 
     const handleApply = async () => {
