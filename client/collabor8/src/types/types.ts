@@ -57,6 +57,11 @@ export interface IMyJwtPayload extends JwtPayload {
   _id: string;
 }
 
+export type TUserInProject = {
+  username: string;
+  role: string;
+}
+
 export type TProjectInfo = {
   _id?: string;
   projectOwnerId?: string;
@@ -74,7 +79,9 @@ export type TProjectInfo = {
     link: string;
   }[];
   openedRoles?: TRole[];
-  appliedUsers: string[];
+  appliedUsers?: TUserInProject[];
+  approvedUsers?: TUserInProject[];
+  finishedUsers?: TUserInProject[];
 };
 
 export type TReview = {

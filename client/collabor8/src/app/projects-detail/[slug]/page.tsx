@@ -13,6 +13,7 @@ import { getProjectInfo } from "@/apiService/projectServicesApi";
 import { useEffect, useState } from "react";
 import { TProjectInfo } from "@/types/types";
 import { useSelector } from "@/redux-store/customHooks";
+import { getUserProfile } from "@/apiService/profileServiceApi";
 
 export default function MyProjects() {
 
@@ -35,11 +36,13 @@ export default function MyProjects() {
       },
     ],
     appliedUsers: [],
+    approvedUsers: [],
+    finishedUsers: [],
   };
 
+  const [openedProject, setOpenedProject] = useState(projectInitialData);
   const params = useParams();
   const userId = useSelector((state) => state.userState.userId);
-  const [openedProject, setOpenedProject] = useState(projectInitialData);
 
   useEffect(() => {
     const slug = Array.isArray(params.slug) ? params.slug[0] : params.slug;

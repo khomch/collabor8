@@ -65,9 +65,24 @@ const ProjectInfomation = new Schema(
         techstack: [{ type: String }],
       },
     ],
-    appliedUsers: [{ type: String }],
-    approvedUsers: [{ type: String }],
-    finishedUsers: [{ type: String }],
+    appliedUsers: [
+      {
+        username: { type: String },
+        role: { type: String },
+      },
+    ],
+    approvedUsers: [
+      {
+        username: { type: String },
+        role: { type: String },
+      },
+    ],
+    finishedUsers: [
+      {
+        username: { type: String },
+        role: { type: String },
+      },
+    ],
   },
   { timestamps: true }
 );
