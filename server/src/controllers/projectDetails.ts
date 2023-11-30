@@ -119,12 +119,12 @@ async function getAllProjectDetails(req: Request, res: Response) {
     res.status(400).send();
   }
 }
-async function applyToProject(req: Request, res: Response) {
+async function applyToProject(req: RequestWithUser, res: Response) {
   try {
     const filter = {
       _id: req.body.projectId,
     };
-    const userId = req.body.userId;
+    const userId = req.id;
     const project = await Project.findOne(filter);
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });

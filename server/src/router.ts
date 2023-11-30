@@ -303,8 +303,7 @@ router.get('/project/:id', projectDetails.getProjectDetails);
  *        description: user not found
  */
 
-// TODO put authMiddleware when finished
-router.post('/project/apply', projectDetails.applyToProject)
+router.post('/project/apply', authenticateToken, projectDetails.applyToProject)
 
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
