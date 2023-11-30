@@ -159,3 +159,28 @@ export async function applyToProject( projectId: object ) {
     console.error(error);
   }
 }
+
+export async function approveUser( ids: object ) {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const approveUser = await fetch(`${API_URL}/project/approve`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (approveUser.ok) {
+      const response = await approveUser.json();
+      return { status: 200, data: response };
+    } else {
+      const statusCode = approveUser.status;
+      const response = await approveUser.json();
+      return { status: statusCode, error: response.message };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
