@@ -159,3 +159,27 @@ export async function applyToProject( projectId: object ) {
     console.error(error);
   }
 }
+
+export async function getOwnerProjects() {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const projectInfo = await fetch(`${API_URL}/project-owner`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (projectInfo.ok) {
+      const response = await projectInfo.json();
+      return { status: 200, data: response };
+    } else {
+      return { status: 400, error: "Error getting project info" };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
