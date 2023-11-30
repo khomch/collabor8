@@ -10,17 +10,21 @@ import { useEffect, useState } from "react";
 import IconOwner from "../../../public/icon-owner.svg";
 import IconTeamMember from "../../../public/icon-teammember.svg";
 import "./projects.css";
-import { TProjectInfo } from "@/types/types";
+import { TProjectInfo, TUserInfo } from "@/types/types";
 import { getOwnerProjects } from "@/apiService/projectServicesApi";
+import { fetchUserDetails } from "@/redux-store/slices/userSlice";
 
 export default function MyProjects() {
   const dispatch = useDispatch();
-  const { projects } = useSelector((state: any) => state.projectsInfo);
+  // const { projects } = useSelector((state: any) => state.projectsInfo);
 
+  const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
 
   useEffect(() => {
     dispatch(fetchProjects());
+
+    dispatch(fetchUserDetails());
   }, []);
 
   useEffect(() => {
@@ -36,12 +40,7 @@ export default function MyProjects() {
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
-            <ProfileCard
-              userName={""}
-              firstName={""}
-              lastName={""}
-              emailAddress={""}
-            />
+            <ProfileCard {...user} />
           </div>
           <div className="projects-page__projects">
             <div className="projects-page__subtitle">
@@ -60,8 +59,8 @@ export default function MyProjects() {
               <Image src={IconTeamMember} alt="Team member Icon" />
               <h2>Team member in</h2>
             </div>
-            {projects &&
-              projects.map((project: TProjectInfo) => (
+            {user &&
+              user?.profile?.projects.map((project: TProjectInfo) => (
                 <ProjectCard
                   key={project._id}
                   btnLabel="Show more"
