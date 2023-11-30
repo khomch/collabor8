@@ -135,3 +135,26 @@ export async function getProjectListing() {
     console.error(error);
   }
 }
+// TODO make sure this call is working properly
+export async function applyToProject(ids: object ) {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const applyToProject = await fetch(`${API_URL}/project/apply`, {
+      method: 'POST',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(ids),
+    });
+    if (applyToProject.ok) {
+      const response = await applyToProject.json();
+      return { status: 200, data: response };
+    } else {
+      return { status: 400, error: 'Error applying to project' };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}

@@ -81,7 +81,7 @@ function ProjectCard({ project, btnLabel }: ProjectCardProps) {
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            <Link href={'/projects-detail'}>
+            <Link href={`/projects-detail/${project._id}`}>
               <Button label={btnLabel} variant="primary" />
             </Link>
           </div>
