@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import store from '../redux-store/store';
 import './globals.css';
 import Navbar from '../components/navbar/navbar';
+import AuthProvider from '@/components/auth-provider/auth-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -17,8 +18,10 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Provider store={store}>
-          <Navbar />
-          <div className="children">{children}</div>
+          <AuthProvider>
+            <Navbar />
+            <div className="children">{children}</div>
+          </AuthProvider>
         </Provider>
       </body>
     </html>

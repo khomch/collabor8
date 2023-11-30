@@ -31,6 +31,17 @@ const menuItems = [
   },
 ];
 
+const unauthMenuItems = [
+  {
+    label: 'Login',
+    path: '/login',
+  },
+  {
+    label: 'Register',
+    path: '/register',
+  },
+];
+
 function Navbar() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
@@ -44,7 +55,7 @@ function Navbar() {
     localStorage.removeItem('accessToken');
     dispatch(resetUserState());
     router.push('/login');
-  }
+  };
   const pathname = usePathname();
   return (
     <nav className="navbar">
@@ -59,33 +70,53 @@ function Navbar() {
           />
         </Link>
         <menu className="navbar__menu">
-          {isLogged && (
-            <ul className="navbar__menu-items">
-              {menuItems.map((item, index) => (
-                <li
-                  className={`navbar__menu-item ${
-                    pathname === item.path && 'navbar__menu-item_active'
-                  }`}
-                  key={item.path}
-                >
-                  <Link
-                    className={`bodytext1 navbar__menu-link`}
-                    href={item.path}
+          <ul className="navbar__menu-items">
+            {isLogged ? (
+              <>
+                {menuItems.map((item, index) => (
+                  <li
+                    className={`navbar__menu-item ${
+                      pathname === item.path && 'navbar__menu-item_active'
+                    }`}
+                    key={item.path}
                   >
-                    {item.label}
-                  </Link>
+                    <Link
+                      className={`bodytext1 navbar__menu-link`}
+                      href={item.path}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+                <li className="navbar__menu-link">
+                  <Button
+                    variant="primary"
+                    label="Logout"
+                    onClick={() => handleLogout()}
+                    type="button"
+                  />
                 </li>
-              ))}
-              <li className='navbar__menu-link'>
-                <Button
-                  variant='primary'
-                  label='Logout'
-                  onClick={() => handleLogout()}
-                  type='button'
-                />
-              </li>
-            </ul>
-          )}
+              </>
+            ) : (
+              <>
+                {unauthMenuItems.map((item, index) => (
+                  <li
+                    className={`navbar__menu-item ${
+                      pathname === item.path && 'navbar__menu-item_active'
+                    }`}
+                    key={item.path}
+                  >
+                    <Link
+                      className={`bodytext1 navbar__menu-link`}
+                      href={item.path}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </>
+            )}
+          </ul>
         </menu>
       </div>
     </nav>

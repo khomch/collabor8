@@ -2,8 +2,7 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import IconClose from '../../../public/icon-close.svg';
-import UserProfile from "../user-profile/user-profile";
-import "./modal.css";
+import './modal.css';
 
 type Props = {
   onClose: () => void;
@@ -15,12 +14,12 @@ export default function Modal({ onClose, children }: Props): any {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         closeModal();
       }
     };
-    window.addEventListener("keydown", handler);
-    return () => window.removeEventListener("keydown", handler);
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
   }, []);
 
   useEffect(() => {
