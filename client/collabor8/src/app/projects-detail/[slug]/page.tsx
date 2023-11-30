@@ -67,18 +67,24 @@ export default function MyProjects() {
     // </section>
 
     // if owner project
+
+    // TODO add conditional rendering:
+    // non-owners shouldn't see finished/want to join section
+
     <section className="projects-page">
       <div className="projects">
         <div className="projects__content">
           <div className="projects-page__filters">
-            {openedProject.finishedUsers === null ? (
+            {openedProject.projectOwnerId === userInfo?._id &&
+            openedProject.finishedUsers === null ? (
               <ProfileBtnCard
                 title={"Finished"}
                 status={"finished"}
                 data={openedProject.finishedUsers}
               />
             ) : null}
-            {openedProject.appliedUsers ? (
+            {openedProject.projectOwnerId === userInfo?._id &&
+            openedProject.appliedUsers?.length ? (
               <ProfileBtnCard
                 title={"Want to Join"}
                 status={"join"}

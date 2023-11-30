@@ -20,7 +20,7 @@ export default function MyProjects() {
 
   const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
-
+  console.log("user", user);
   useEffect(() => {
     dispatch(fetchProjects());
 

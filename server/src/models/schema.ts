@@ -4,38 +4,7 @@ var mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const UserTable = new Schema({
-  userName: { type: String, required: true },
-  firstName: { type: String, required: true },
-  lastName: { type: String, required: true },
-  emailAddress: { type: String, required: true },
-  password: { type: String, required: true },
-  github: { type: String },
-  website: { type: String },
-  company: { type: String },
-  socialMediaAccounts: { type: String },
-  role: { type: String },
-  bio: { type: String },
-  yearsExperience: { type: String },
-  profile: {
-    technologyStack: [{ type: String }],
-    links: [{ type: String }],
-    projectHistory: [{ type: String }],
-    references: [{ type: String }],
-    projects: [{ type: String }],
-    reviews: [
-      {
-        type: {
-          fromUserName: String,
-          rating: Number,
-          feedback: String,
-        },
-      },
-    ],
-  },
-});
-
-const ProjectInfomation = new Schema(
+const ProjectInformation = new Schema(
   {
     projectOwnerId: { type: String, required: true, ref: 'User' },
     title: { type: String, required: true },
@@ -90,6 +59,36 @@ const ProjectInfomation = new Schema(
   { timestamps: true }
 );
 
+const UserTable = new Schema({
+  userName: { type: String, required: true },
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  emailAddress: { type: String, required: true },
+  password: { type: String, required: true },
+  github: { type: String },
+  website: { type: String },
+  company: { type: String },
+  socialMediaAccounts: { type: String },
+  role: { type: String },
+  bio: { type: String },
+  yearsExperience: { type: String },
+  profile: {
+    technologyStack: [{ type: String }],
+    links: [{ type: String }],
+    projectHistory: [{ type: String }],
+    references: [{ type: String }],
+    projects: [ProjectInformation],
+    reviews: [
+      {
+        type: {
+          fromUserName: String,
+          rating: Number,
+          feedback: String,
+        },
+      },
+    ],
+  },
+});
 
 export const User = mongoose.model('User', UserTable);
-export const Project = mongoose.model('Project', ProjectInfomation);
+export const Project = mongoose.model('Project', ProjectInformation);

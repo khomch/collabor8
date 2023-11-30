@@ -26,11 +26,15 @@ function ProfileBtnCard({ title, status, data }: ProfileCardProps) {
   const projectId = params.slug;
 
   const handleApprove = (userId: string) => {
-    console.log("approve");
+    approveUser({
+      _id: userId,
+      projectId: projectId,
+    })
   };
+
 const handleDeny = (userId: string) => {
     denyUser({
-      userId: userId,
+      _id: userId,
       projectId: projectId,
     })
   }

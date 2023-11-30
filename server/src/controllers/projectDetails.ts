@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Project } from '../models/schema';
+import { Project, User } from '../models/schema';
 import { TRole, TUserInProject } from "../types";
 import { RequestWithUser } from "./userDetails";
 
@@ -134,7 +134,6 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
-    console.log(user)
     const isAlreadyApplied = project.appliedUsers.some( (user: TUserInProject) => user._id === req.id )
     const isAlreadyApproved = project.approvedUsers.some( (user: TUserInProject) => user._id === req.id )
     if (isAlreadyApplied | isAlreadyApproved) {
@@ -165,21 +164,24 @@ async function getProjectOwner(req: RequestWithUser, res: Response) {
 
 async function approveUser(req: Request, res: Response) {
   try {
-    const filter = {
+    const projectFilter = {
       _id: req.body.projectId,
     }
-    const userToApprove = {
-      username: req.body.username,
-      role: req.body.role,
+    const userFilter = {
+      _id: req.body._id
     }
-    const project = await Project.findOne(filter);
+    const project = await Project.findOne(projectFilter);
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
+    const userToApprove = await User.findOne(userFilter);
     project.approvedUsers.push(userToApprove);
-    const appliedIndex = project.appliedUsers.indexOf(userToApprove);
+    const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === userToApprove._id);
     project.appliedUsers.splice(appliedIndex, 1);
     project.save();
+    console.log(project)
+    userToApprove.profile.projects.push(project);
+    userToApprove.save();
     res.status(201).send(project);
   } catch (error) {
     console.error(error);
