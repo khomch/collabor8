@@ -7,12 +7,12 @@ import UserProfile from "../user-profile/user-profile";
 import "./profile-btn-card.css";
 import { approveUser, denyUser } from "@/apiService/projectServicesApi";
 import { useParams } from "next/navigation";
-import { TProjectInfo } from "@/types/types";
+import { TProjectInfo, TUserInProject } from "@/types/types";
 
 export type ProfileCardProps = {
   title: string;
   status: "finished" | "join";
-  data: User[];
+  data: User[] | TUserInProject[] | undefined;
   updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
