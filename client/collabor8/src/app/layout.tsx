@@ -6,8 +6,9 @@ import store from '../redux-store/store';
 import './globals.css';
 import Navbar from '../components/navbar/navbar';
 import AuthProvider from '@/components/auth-provider/auth-provider';
+import { Toaster } from "react-hot-toast";
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] });
 
 export default function RootLayout({
   children,
@@ -20,7 +21,10 @@ export default function RootLayout({
         <Provider store={store}>
           <AuthProvider>
             <Navbar />
-            <div className="children">{children}</div>
+            <div className="children">
+              {children}
+              <Toaster />
+            </div>
           </AuthProvider>
         </Provider>
       </body>

@@ -9,6 +9,7 @@ import { TUserInfo } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import VStack from "@/components/ui/v-stack/v-stack";
 import ReviewsCard from "@/components/reviews-card/reviews-card";
+import toast, { Toaster } from "react-hot-toast";
 
 export type ProfileProps = {
   technologyStack?: string[];
