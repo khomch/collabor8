@@ -13,6 +13,8 @@ import "./project-card.css";
 import { applyToProject, finishUserTask } from "@/apiService/projectServicesApi";
 import { TRole, TUserInfo, TProjectInfo } from "@/types/types";
 import { Dispatch, SetStateAction } from "react";
+import toast from "react-hot-toast";
+
 
 type ProjectCardProps = {
   project: TProjectInfo;
@@ -28,12 +30,14 @@ function ProjectCard({
   userInfo = null,
   updateParentState,
 }: ProjectCardProps) {
+
   const isUserApplied = project.appliedUsers?.some(
     (user) => user._id === userInfo?._id
   );
   const isUserParticipating = project.approvedUsers?.some(
     (user) => user._id === userInfo?._id
   );
+
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -48,10 +52,16 @@ function ProjectCard({
   };
 
   const handleApply = async () => {
-    const response = await applyToProject(applyData);
-    if (response!.status === 200) {
-      updateParentState!(response!.data);
-    }
+    try {
+      const response = await applyToProject(applyData);
+      if (response!.status === 200) {
+        toast("Apply!");
+        updateParentState!(response!.data);
+      } else {
+        console.log(response);
+        toast("⛔️ " + response?.error);
+      }
+    } catch (err) {}
   };
 
   const handleFinish = async () => {
@@ -152,6 +162,7 @@ function ProjectCard({
                   onClick={() => handleFinish()}
                 />
               )}
+
           </div>
         </div>
       </div>

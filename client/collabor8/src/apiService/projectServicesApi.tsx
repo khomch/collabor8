@@ -1,3 +1,5 @@
+import toast from "react-hot-toast";
+
 export const API_URL = "http://localhost:3001";
 
 export async function createProject(data: object) {
@@ -87,6 +89,7 @@ export async function updateProject(data: object) {
 
     if (editProject.ok) {
       const response = await editProject.json();
+      toast("Saved successfully! ✅");
       return { status: 200, data: response };
     } else {
       return { status: 400, error: "Error editing project" };
@@ -156,7 +159,7 @@ export async function applyToProject(data: object) {
       return { status: statusCode, error: response.message };
     }
   } catch (error) {
-    console.error(error);
+    throw error;
   }
 }
 export async function approveUser(data: object) {
@@ -209,28 +212,28 @@ export async function denyUser(data: object) {
   }
 }
 
-  export async function getOwnerProjects() {
-    try {
-      const token = localStorage.getItem("accessToken");
-      const projectInfo = await fetch(`${API_URL}/project-owner`, {
-        method: "GET",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+export async function getOwnerProjects() {
+  try {
+    const token = localStorage.getItem("accessToken");
+    const projectInfo = await fetch(`${API_URL}/project-owner`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      if (projectInfo.ok) {
-        const response = await projectInfo.json();
-        return { status: 200, data: response };
-      } else {
-        return { status: 400, error: "Error getting project info" };
-      }
-    } catch (error) {
-      console.error(error);
+    if (projectInfo.ok) {
+      const response = await projectInfo.json();
+      return { status: 200, data: response };
+    } else {
+      return { status: 400, error: "Error getting project info" };
     }
+  } catch (error) {
+    console.error(error);
   }
+}
 
   export async function finishUserTask(id: object ) {
     const token = localStorage.getItem("accessToken");

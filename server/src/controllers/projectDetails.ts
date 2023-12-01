@@ -18,7 +18,7 @@ async function createProject(req: RequestWithUser, res: Response) {
       additionalInfo: req.body.additionalInfo,
       level: req.body.level,
       techstack: req.body.techstack,
-      projectWorkspaces: req.body.projectWorkspaces,
+      projectWorkspaces: req.body.workspace,
       openedRoles: req.body.openedRoles,
       status: "New Project",
     });
