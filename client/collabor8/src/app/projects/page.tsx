@@ -17,7 +17,6 @@ export default function MyProjects() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
-
   useEffect(() => {
     dispatch(fetchProjects());
     dispatch(fetchUserDetails());
@@ -50,28 +49,26 @@ export default function MyProjects() {
                     key={project._id}
                     btnLabel="Show more"
                     project={project}
-                    userId={user._id}
+                    userInfo={user}
                   />
                 ))}
 
-                <div className="projects-page__subtitle">
-                  <Image src={IconTeamMember} alt="Team member Icon" />
-                  <h2>Team member in</h2>
-                </div>
-                {/* {user &&
-                  user!.profile!.projects.map((project: TProjectInfo) => (
-                    <ProjectCard
-                      key={project._id}
-                      btnLabel="Show more"
-                      project={project}
-                      userId={user._id}
-                    />
-                  ))} */}
-              </div>
-            )}
+            <div className="projects-page__subtitle">
+              <Image src={IconTeamMember} alt="Team member Icon" />
+              <h2>Team member in</h2>
+            </div>
+            {user &&
+              user?.profile?.projects.map((project: TProjectInfo) => (
+                <ProjectCard
+                  key={project._id}
+                  btnLabel="Show more"
+                  project={project}
+                  userInfo={user}
+                />
+              ))}
           </div>
         </div>
-      </section>
-    )
+      </div>
+    </section>
   );
 }

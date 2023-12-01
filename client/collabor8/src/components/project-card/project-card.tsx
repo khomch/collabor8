@@ -1,5 +1,4 @@
 'useclient';
-import { TProjectInfo } from '@/types/types';
 import Image from 'next/image';
 import Link from 'next/link';
 import AboutIcon from '../../../public/icon-about.svg';
@@ -12,16 +11,16 @@ import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
 import './project-card.css';
 import { applyToProject } from '@/apiService/projectServicesApi';
-import { TRole } from '@/types/types';
+import { TRole, TUserInfo, TProjectInfo } from '@/types/types';
 
 
 type ProjectCardProps = {
   project: TProjectInfo;
   btnLabel: 'Show more' | 'Apply';
-  userId: string | undefined;
+  userInfo: TUserInfo | null;
 };
 
-function ProjectCard({ project, btnLabel, userId }: ProjectCardProps) {
+function ProjectCard({ project, btnLabel, userInfo = null }: ProjectCardProps) {
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -31,11 +30,12 @@ function ProjectCard({ project, btnLabel, userId }: ProjectCardProps) {
 
     const applyData = {
       projectId: project._id,
+      username: userInfo?.userName,
+      role: userInfo?.role || 'Not specified',
     }
 
     const handleApply = async () => {
       const response = await applyToProject(applyData);
-      console.log('APPLY RESPONSE', response);
     }
 
   return (
@@ -44,7 +44,7 @@ function ProjectCard({ project, btnLabel, userId }: ProjectCardProps) {
         <div>
           <h2 className="project-card__title">
             {project.title}
-            {userId === project.projectOwnerId && (
+            {userInfo?._id === project.projectOwnerId && (
               <Link
                 href={`/project-settings/${project._id}`}
                 className="project-card__edit-btn"
@@ -100,7 +100,7 @@ function ProjectCard({ project, btnLabel, userId }: ProjectCardProps) {
               <Button label={btnLabel} variant="primary" />
             </Link>
             }
-            { btnLabel === 'Apply' &&
+            { btnLabel === 'Apply' && userInfo?._id !== project.projectOwnerId &&
               <Button label={btnLabel} variant="primary" onClick={() => handleApply()} />
             }
           </div>

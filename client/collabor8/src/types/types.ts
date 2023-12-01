@@ -39,6 +39,14 @@ export type TUserInfo = {
   profile?: TUserProfile;
 };
 
+export type TUserState = {
+  isLogged: boolean;
+  userId: string | null;
+  user: null | TUserInfo;
+  status: "idle" | "loading" | "succeeded" | "failed";
+  error: string | null | undefined;
+};
+
 export type TRole = {
   _id?: string;
   role: string;
@@ -47,6 +55,12 @@ export type TRole = {
 
 export interface IMyJwtPayload extends JwtPayload {
   _id: string;
+}
+
+export type TUserInProject = {
+  _id: string;
+  username: string;
+  role: string;
 }
 
 export type TProjectInfo = {
@@ -66,7 +80,9 @@ export type TProjectInfo = {
     link: string;
   }[];
   openedRoles?: TRole[];
-  appliedUsers: string[];
+  appliedUsers?: TUserInProject[];
+  approvedUsers?: TUserInProject[];
+  finishedUsers?: TUserInProject[];
 };
 
 export type TReview = {
