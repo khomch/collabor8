@@ -20,7 +20,6 @@ export default function MyProjects() {
 
   const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
-
   useEffect(() => {
     dispatch(fetchProjects());
 
@@ -52,6 +51,7 @@ export default function MyProjects() {
                 key={project._id}
                 btnLabel="Show more"
                 project={project}
+                userInfo={user}
               />
             ))}
 
@@ -65,6 +65,7 @@ export default function MyProjects() {
                   key={project._id}
                   btnLabel="Show more"
                   project={project}
+                  userInfo={user}
                 />
               ))}
           </div>

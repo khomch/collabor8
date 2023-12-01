@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
-import { Project, User} from '../models/schema';
-import { TRole } from "../types";
+
+import { Project, User } from '../models/schema';
+import { TRole, TUserInProject } from "../types";
+
 import { RequestWithUser } from "./userDetails";
 
 
@@ -112,7 +114,7 @@ async function getProjectDetails(req: Request, res: Response) {
 
 
     const projectWithOwnerName = {...project._doc,firstName,lastName}
-    
+
 
     res.status(200).send(projectWithOwnerName);
   } catch (error) {
@@ -135,16 +137,25 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     const filter = {
       _id: req.body.projectId,
     };
-    const userId = req.id;
+    const user = {
+      _id: req.id,
+      username: req.body.username,
+      role: req.body.role,
+    }
     const project = await Project.findOne(filter);
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
-    const isAlreadyApplied = project.appliedUsers.some( (appliedId: string) => appliedId === userId )
-    if (isAlreadyApplied) {
-      return res.status(409).send({ message: 'User already applied' });
+    const isAlreadyApplied = project.appliedUsers.some( (user: TUserInProject) => user._id === req.id )
+    const isAlreadyApproved = project.approvedUsers.some( (user: TUserInProject) => user._id === req.id )
+    if (isAlreadyApplied | isAlreadyApproved) {
+      return res.status(409).send({
+        message: isAlreadyApplied
+        ? 'User already applied'
+        : 'User already participating in the project'
+      });
     }
-    project.appliedUsers.push(userId);
+    project.appliedUsers.push(user);
     project.save();
     res.status(201).send(project);
   } catch (error) {
@@ -152,10 +163,59 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     res.status(400).send();
   }
 }
+
 async function getProjectOwner(req: RequestWithUser, res: Response) {
   try {
     const project = await Project.find({ projectOwnerId: req.id });
     res.status(200).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function approveUser(req: Request, res: Response) {
+  try {
+    const projectFilter = {
+      _id: req.body.projectId,
+    }
+    const appliedUser = {
+      _id: req.body._id,
+      username: req.body.username,
+      role: req.body.role,
+    }
+    const project = await Project.findOne(projectFilter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    const userToApprove = await User.findOne({_id: req.body._id});
+    project.approvedUsers.push(appliedUser);
+    const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === appliedUser._id);
+    project.appliedUsers.splice(appliedIndex, 1);
+    project.save();
+    userToApprove.profile.projects.push(project);
+    userToApprove.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function denyUser(req: Request, res: Response) {
+  try {
+    const filter = {
+      _id: req.body.projectId,
+    }
+    const idToDeny = req.body._id;
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    const indexToDeny = project.appliedUsers.findIndex((user: TUserInProject) => user._id === idToDeny);
+    project.appliedUsers.splice(indexToDeny, 1);
+    project.save();
+    res.status(201).send(project);
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -170,5 +230,7 @@ export default {
   addRole,
   removeRole,
   applyToProject,
+  approveUser,
+  denyUser,
   getProjectOwner,
 };
