@@ -1,27 +1,39 @@
-'useclient';
-import Image from 'next/image';
-import Link from 'next/link';
-import AboutIcon from '../../../public/icon-about.svg';
-import EditIcon from '../../../public/icon-edit.svg';
-import LevelIcon from '../../../public/icon-levels.svg';
-import LinkIcon from '../../../public/icon-link.svg';
-import TechStackIcon from '../../../public/icon-techstack.svg';
-import Button from '../button/button';
-import Tag from '../tag/tag';
-import VStack from '../ui/v-stack/v-stack';
-import './project-card.css';
-import { applyToProject } from '@/apiService/projectServicesApi';
-import { TRole, TUserInfo, TProjectInfo } from '@/types/types';
-import { Dispatch, SetStateAction } from 'react';
+"useclient";
+import Image from "next/image";
+import Link from "next/link";
+import AboutIcon from "../../../public/icon-about.svg";
+import EditIcon from "../../../public/icon-edit.svg";
+import LevelIcon from "../../../public/icon-levels.svg";
+import LinkIcon from "../../../public/icon-link.svg";
+import TechStackIcon from "../../../public/icon-techstack.svg";
+import Button from "../button/button";
+import Tag from "../tag/tag";
+import VStack from "../ui/v-stack/v-stack";
+import "./project-card.css";
+import { applyToProject } from "@/apiService/projectServicesApi";
+import { TRole, TUserInfo, TProjectInfo } from "@/types/types";
+import { Dispatch, SetStateAction } from "react";
 
 type ProjectCardProps = {
   project: TProjectInfo;
-  btnLabel: 'Show more' | 'Apply';
-  userInfo: TUserInfo | null;
+  btnLabel: "Show more" | "Apply";
+  userId?: string | null;
+  userInfo?: TUserInfo | null;
   updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
-function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  btnLabel,
+  userInfo = null,
+  updateParentState,
+}: ProjectCardProps) {
+  const isUserApplied = project.appliedUsers?.some(
+    (user) => user._id === userInfo?._id
+  );
+  const isUserParticipating = project.approvedUsers?.some(
+    (user) => user._id === userInfo?._id
+  );
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -29,19 +41,22 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
       return acc;
     }, []);
 
-    const applyData = {
-      projectId: project._id,
-      username: userInfo?.userName,
-      role: userInfo?.role || 'Not specified',
-    }
+  const applyData = {
+    projectId: project._id,
+    username: userInfo?.userName,
+    role: userInfo?.role || "Not specified",
+  };
 
-    const handleApply = async () => {
-      const response = await applyToProject(applyData);
-      if (response!.status === 200 ) {
-        updateParentState!(response!.data)
-      }
+  const handleApply = async () => {
+    const response = await applyToProject(applyData);
+    if (response!.status === 200) {
+      updateParentState!(response!.data);
     }
+  };
 
+  const handleFinish = async () => {
+    console.log("finish");
+  };
   return (
     <VStack size="9col">
       <div className="project-card">
@@ -99,14 +114,41 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            { btnLabel === 'Show more' &&
-            <Link href={`/projects-detail/${project._id}`}>
-              <Button label={btnLabel} variant="primary" />
-            </Link>
-            }
-            { btnLabel === 'Apply' && userInfo?._id !== project.projectOwnerId &&
-              <Button label={btnLabel} variant="primary" onClick={() => handleApply()} />
-            }
+            {btnLabel === "Show more" && (
+              <Link href={`/projects-detail/${project._id}`}>
+                <Button label={btnLabel} variant="primary" />
+              </Link>
+            )}
+            {btnLabel === "Apply" &&
+              !isUserParticipating &&
+              !isUserApplied &&
+              userInfo?._id !== project.projectOwnerId && (
+                <Button
+                  label={btnLabel}
+                  variant="primary"
+                  onClick={() => handleApply()}
+                />
+              )}
+            {btnLabel === "Apply" &&
+              !isUserParticipating &&
+              isUserApplied &&
+              userInfo?._id !== project.projectOwnerId && (
+                <Button
+                  label="Waiting for approval"
+                  variant="primary"
+                  onClick={() => handleApply()}
+                  disabled={true}
+                />
+              )}
+            {btnLabel === "Apply" &&
+              isUserParticipating &&
+              userInfo?._id !== project.projectOwnerId && (
+                <Button
+                  label="Finish Task"
+                  variant="primary"
+                  onClick={() => handleFinish()}
+                />
+              )}
           </div>
         </div>
       </div>
