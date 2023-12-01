@@ -49,8 +49,8 @@ export default function MyProjects() {
         setOpenedProject(response?.data);
       })
       .catch((err) => console.log("error", err));
-  }, [openedProject.appliedUsers, openedProject.finishedUsers]);
-
+  }, []);
+  console.log('project detail')
   return (
     // <section className="projects-page">
     //   <div className="projects">
@@ -81,6 +81,7 @@ export default function MyProjects() {
                 title={"Finished"}
                 status={"finished"}
                 data={openedProject.finishedUsers}
+                updateParentState={setOpenedProject}
               />
             ) : null}
             {openedProject.projectOwnerId === userInfo?._id &&
@@ -89,6 +90,7 @@ export default function MyProjects() {
                 title={"Want to Join"}
                 status={"join"}
                 data={openedProject.appliedUsers}
+                updateParentState={setOpenedProject}
               />
             ) : null}
             <ProfileDetailCard />
@@ -99,6 +101,7 @@ export default function MyProjects() {
               btnLabel="Apply"
               project={openedProject}
               userInfo={userInfo}
+              updateParentState={setOpenedProject}
             />
             <ProjectDescCard
               desc={openedProject.description}

@@ -1,17 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction } from "react";
 import Button from "../button/button";
 import VStack from "../ui/v-stack/v-stack";
 import UserProfile from "../user-profile/user-profile";
 import "./profile-btn-card.css";
 import { approveUser, denyUser } from "@/apiService/projectServicesApi";
 import { useParams } from "next/navigation";
+import { TProjectInfo } from "@/types/types";
 
 export type ProfileCardProps = {
   title: string;
   status: "finished" | "join";
   data: User[];
+  updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
 type User = {
@@ -20,26 +22,31 @@ type User = {
   role: string;
 };
 
-function ProfileBtnCard({ title, status, data }: ProfileCardProps) {
+function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardProps) {
 
   const params = useParams();
   const projectId = params.slug;
 
-  const handleApprove = (user: User) => {
-    approveUser({
+  const handleApprove = async (user: User) => {
+    const response = await approveUser({
       _id: user._id,
       username: user.username,
       role: user.role,
       projectId: projectId,
     })
-    console.log("user", user);
+    if (response!.status === 200 ) {
+      updateParentState!(response!.data)
+    }
   };
 
-const handleDeny = (userId: string) => {
-    denyUser({
+const handleDeny = async (userId: string) => {
+  const response = await denyUser({
       _id: userId,
       projectId: projectId,
     })
+    if (response!.status === 200 ) {
+      updateParentState!(response!.data)
+    }
   }
 
   return (
