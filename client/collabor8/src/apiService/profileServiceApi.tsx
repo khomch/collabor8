@@ -3,9 +3,9 @@ import { API_URL } from './projectServicesApi';
 export const getUserProfile = async () => {
   const token = localStorage.getItem('accessToken');
   try {
-    const userProfile = await fetch(`${API_URL}/user/profile`, {
-      method: 'GET',
-      mode: 'cors',
+    const projectInfo = await fetch(`${API_URL}/user/profiledetails`, {
+      method: "GET",
+      mode: "cors",
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,

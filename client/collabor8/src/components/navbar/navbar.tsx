@@ -45,8 +45,6 @@ const unauthMenuItems = [
 function Navbar() {
   const dispatch = useDispatch();
   const { isLogged, isLoading } = useSelector((state) => state.userState);
-  console.log('isLoading: ', isLoading);
-  console.log('isLogged: ', isLogged);
   const router = useRouter();
 
   useEffect(() => {

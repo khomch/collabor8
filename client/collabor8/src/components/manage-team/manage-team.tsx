@@ -1,4 +1,5 @@
 import { addRole } from '@/apiService/projectServicesApi';
+import { addRole } from '@/apiService/projectServicesApi';
 import { TRole } from '@/types/types';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import Button from '../button/button';
@@ -36,8 +37,11 @@ function ManageTeam({
       projectOwnerId,
       projectId,
       newRoleData,
+      newRoleData,
     })
       .then((res) => {
+        if (res?.data.openedRoles) {
+          setOpenedRoles(res.data.openedRoles);
         if (res?.data.openedRoles) {
           setOpenedRoles(res.data.openedRoles);
           setTech([]);

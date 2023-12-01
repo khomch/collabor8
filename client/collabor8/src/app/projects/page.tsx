@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import IconOwner from '../../../public/icon-owner.svg';
 import IconTeamMember from '../../../public/icon-teammember.svg';
 import './projects.css';
+import './projects.css';
 
 export default function MyProjects() {
   const dispatch = useDispatch();

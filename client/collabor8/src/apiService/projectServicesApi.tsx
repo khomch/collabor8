@@ -72,6 +72,46 @@ export async function removeRole(data: object) {
   }
 }
 
+export async function removeRole(data: object) {
+  try {
+    const createProject = await fetch(`${API_URL}/project/role`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (createProject.ok) {
+      const response = await createProject.json();
+      return { status: 201, data: response };
+    } else {
+      return { status: 400, error: "Error adding member" };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function removeRole(data: object) {
+  try {
+    const createProject = await fetch(`${API_URL}/project/role`, {
+      method: 'DELETE',
+      mode: 'cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    });
+
+    if (createProject.ok) {
+      const response = await createProject.json();
+      return { status: 201, data: response };
+    } else {
+      return { status: 400, error: "Error adding member" };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 export async function updateProject(data: object) {
   const token = localStorage.getItem("accessToken");
   try {

@@ -11,6 +11,7 @@ body {
 }
 
 .cta {
+  position: relative;
   margin-top: 160px;
   display: flex;
   width: 100%;
@@ -32,6 +33,20 @@ body {
 .cta__image {
   border: var(--m) solid var(--interface-gray200);
   border-radius: var(--xl);
+}
+
+.cta__shape-square {
+  position: absolute;
+  z-index: 100;
+  top: -100px;
+  left: 50px;
+}
+
+.cta__shape-cube {
+  position: absolute;
+  z-index: 100;
+  bottom: -150px;
+  right: 100px;
 }
 
 .values {
