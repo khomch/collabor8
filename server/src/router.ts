@@ -308,6 +308,7 @@ router.post('/project/apply', authenticateToken, projectDetails.applyToProject);
 
 router.post('/project/approve', authenticateToken, projectDetails.approveUser);
 router.post('/project/deny', authenticateToken, projectDetails.denyUser);
+router.post('/project/finish', authenticateToken, projectDetails.finishUserTask);
 
 router.get('/projects', projectDetails.getAllProjectDetails);
 router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

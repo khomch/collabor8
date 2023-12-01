@@ -77,7 +77,7 @@ const UserTable = new Schema({
   profile: {
     technologyStack: [{ type: String }],
     links: [{ type: String }],
-    projectHistory: [{ type: String }],
+    projectHistory: [ProjectInformation],
     references: [{ type: String }],
     projects: [ProjectInformation],
     reviews: [

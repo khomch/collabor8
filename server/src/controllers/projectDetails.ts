@@ -1,10 +1,9 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { Project, User } from '../models/schema';
+import { Project, User } from "../models/schema";
 import { TRole, TUserInProject } from "../types";
 
 import { RequestWithUser } from "./userDetails";
-
 
 async function createProject(req: RequestWithUser, res: Response) {
   try {
@@ -21,7 +20,7 @@ async function createProject(req: RequestWithUser, res: Response) {
       techstack: req.body.techstack,
       projectWorkspaces: req.body.projectWorkspaces,
       openedRoles: req.body.openedRoles,
-      status: "New Project"
+      status: "New Project",
     });
 
     const addProject = await newProject.save();
@@ -109,12 +108,10 @@ async function getProjectDetails(req: Request, res: Response) {
     const project = await Project.findOne({ _id: req.params.id });
     const projectOwnerId = project.projectOwnerId;
     const user = await User.findOne({ _id: projectOwnerId });
-    const firstName = user.firstName
-    const lastName = user.lastName
+    const firstName = user.firstName;
+    const lastName = user.lastName;
 
-
-    const projectWithOwnerName = {...project._doc,firstName,lastName}
-
+    const projectWithOwnerName = { ...project._doc, firstName, lastName };
 
     res.status(200).send(projectWithOwnerName);
   } catch (error) {
@@ -141,18 +138,22 @@ async function applyToProject(req: RequestWithUser, res: Response) {
       _id: req.id,
       username: req.body.username,
       role: req.body.role,
-    }
+    };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: 'Project not found' });
+      return res.status(404).send({ message: "Project not found" });
     }
-    const isAlreadyApplied = project.appliedUsers.some( (user: TUserInProject) => user._id === req.id )
-    const isAlreadyApproved = project.approvedUsers.some( (user: TUserInProject) => user._id === req.id )
+    const isAlreadyApplied = project.appliedUsers.some(
+      (user: TUserInProject) => user._id === req.id
+    );
+    const isAlreadyApproved = project.approvedUsers.some(
+      (user: TUserInProject) => user._id === req.id
+    );
     if (isAlreadyApplied | isAlreadyApproved) {
       return res.status(409).send({
         message: isAlreadyApplied
-        ? 'User already applied'
-        : 'User already participating in the project'
+          ? "User already applied"
+          : "User already participating in the project",
       });
     }
     project.appliedUsers.push(user);
@@ -178,19 +179,21 @@ async function approveUser(req: Request, res: Response) {
   try {
     const projectFilter = {
       _id: req.body.projectId,
-    }
+    };
     const appliedUser = {
       _id: req.body._id,
       username: req.body.username,
       role: req.body.role,
-    }
+    };
     const project = await Project.findOne(projectFilter);
     if (!project) {
-      return res.status(404).send({ message: 'Project not found' });
+      return res.status(404).send({ message: "Project not found" });
     }
-    const userToApprove = await User.findOne({_id: req.body._id});
+    const userToApprove = await User.findOne({ _id: req.body._id });
     project.approvedUsers.push(appliedUser);
-    const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === appliedUser._id);
+    const appliedIndex = project.appliedUsers.indexOf(
+      (user: TUserInProject) => user._id === appliedUser._id
+    );
     project.appliedUsers.splice(appliedIndex, 1);
     project.save();
     userToApprove.profile.projects.push(project);
@@ -206,15 +209,40 @@ async function denyUser(req: Request, res: Response) {
   try {
     const filter = {
       _id: req.body.projectId,
-    }
+    };
     const idToDeny = req.body._id;
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: 'Project not found' });
+      return res.status(404).send({ message: "Project not found" });
     }
-    const indexToDeny = project.appliedUsers.findIndex((user: TUserInProject) => user._id === idToDeny);
+    const indexToDeny = project.appliedUsers.findIndex(
+      (user: TUserInProject) => user._id === idToDeny
+    );
     project.appliedUsers.splice(indexToDeny, 1);
     project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function finishUserTask(req: RequestWithUser, res: Response) {
+  const userFilter = { _id: req.id }
+  const projectFilter = { _id: req.body._id }
+  try {
+    const project = await Project.findOne(projectFilter);
+    const finishedId = await project.approvedUsers.findIndex((user: TUserInProject) => user._id === req.id)
+    const finishedUser = await project.approvedUsers.splice(finishedId, 1);
+    project.finishedUsers.push(...finishedUser);
+    project.save()
+
+    const userToUpdate = await User.findOne(userFilter);
+    const finishedProjectId = userToUpdate.profile.projects.findIndex(
+      (userProject: any) => userProject.title === project.title);
+    const projectToMove = await userToUpdate.profile.projects.splice(finishedProjectId, 1);
+    userToUpdate.profile.projectHistory.push(...projectToMove);
+    userToUpdate.save();
     res.status(201).send(project);
   } catch (error) {
     console.error(error);
@@ -233,4 +261,5 @@ export default {
   approveUser,
   denyUser,
   getProjectOwner,
+  finishUserTask,
 };

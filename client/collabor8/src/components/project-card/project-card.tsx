@@ -10,7 +10,7 @@ import Button from "../button/button";
 import Tag from "../tag/tag";
 import VStack from "../ui/v-stack/v-stack";
 import "./project-card.css";
-import { applyToProject } from "@/apiService/projectServicesApi";
+import { applyToProject, finishUserTask } from "@/apiService/projectServicesApi";
 import { TRole, TUserInfo, TProjectInfo } from "@/types/types";
 import { Dispatch, SetStateAction } from "react";
 
@@ -55,7 +55,10 @@ function ProjectCard({
   };
 
   const handleFinish = async () => {
-    console.log("finish");
+    const response = await finishUserTask({_id: project._id!});
+    if (response!.status === 200) {
+      updateParentState!(response!.data);
+    }
   };
   return (
     <VStack size="9col">
