@@ -4,7 +4,7 @@ import Input from "../input/input";
 import Button from "../button/button";
 import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
-import { TReview, TUserInfo, TUserProfile } from "@/types/types";
+import { TReview, TUserInfo } from "@/types/types";
 import { writeReview } from "@/apiService/userService";
 
 interface ReviewProps {

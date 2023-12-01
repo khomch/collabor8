@@ -16,8 +16,6 @@ import { fetchUserDetails } from '@/redux-store/slices/userSlice';
 
 export default function MyProjects() {
   const dispatch = useDispatch();
-  // const { projects } = useSelector((state: any) => state.projectsInfo);
-
   const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
   useEffect(() => {
@@ -32,7 +30,6 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
-  console.log(user)
   return (
     <section className="projects-page">
       <div className="projects">
@@ -42,7 +39,7 @@ export default function MyProjects() {
           </div>
 
             <div className="projects-page__projects">
-              {!ownerProjects &&
+              {ownerProjects.length > 0 &&
               <div className="projects-page__subtitle">
                 <Image src={IconOwner} alt="Icon Project Owner" />
                 <h2>Project Owner</h2>

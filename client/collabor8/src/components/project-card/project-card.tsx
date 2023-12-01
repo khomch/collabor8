@@ -55,7 +55,7 @@ function ProjectCard({
     try {
       const response = await applyToProject(applyData);
       if (response!.status === 200) {
-        toast("Apply!");
+        toast("Applied!");
         updateParentState!(response!.data);
       } else {
         console.log(response);

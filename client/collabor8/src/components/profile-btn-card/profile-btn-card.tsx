@@ -1,13 +1,16 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React, { useState, Dispatch, SetStateAction } from "react";
 import Button from "../button/button";
 import VStack from "../ui/v-stack/v-stack";
 import UserProfile from "../user-profile/user-profile";
 import "./profile-btn-card.css";
 import { approveUser, denyUser } from "@/apiService/projectServicesApi";
 import { useParams } from "next/navigation";
-import { TProjectInfo, TUserInProject } from "@/types/types";
+import { TProjectInfo, TUserInProject, TUserInfo } from "@/types/types";
+import { toast } from "react-hot-toast";
+import Modal from '../modal/modal';
+import ReviewModal from "../review-modal/review-modal";
 
 export type ProfileCardProps = {
   title: string;
@@ -16,13 +19,15 @@ export type ProfileCardProps = {
   updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
-type User = {
+export type User = {
   _id: string;
   username: string;
   role: string;
 };
 
 function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardProps) {
+
+  const [showModal, setShowModal] = useState(false);
 
   const params = useParams();
   const projectId = params.slug;
@@ -35,6 +40,7 @@ function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardP
       projectId: projectId,
     })
     if (response!.status === 200 ) {
+      toast(`User approved.`);
       updateParentState!(response!.data)
     }
   };
@@ -45,6 +51,7 @@ const handleDeny = async (userId: string) => {
       projectId: projectId,
     })
     if (response!.status === 200 ) {
+      toast(`User denied.`);
       updateParentState!(response!.data)
     }
   }
@@ -68,6 +75,7 @@ const handleDeny = async (userId: string) => {
                   isSmall={true}
                   variant={"primary"}
                   label={"Rate & Review"}
+                  onClick={() => setShowModal(true)}
                 />
               ) : (
                 <>
@@ -83,6 +91,12 @@ const handleDeny = async (userId: string) => {
           </div>
         ))}
       </div>
+      {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            {/* !!! TODO make this work correctly !!! */}
+            <ReviewModal onClose={() => setShowModal(false)} user={data} />
+          </Modal>
+        )}
     </VStack>
   );
 }
