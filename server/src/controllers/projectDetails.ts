@@ -178,10 +178,11 @@ async function approveUser(req: Request, res: Response) {
     project.approvedUsers.push(userToApprove);
     const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === userToApprove._id);
     project.appliedUsers.splice(appliedIndex, 1);
-    project.save();
-    console.log(project)
+    // project.save();
     userToApprove.profile.projects.push(project);
     userToApprove.save();
+    console.log(project)
+    console.log(userToApprove)
     res.status(201).send(project);
   } catch (error) {
     console.error(error);

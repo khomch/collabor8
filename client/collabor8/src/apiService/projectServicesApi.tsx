@@ -159,7 +159,6 @@ export async function applyToProject(data: object) {
     console.error(error);
   }
 }
-// TODO figure out new logic for this
 export async function approveUser(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
