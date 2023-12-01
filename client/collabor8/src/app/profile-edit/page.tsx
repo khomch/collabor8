@@ -11,22 +11,23 @@ import VStack from "@/components/ui/v-stack/v-stack";
 import { TUserInfo } from '@/types/types';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-import './profile-edit.css';
+import toast from "react-hot-toast";
+import "./profile-edit.css";
 
 function ProfileEdit(data: TUserInfo) {
   const [profile, setProfile] = useState<TUserInfo>({
-    userName: '',
-    emailAddress: '',
-    firstName: '',
-    lastName: '',
-    website: '',
-    company: '',
-    role: '',
-    bio: '',
-    password: '',
+    userName: "",
+    emailAddress: "",
+    firstName: "",
+    lastName: "",
+    website: "",
+    company: "",
+    role: "",
+    bio: "",
+    password: "",
   });
 
-  const [techInput, setTechInput] = useState<string>('');
+  const [techInput, setTechInput] = useState<string>("");
   const [tech, setTech] = useState<string[]>([]);
   const router = useRouter();
 
@@ -62,10 +63,10 @@ function ProfileEdit(data: TUserInfo) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       const enteredTech = (e.target as HTMLInputElement).value;
       setTech((prev: any[]) => [...prev, enteredTech]);
-      setTechInput('');
+      setTechInput("");
     }
   };
 
@@ -102,11 +103,10 @@ function ProfileEdit(data: TUserInfo) {
       },
     };
     const response: any = await updateUserProfile(update);
-    if (response.name === 'Error') {
+    if (response.name === "Error") {
       return;
     } else {
-      alert('success!');
-      // router.push('/');
+      toast("Saved successfully! ✅");
     }
   };
 

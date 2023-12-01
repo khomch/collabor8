@@ -13,15 +13,21 @@ import './project-card.css';
 import { applyToProject } from '@/apiService/projectServicesApi';
 import { TRole, TUserInfo, TProjectInfo } from '@/types/types';
 import { Dispatch, SetStateAction } from 'react';
+import toast from "react-hot-toast";
 
 type ProjectCardProps = {
   project: TProjectInfo;
-  btnLabel: 'Show more' | 'Apply';
+  btnLabel: "Show more" | "Apply";
   userInfo: TUserInfo | null;
   updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
-function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: ProjectCardProps) {
+function ProjectCard({
+  project,
+  btnLabel,
+  userInfo = null,
+  updateParentState,
+}: ProjectCardProps) {
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -32,15 +38,21 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
   const applyData = {
     projectId: project._id,
     username: userInfo?.userName,
-    role: userInfo?.role || 'Not specified',
+    role: userInfo?.role || "Not specified",
   };
 
-    const handleApply = async () => {
+  const handleApply = async () => {
+    try {
       const response = await applyToProject(applyData);
-      if (response!.status === 200 ) {
-        updateParentState!(response!.data)
+      if (response!.status === 200) {
+        toast("Apply!");
+        updateParentState!(response!.data);
+      } else {
+        console.log(response);
+        toast("⛔️ " + response?.error);
       }
-    }
+    } catch (err) {}
+  };
 
   return (
     <VStack size="9col">
@@ -99,12 +111,12 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            {btnLabel === 'Show more' && (
+            {btnLabel === "Show more" && (
               <Link href={`/projects-detail/${project._id}`}>
                 <Button label={btnLabel} variant="primary" />
               </Link>
             )}
-            {btnLabel === 'Apply' &&
+            {btnLabel === "Apply" &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
                   label={btnLabel}
