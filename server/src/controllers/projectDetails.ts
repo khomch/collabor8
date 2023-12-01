@@ -167,22 +167,22 @@ async function approveUser(req: Request, res: Response) {
     const projectFilter = {
       _id: req.body.projectId,
     }
-    const userFilter = {
-      _id: req.body._id
+    const appliedUser = {
+      _id: req.body._id,
+      username: req.body.username,
+      role: req.body.role,
     }
     const project = await Project.findOne(projectFilter);
     if (!project) {
       return res.status(404).send({ message: 'Project not found' });
     }
-    const userToApprove = await User.findOne(userFilter);
-    project.approvedUsers.push(userToApprove);
-    const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === userToApprove._id);
+    const userToApprove = await User.findOne({_id: req.body._id});
+    project.approvedUsers.push(appliedUser);
+    const appliedIndex = project.appliedUsers.indexOf((user: TUserInProject) => user._id === appliedUser._id);
     project.appliedUsers.splice(appliedIndex, 1);
-    // project.save();
+    project.save();
     userToApprove.profile.projects.push(project);
     userToApprove.save();
-    console.log(project)
-    console.log(userToApprove)
     res.status(201).send(project);
   } catch (error) {
     console.error(error);

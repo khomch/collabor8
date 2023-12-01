@@ -25,11 +25,14 @@ function ProfileBtnCard({ title, status, data }: ProfileCardProps) {
   const params = useParams();
   const projectId = params.slug;
 
-  const handleApprove = (userId: string) => {
+  const handleApprove = (user: User) => {
     approveUser({
-      _id: userId,
+      _id: user._id,
+      username: user.username,
+      role: user.role,
       projectId: projectId,
     })
+    console.log("user", user);
   };
 
 const handleDeny = (userId: string) => {
@@ -62,7 +65,7 @@ const handleDeny = (userId: string) => {
               ) : (
                 <>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="green" label={"Approve"} onClick={() => handleApprove(item._id)}/>
+                    <Button isSmall={true} variant="green" label={"Approve"} onClick={() => handleApprove(item)}/>
                   </div>
                   <div className="profile-btn-card__items">
                     <Button isSmall={true} variant="gray" label={"Deny"} onClick={() => handleDeny(item._id)}/>

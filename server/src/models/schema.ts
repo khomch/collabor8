@@ -35,26 +35,18 @@ const ProjectInformation = new Schema(
       },
     ],
     appliedUsers: [
-      // {
-      //   _id: { type: String },
-      //   username: { type: String },
-      //   role: { type: String },
-      // },
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        _id: { type: String },
+        username: { type: String },
+        role: { type: String },
+      },
     ],
     approvedUsers: [
-      // {
-      //   _id: { type: String },
-      //   username: { type: String },
-      //   role: { type: String },
-      // },
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        _id: { type: String },
+        username: { type: String },
+        role: { type: String },
+      },
     ],
     finishedUsers: [
       {
