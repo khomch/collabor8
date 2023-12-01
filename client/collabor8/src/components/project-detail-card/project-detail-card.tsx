@@ -1,13 +1,8 @@
 'use client';
 
-import React, { useEffect, useState,useCallback } from 'react';
-import UserProfile from '../user-profile/user-profile';
-import Router, { usePathname } from 'next/navigation';
-import Star from '../../../public/star-black.svg';
-import './project-detail-card.css';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import ICheck from '../../../public/icon/i_check_circle.svg';
 import IDate from '../../../public/icon/i_date.svg';
 import IPerson from '../../../public/icon/i_person.svg';
@@ -16,35 +11,32 @@ import IPersonBadge from '../../../public/icon/i_person_badge.svg';
 import { getProjectInfo } from '../../apiService/projectServicesApi';
 import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
-import User from '../user/user';
 import './project-detail-card.css';
 export type ProfileCardProps = {
   direction: 'column' | 'row';
   name: string;
   role: string;
   company: string;
-  projectinfo: string ;
+  projectinfo: string;
   estimatedDeadline: any;
   openedRoles: { _id: string; role: string }[];
-  teamMembers:string[];
-  status:string;
-  firstName:string;
-  lastName:string;
-  approvedUsers:{ _id: string; username: string }[];
+  teamMembers: string[];
+  status: string;
+  firstName: string;
+  lastName: string;
+  approvedUsers: { _id: string; username: string }[];
 };
 
 function ProfileDetailCard() {
- 
-  const [projectData,setProjectInfo] = useState<ProfileCardProps | null>(null)
-  
-   
-  const estimatedDeadline = formatDate(projectData?.estimatedDeadline)
-  const openedroles = projectData?.openedRoles
-  const approvedUsers = projectData?.approvedUsers
-  const firstName = projectData?.firstName
-  const lastName = projectData?.lastName
-  
-  const path = usePathname()
+  const [projectData, setProjectInfo] = useState<ProfileCardProps | null>(null);
+
+  const estimatedDeadline = formatDate(projectData?.estimatedDeadline);
+  const openedroles = projectData?.openedRoles;
+  const approvedUsers = projectData?.approvedUsers;
+  const firstName = projectData?.firstName;
+  const lastName = projectData?.lastName;
+
+  const path = usePathname();
   const pathSegments = path.split('/');
   const param = pathSegments[pathSegments.length - 1];
 
@@ -56,7 +48,7 @@ function ProfileDetailCard() {
       console.log(error);
     }
   }, []);
-   
+
   useEffect(() => {
     fetchProjectInfo(param);
   }, [fetchProjectInfo, param]);
@@ -118,10 +110,10 @@ function ProfileDetailCard() {
             <User icon={'🥹'} />  
           </div> */}
           <ul>
-              {approvedUsers?.map((item) => {
-                return <ul key={item._id}>{item.username}</ul>
-              })}
-          </ul> 
+            {approvedUsers?.map((item) => {
+              return <ul key={item._id}>{item.username}</ul>;
+            })}
+          </ul>
         </div>
 
         <div className="profile-detail__info">

@@ -11,6 +11,7 @@ import LandingImage2 from '../../public/landing2.png';
 import LandingImage3 from '../../public/landing3.png';
 import LandingImage4 from '../../public/landing4.png';
 import CubeShape from '../../public/shapes/cube.svg';
+import TubeShape from '../../public/shapes/tube.svg';
 import SqaureShape from '../../public/shapes/square.svg';
 import CurveShape from '../../public/shapes/curve.svg';
 import './page.css';
@@ -29,7 +30,7 @@ export default function LandingPage() {
           className="cta__shape-curve"
           src={CurveShape}
           alt="Interface image"
-          width={50}
+          width={40}
         />
         <div className="cta__text">
           <h1 className="h1">Collaborate, Create, Elevate</h1>
@@ -45,7 +46,13 @@ export default function LandingPage() {
           className="cta__shape-cube"
           src={CubeShape}
           alt="Interface image"
-          width={80}
+          width={40}
+        />
+        <Image
+          className="cta__shape-tube"
+          src={TubeShape}
+          alt="Interface image"
+          width={20}
         />
         <Image
           className="cta__image"

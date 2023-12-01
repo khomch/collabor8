@@ -41,7 +41,7 @@ export default function Dashboard() {
                 />
                 <VStack size="3col">
                   <Link href="/project-settings/new">
-                    <Button variant={'primary'} label={'Start new project'} />
+                    <Button variant={'blue'} label={'Start new project'} />
                   </Link>
                 </VStack>
               </>

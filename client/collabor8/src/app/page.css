@@ -39,10 +39,43 @@ body {
 .cta__shape-square {
   position: absolute;
   z-index: 100;
-  top: -100px;
-  left: 50px;
+  top: -130px;
+  left: 80px;
   animation-name: rotate;
   animation-duration: 90s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.cta__shape-cube {
+  position: absolute;
+  z-index: 100;
+  top: -130px;
+  right: 100px;
+  animation-name: rotate;
+  animation-duration: 160s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.cta__shape-tube {
+  position: absolute;
+  z-index: 100;
+  bottom: -30px;
+  right: 100px;
+  animation-name: rotate;
+  animation-duration: 160s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+.cta__shape-curve {
+  position: absolute;
+  z-index: 100;
+  bottom: -20px;
+  left: 100px;
+  animation-name: rotate;
+  animation-duration: 120s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
@@ -54,28 +87,6 @@ body {
   to {
     transform: rotate(360deg);
   }
-}
-
-.cta__shape-cube {
-  position: absolute;
-  z-index: 100;
-  top: -150px;
-  right: 200px;
-  animation-name: rotate;
-  animation-duration: 160s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
-}
-
-.cta__shape-curve {
-  position: absolute;
-  z-index: 100;
-  bottom: -20px;
-  left: 300px;
-  animation-name: rotate;
-  animation-duration: 120s;
-  animation-iteration-count: infinite;
-  animation-timing-function: linear;
 }
 
 .values {
@@ -133,7 +144,7 @@ body {
 .join {
   width: 100%;
   background-color: var(--interface-gray200);
-  padding: 70px;
+  padding: 70px 0;
   margin-bottom: 30px;
   display: flex;
   align-items: center;

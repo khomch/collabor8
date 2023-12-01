@@ -81,6 +81,7 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
       <div className="filters-card">
         <h3 className="h6 filters-card__title">Filters</h3>
         <Input
+          variant="blue"
           type="text"
           label="Desired role"
           name="desired-role"

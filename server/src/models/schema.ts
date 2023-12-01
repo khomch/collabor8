@@ -15,13 +15,6 @@ const ProjectInformation = new Schema(
     description: { type: String, required: true },
     additionalInfo: { type: String },
     level: { type: String },
-    // techstack:[ {type: String, required: true} ],
-    // status: { 
-    //   type: String, 
-    //   required: true, 
-    //   enum: ['Completed', 'New Project'] 
-    // },
-
     projectWorkspaces: [
       {
         name: { type: String, required: true },
@@ -60,8 +53,8 @@ const ProjectInformation = new Schema(
       },
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-      }
+        ref: 'User',
+      },
     ],
   },
   { timestamps: true }
