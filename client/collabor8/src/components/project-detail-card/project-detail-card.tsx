@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useCallback } from 'react';
 import UserProfile from '../user-profile/user-profile';
 import Router, { usePathname } from 'next/navigation';
 import Star from '../../../public/star-black.svg';
@@ -27,18 +27,17 @@ export type ProfileCardProps = {
   status:string;
   firstName:string;
   lastName:string;
-  
+  approvedUsers:{ _id: string; username: string }[];
 };
 
 function ProfileDetailCard() {
  
   const [projectData,setProjectInfo] = useState<ProfileCardProps | null>(null)
-  const [projectStatus,setProjectStatus] = useState([])
+  
    
   const estimatedDeadline = formatDate(projectData?.estimatedDeadline)
   const openedroles = projectData?.openedRoles
-  const teamMembers = projectData?.teamMembers
-  const status = projectData?.status 
+  const approvedUsers = projectData?.approvedUsers
   const firstName = projectData?.firstName
   const lastName = projectData?.lastName
   
@@ -46,22 +45,18 @@ function ProfileDetailCard() {
   const pathSegments = path.split('/');
   const param = pathSegments[pathSegments.length - 1];
 
-  async function fetchProjectInfo(params:string) {
+  const fetchProjectInfo = useCallback(async (params: string) => {
     try {
-      const projectInfo : any = await getProjectInfo(param)
-      setProjectInfo(projectInfo.data)  
-      setProjectStatus(projectInfo.data.type)
-      
-      
+      const projectInfo: any = await getProjectInfo(params);
+      setProjectInfo(projectInfo.data);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
-
-  useEffect(()=>{
-    fetchProjectInfo(path)
-    
-  })
+  }, []);
+   
+  useEffect(() => {
+    fetchProjectInfo(param);
+  }, [fetchProjectInfo, param]);
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -99,13 +94,18 @@ function ProfileDetailCard() {
               src={IPerson2}
               alt="IPerson"
             />
-            <span className="bodytext1 bodytext1_semibold"></span>
+            <span className="bodytext1 bodytext1_semibold">Team Members</span>
           </div>
-          <div className="profile-detail_members bodytext2 bodytext2_medium">
+          {/* <div className="profile-detail_members bodytext2 bodytext2_medium">             
             <User icon={'😵‍💫'} />
             <User icon={'😎'} />
-            <User icon={'🥹'} />
-          </div>
+            <User icon={'🥹'} />  
+          </div> */}
+          <ul>
+              {approvedUsers?.map((item) => {
+                return <ul key={item._id}>{item.username}</ul>
+              })}
+          </ul> 
         </div>
   
         <div className="profile-detail__info">
