@@ -22,7 +22,6 @@ export default function MyProjects() {
   const [ownerProjects, setOwnerProjects] = useState([]);
   useEffect(() => {
     dispatch(fetchProjects());
-
     dispatch(fetchUserDetails());
   }, []);
 
@@ -33,7 +32,7 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
-  console.log('projects page');
+  console.log(user)
   return (
     <section className="projects-page">
       <div className="projects">
@@ -41,12 +40,14 @@ export default function MyProjects() {
           <div className="projects-page__filters">
             <ProfileCard {...user} />
           </div>
-          {ownerProjects.length > 0 && (
+
             <div className="projects-page__projects">
+              {!ownerProjects &&
               <div className="projects-page__subtitle">
                 <Image src={IconOwner} alt="Icon Project Owner" />
                 <h2>Project Owner</h2>
               </div>
+              }
               {ownerProjects?.map((project: TProjectInfo) => (
                 <ProjectCard
                   key={project._id}
@@ -55,11 +56,12 @@ export default function MyProjects() {
                   userInfo={user}
                 />
               ))}
-
+              { user.profile.projects.length > 0 &&
               <div className="projects-page__subtitle">
                 <Image src={IconTeamMember} alt="Team member Icon" />
                 <h2>Team member in</h2>
               </div>
+              }
               {user &&
                 user.profile.projects.map((project: TProjectInfo) => (
                   <ProjectCard
@@ -70,7 +72,7 @@ export default function MyProjects() {
                   />
                 ))}
             </div>
-          )}
+
         </div>
       </div>
     </section>
