@@ -14,20 +14,20 @@ import './projects.css';
 
 export default function MyProjects() {
   const projectInitialData: TProjectInfo = {
-    type: '',
+    type: "",
     techstack: [],
-    level: '',
-    projectOwnerId: '',
-    title: 'Loading...',
-    link: '',
-    aboutProject: '',
-    estimatedDeadline: '',
-    description: 'Loading information...',
-    additionalInfo: 'Loading information...',
+    level: "",
+    projectOwnerId: "",
+    title: "Loading...",
+    link: "",
+    aboutProject: "",
+    estimatedDeadline: "",
+    description: "Loading information...",
+    additionalInfo: "Loading information...",
     projectWorkspaces: [],
     openedRoles: [
       {
-        role: '',
+        role: "",
         techstack: [],
       },
     ],
@@ -37,6 +37,7 @@ export default function MyProjects() {
   };
 
   const [openedProject, setOpenedProject] = useState(projectInitialData);
+
   const params = useParams();
   const userInfo = useSelector((state) => state.userState.user);
 
@@ -46,9 +47,10 @@ export default function MyProjects() {
       .then((response) => {
         setOpenedProject(response?.data);
       })
-      .catch((err) => console.log('error', err));
+      .catch((err) => console.log("error", err));
   }, []);
-  console.log('project detail');
+
+  console.log(openedProject);
   return (
     openedProject._id && (
       <section className="projects-page">
@@ -58,8 +60,8 @@ export default function MyProjects() {
               {openedProject.projectOwnerId === userInfo?._id &&
               openedProject.finishedUsers === null ? (
                 <ProfileBtnCard
-                  title={'Finished'}
-                  status={'finished'}
+                  title={"Finished"}
+                  status={"finished"}
                   data={openedProject.finishedUsers}
                   updateParentState={setOpenedProject}
                 />
@@ -67,8 +69,8 @@ export default function MyProjects() {
               {openedProject.projectOwnerId === userInfo?._id &&
               openedProject.appliedUsers?.length ? (
                 <ProfileBtnCard
-                  title={'Want to Join'}
-                  status={'join'}
+                  title={"Want to Join"}
+                  status={"join"}
                   data={openedProject.appliedUsers}
                   updateParentState={setOpenedProject}
                 />

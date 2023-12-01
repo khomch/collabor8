@@ -234,3 +234,29 @@ export async function getOwnerProjects() {
     console.error(error);
   }
 }
+
+
+export async function finishToProject(data: object) {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const applyToProject = await fetch(`${API_URL}/project/finish`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+    if (applyToProject.ok) {
+      const response = await applyToProject.json();
+      return { status: 200, data: response };
+    } else {
+      const statusCode = applyToProject.status;
+      const response = await applyToProject.json();
+      return { status: statusCode, error: response.message };
+    }
+  } catch (error) {
+    throw error;
+  }
+}

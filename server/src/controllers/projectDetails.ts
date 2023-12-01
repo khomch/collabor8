@@ -222,6 +222,37 @@ async function denyUser(req: Request, res: Response) {
   }
 }
 
+
+async function finishToProject(req: RequestWithUser, res: Response) {
+  try {
+    const filter = {
+      _id: req.body.projectId,
+    };
+    const user = {
+      _id: req.id,
+    };
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: "Project not found" });
+    }
+    console.log(project.approvedUsers, req.id);
+    const checkJoinProjectUser = project.approvedUsers.some(
+      (user: TUserInProject) => user._id === req.id
+    );
+    if (!checkJoinProjectUser) {
+      return res.status(409).send({
+        message: "Unsupported project",
+      });
+    }
+    project.finishedUsers.push(user);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
 export default {
   createProject,
   editProjectDetails,
@@ -233,4 +264,5 @@ export default {
   approveUser,
   denyUser,
   getProjectOwner,
+  finishToProject,
 };

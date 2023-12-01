@@ -306,6 +306,25 @@ router.get('/project/:id', projectDetails.getProjectDetails);
 
 router.post('/project/apply', authenticateToken, projectDetails.applyToProject);
 
+/**
+ * @swagger
+ *  /projects:
+ *    get:
+ *      tags:
+ *      - project
+ *      description: get all projects (add another params)
+ *      produces:
+ *      - application/json
+ *      responses:
+ *       201:
+ *        description: success
+ *       404:
+ *        description: user not found
+ */
+
+ router.post('/project/finish', authenticateToken, projectDetails.finishToProject);
+
+
 router.post('/project/approve', authenticateToken, projectDetails.approveUser);
 router.post('/project/deny', authenticateToken, projectDetails.denyUser);
 

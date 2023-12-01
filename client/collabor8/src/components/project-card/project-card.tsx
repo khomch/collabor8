@@ -10,9 +10,12 @@ import Button from '../button/button';
 import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
 import './project-card.css';
-import { applyToProject } from '@/apiService/projectServicesApi';
-import { TRole, TUserInfo, TProjectInfo } from '@/types/types';
-import { Dispatch, SetStateAction } from 'react';
+import {
+  applyToProject,
+  finishToProject,
+} from "@/apiService/projectServicesApi";
+import { TRole, TUserInfo, TProjectInfo } from "@/types/types";
+import { Dispatch, SetStateAction } from "react";
 import toast from "react-hot-toast";
 
 type ProjectCardProps = {
@@ -48,11 +51,30 @@ function ProjectCard({
         toast("Apply!");
         updateParentState!(response!.data);
       } else {
-        console.log(response);
         toast("⛔️ " + response?.error);
       }
     } catch (err) {}
   };
+
+  const handleFinished = async () => {
+    try {
+      const response = await finishToProject({
+        projectId: project._id,
+      });
+      console.log(response);
+      if (response!.status === 200) {
+        toast("Confirmed ✅");
+        updateParentState!(response!.data);
+      } else {
+        toast("⛔️ " + response?.error);
+      }
+    } catch (err) {}
+  };
+
+  //@ts-ignore
+  const isJoin = project?.approvedUsers.some(
+    (user) => user._id === userInfo?._id
+  );
 
   return (
     <VStack size="9col">
@@ -116,14 +138,22 @@ function ProjectCard({
                 <Button label={btnLabel} variant="primary" />
               </Link>
             )}
-            {btnLabel === "Apply" &&
+            {isJoin ? (
+              <Button
+                label={"Completed"}
+                variant="primary"
+                onClick={() => handleFinished()}
+              />
+            ) : (
+              btnLabel === "Apply" &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
                   label={btnLabel}
                   variant="primary"
                   onClick={() => handleApply()}
                 />
-              )}
+              )
+            )}
           </div>
         </div>
       </div>
