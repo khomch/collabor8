@@ -16,11 +16,11 @@ const ProjectInformation = new Schema(
     additionalInfo: { type: String },
     level: { type: String },
     // techstack:[ {type: String, required: true} ],
-    status: { 
-      type: String, 
-      required: true, 
-      enum: ['Completed', 'New Project'] 
-    },
+    // status: { 
+    //   type: String, 
+    //   required: true, 
+    //   enum: ['Completed', 'New Project'] 
+    // },
 
     projectWorkspaces: [
       {
