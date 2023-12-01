@@ -16,7 +16,7 @@ const fetchUserDetails = createAsyncThunk('getUserDetails', async () => {
 const initialState: TUserState = {
   isLogged: false,
   userId: null,
-  user: {},
+  user: null,
   status: 'idle',
   error: null,
 };

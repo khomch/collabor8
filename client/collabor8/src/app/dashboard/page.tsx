@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from '@/redux-store/customHooks';
 import { fetchProjects } from '@/redux-store/slices/projectSlice';
 import { TProjectInfo } from '@/types/types';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import './dashboard.css';
 
 export default function Dashboard() {
@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [projectsToRender, setProjectsToRender] = useState<
     TProjectInfo[] | null
   >(projects);
-  const { userId } = useSelector((state) => state.userState);
+  const { user } = useSelector((state) => state.userState);
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -41,7 +41,7 @@ export default function Dashboard() {
                 />
                 <VStack size="3col">
                   <Link href="/project-settings/new">
-                    <Button variant={'primary'} label={'Start new project'} />
+                    <Button variant={'blue'} label={'Start new project'} />
                   </Link>
                 </VStack>
               </>
@@ -52,7 +52,7 @@ export default function Dashboard() {
               projectsToRender.length > 0 &&
               projectsToRender.map((project) => (
                 <ProjectCard
-                  userId={userId}
+                  userInfo={user}
                   key={project._id}
                   btnLabel="Show more"
                   project={project}
