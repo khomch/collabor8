@@ -12,15 +12,16 @@ import VStack from '../ui/v-stack/v-stack';
 import './project-card.css';
 import { applyToProject } from '@/apiService/projectServicesApi';
 import { TRole, TUserInfo, TProjectInfo } from '@/types/types';
-
+import { Dispatch, SetStateAction } from 'react';
 
 type ProjectCardProps = {
   project: TProjectInfo;
   btnLabel: 'Show more' | 'Apply';
   userInfo: TUserInfo | null;
+  updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
 };
 
-function ProjectCard({ project, btnLabel, userInfo = null }: ProjectCardProps) {
+function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: ProjectCardProps) {
   const techstack =
     project.openedRoles &&
     project.openedRoles.reduce((acc: string[], curr: TRole) => {
@@ -36,6 +37,9 @@ function ProjectCard({ project, btnLabel, userInfo = null }: ProjectCardProps) {
 
     const handleApply = async () => {
       const response = await applyToProject(applyData);
+      if (response!.status === 200 ) {
+        updateParentState!(response!.data)
+      }
     }
 
   return (
