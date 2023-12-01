@@ -1,40 +1,57 @@
 // landing-page.js
 
-"use client";
+'use client';
 
-import "./page.css";
-import InterfaceImage from "../../public/interface.png";
-import Image from "next/image";
-import Button from "@/components/button/button";
-import Link from "next/link";
-import VStack from "@/components/ui/v-stack/v-stack";
-import LandingImage1 from "../../public/landing1.png";
-import LandingImage2 from "../../public/landing2.png";
-import LandingImage3 from "../../public/landing3.png";
-import LandingImage4 from "../../public/landing4.png";
+import Button from '@/components/button/button';
+import Image from 'next/image';
+import Link from 'next/link';
+import InterfaceImage from '../../public/interface.png';
+import LandingImage1 from '../../public/landing1.png';
+import LandingImage2 from '../../public/landing2.png';
+import LandingImage3 from '../../public/landing3.png';
+import LandingImage4 from '../../public/landing4.png';
+import CubeShape from '../../public/shapes/cube.svg';
+import SqaureShape from '../../public/shapes/square.svg';
+import CurveShape from '../../public/shapes/curve.svg';
+import './page.css';
 
 export default function LandingPage() {
   return (
     <div className="landing-page">
       <div className="cta">
+        <Image
+          className="cta__shape-square"
+          src={SqaureShape}
+          alt="Interface image"
+          width={100}
+        />
+        <Image
+          className="cta__shape-curve"
+          src={CurveShape}
+          alt="Interface image"
+          width={50}
+        />
         <div className="cta__text">
           <h1 className="h1">Collaborate, Create, Elevate</h1>
           <p className="textbody1">
             Connect with developers, build projects, and enhance your skills
             together.
           </p>
-          {/* <Link > */}
-          <a href={"/register"} className={"cta__button"}>
-            <Button variant="primary" label="Register" />
-          </a>
-          {/* </Link> */}
+          <Link className={'cta__button'} href={'/register'}>
+            <Button variant="primary" label="Get started" />
+          </Link>
         </div>
+        <Image
+          className="cta__shape-cube"
+          src={CubeShape}
+          alt="Interface image"
+          width={80}
+        />
         <Image
           className="cta__image"
           src={InterfaceImage}
           alt="Interface image"
           width={620}
-          height={400}
         />
       </div>
       <div className="about">
@@ -116,7 +133,7 @@ export default function LandingPage() {
               <span className="sub2">
                 Sign up for free by clicking the button below.
               </span>
-              <a href={"/register"} className={"cta__button"}>
+              <a href={'/register'} className={'cta__button'}>
                 <Button variant="primary" label="Register" />
               </a>
             </div>

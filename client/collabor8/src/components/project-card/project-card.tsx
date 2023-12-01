@@ -29,11 +29,11 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
       return acc;
     }, []);
 
-    const applyData = {
-      projectId: project._id,
-      username: userInfo?.userName,
-      role: userInfo?.role || 'Not specified',
-    }
+  const applyData = {
+    projectId: project._id,
+    username: userInfo?.userName,
+    role: userInfo?.role || 'Not specified',
+  };
 
     const handleApply = async () => {
       const response = await applyToProject(applyData);
@@ -99,14 +99,19 @@ function ProjectCard({ project, btnLabel, userInfo = null, updateParentState }: 
               </div>
               <p className="bodytext3">{project.aboutProject}</p>
             </div>
-            { btnLabel === 'Show more' &&
-            <Link href={`/projects-detail/${project._id}`}>
-              <Button label={btnLabel} variant="primary" />
-            </Link>
-            }
-            { btnLabel === 'Apply' && userInfo?._id !== project.projectOwnerId &&
-              <Button label={btnLabel} variant="primary" onClick={() => handleApply()} />
-            }
+            {btnLabel === 'Show more' && (
+              <Link href={`/projects-detail/${project._id}`}>
+                <Button label={btnLabel} variant="primary" />
+              </Link>
+            )}
+            {btnLabel === 'Apply' &&
+              userInfo?._id !== project.projectOwnerId && (
+                <Button
+                  label={btnLabel}
+                  variant="primary"
+                  onClick={() => handleApply()}
+                />
+              )}
           </div>
         </div>
       </div>
