@@ -50,7 +50,6 @@ export default function MyProjects() {
       .catch((err) => console.log("error", err));
   }, []);
 
-  console.log(openedProject);
   return (
     openedProject._id && (
       <section className="projects-page">
@@ -58,7 +57,7 @@ export default function MyProjects() {
           <div className="projects__content">
             <div className="projects-page__filters">
               {openedProject.projectOwnerId === userInfo?._id &&
-              openedProject.finishedUsers === null ? (
+              openedProject.finishedUsers?.length ? (
                 <ProfileBtnCard
                   title={"Finished"}
                   status={"finished"}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { Dispatch, SetStateAction } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Button from "../button/button";
 import VStack from "../ui/v-stack/v-stack";
 import UserProfile from "../user-profile/user-profile";
@@ -8,6 +8,8 @@ import "./profile-btn-card.css";
 import { approveUser, denyUser } from "@/apiService/projectServicesApi";
 import { useParams } from "next/navigation";
 import { TProjectInfo } from "@/types/types";
+import Modal from "../modal/modal";
+import ReviewModal from "../review-modal/review-modal";
 
 export type ProfileCardProps = {
   title: string;
@@ -22,8 +24,14 @@ type User = {
   role: string;
 };
 
-function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardProps) {
-
+function ProfileBtnCard({
+  title,
+  status,
+  data,
+  updateParentState,
+}: ProfileCardProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [reviewData, setReviewData] = useState({});
   const params = useParams();
   const projectId = params.slug;
 
@@ -33,21 +41,27 @@ function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardP
       username: user.username,
       role: user.role,
       projectId: projectId,
-    })
-    if (response!.status === 200 ) {
-      updateParentState!(response!.data)
+    });
+    if (response!.status === 200) {
+      updateParentState!(response!.data);
     }
   };
 
-const handleDeny = async (userId: string) => {
-  const response = await denyUser({
+  const handleDeny = async (userId: string) => {
+    const response = await denyUser({
       _id: userId,
       projectId: projectId,
-    })
-    if (response!.status === 200 ) {
-      updateParentState!(response!.data)
+    });
+    if (response!.status === 200) {
+      updateParentState!(response!.data);
     }
-  }
+  };
+
+  const handelReview = (user: User) => {
+    setReviewData(user);
+    setShowModal(true);
+    console.log(user);
+  };
 
   return (
     <VStack size="3col">
@@ -68,20 +82,39 @@ const handleDeny = async (userId: string) => {
                   isSmall={true}
                   variant={"primary"}
                   label={"Rate & Review"}
+                  onClick={() => handelReview(item)}
                 />
               ) : (
                 <>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="green" label={"Approve"} onClick={() => handleApprove(item)}/>
+                    <Button
+                      isSmall={true}
+                      variant="green"
+                      label={"Approve"}
+                      onClick={() => handleApprove(item)}
+                    />
                   </div>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="gray" label={"Deny"} onClick={() => handleDeny(item._id)}/>
+                    <Button
+                      isSmall={true}
+                      variant="gray"
+                      label={"Deny"}
+                      onClick={() => handleDeny(item._id)}
+                    />
                   </div>
                 </>
               )}
             </div>
           </div>
         ))}
+        {showModal && (
+          <Modal onClose={() => setShowModal(false)}>
+            <ReviewModal
+              onClose={() => setShowModal(false)}
+              user={reviewData}
+            />
+          </Modal>
+        )}
       </div>
     </VStack>
   );

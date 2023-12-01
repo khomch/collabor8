@@ -38,7 +38,7 @@ function ProjectCard({
       return acc;
     }, []);
 
-  const applyData = {
+  const data = {
     projectId: project._id,
     username: userInfo?.userName,
     role: userInfo?.role || "Not specified",
@@ -46,7 +46,7 @@ function ProjectCard({
 
   const handleApply = async () => {
     try {
-      const response = await applyToProject(applyData);
+      const response = await applyToProject(data);
       if (response!.status === 200) {
         toast("Apply!");
         updateParentState!(response!.data);
@@ -58,10 +58,7 @@ function ProjectCard({
 
   const handleFinished = async () => {
     try {
-      const response = await finishToProject({
-        projectId: project._id,
-      });
-      console.log(response);
+      const response = await finishToProject(data);
       if (response!.status === 200) {
         toast("Confirmed ✅");
         updateParentState!(response!.data);

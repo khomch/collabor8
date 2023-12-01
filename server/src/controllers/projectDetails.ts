@@ -230,12 +230,13 @@ async function finishToProject(req: RequestWithUser, res: Response) {
     };
     const user = {
       _id: req.id,
+      username: req.body.username,
+      role: req.body.role,
     };
     const project = await Project.findOne(filter);
     if (!project) {
       return res.status(404).send({ message: "Project not found" });
     }
-    console.log(project.approvedUsers, req.id);
     const checkJoinProjectUser = project.approvedUsers.some(
       (user: TUserInProject) => user._id === req.id
     );

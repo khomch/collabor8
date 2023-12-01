@@ -6,9 +6,10 @@ import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
 import { TReview, TUserInfo, TUserProfile } from "@/types/types";
 import { writeReview } from "@/apiService/userService";
+import User from "../user/user";
 
 interface ReviewProps {
-  user: TUserInfo;
+  user: TUserInfo | User;
   onClose: () => void; // Adjust the type of onClose based on your needs
 }
 
@@ -48,7 +49,7 @@ function ReviewModal({ user, onClose }: ReviewProps) {
       <div className="review__content">
         <UserProfile
           direction={"row"}
-          name={user.userName}
+          name={user.userName ? user.userName : user.username}
           role={user.role}
           company={user.company}
         />
