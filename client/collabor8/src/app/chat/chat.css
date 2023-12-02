@@ -1,0 +1,21 @@
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat {
+  width: 400px;
+  border: 1px solid gray;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chat__message {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}

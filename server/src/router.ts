@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
 import review from './controllers/review';
+import { handleEnterChat } from './controllers/chat';
 
 // TODO authentication
 ///to update for middleware routes
@@ -337,5 +338,7 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *        description: user not found
  */
  router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
+
+ router.post('/chat/start', handleEnterChat)
 
 export default router;

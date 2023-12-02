@@ -48,7 +48,7 @@ const ProjectInformation = new Schema(
   { timestamps: true }
 );
 
-const UserTable = new Schema({
+export const UserTable = new Schema({
   userName: { type: String, required: true },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },

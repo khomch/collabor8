@@ -11,6 +11,7 @@ import { TProjectInfo } from '@/types/types';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import './projects.css';
+import Button from '@/components/button/button';
 
 export default function MyProjects() {
   const projectInitialData: TProjectInfo = {
@@ -48,6 +49,11 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
+
+  const handleSendMessageToOwner = () => {
+    
+  }
+
   return (
     openedProject._id && (
       <section className="projects-page">
@@ -55,14 +61,14 @@ export default function MyProjects() {
           <div className="projects__content">
             <div className="projects-page__filters">
               {openedProject.projectOwnerId === userInfo?._id &&
-            openedProject.finishedUsers?.length !== 0 &&
-                <ProfileBtnCard
-                  title={'Finished'}
-                  status={'finished'}
-                  data={openedProject.finishedUsers}
-                  updateParentState={setOpenedProject}
-                />
-              }
+                openedProject.finishedUsers?.length !== 0 && (
+                  <ProfileBtnCard
+                    title={'Finished'}
+                    status={'finished'}
+                    data={openedProject.finishedUsers}
+                    updateParentState={setOpenedProject}
+                  />
+                )}
               {openedProject.projectOwnerId === userInfo?._id &&
               openedProject.appliedUsers?.length ? (
                 <ProfileBtnCard
@@ -74,6 +80,7 @@ export default function MyProjects() {
               ) : null}
               <ProfileDetailCard />
               <ProjectWorkCard />
+              <Button variant="blue" label="Send message to owner" type='button' onClick={handleSendMessageToOwner} />
             </div>
             <div className="projects-page__projects">
               <ProjectCard
