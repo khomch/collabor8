@@ -6,11 +6,11 @@ import './tag.css';
 import Image from 'next/image';
 
 export type TagProps = {
-  color: 'gray' | 'blue' | 'pink' | 'green' | 'orange';
+  color: "gray" | "blue" | "pink" | "green" | "orange";
   label: string;
   isIcon?: boolean;
-  onClick?: (val?: any) => void;
-  setSelectedTags?: (val?: any) => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement> | any) => void;
+  setSelectedTags?: (tags: any) => void;
   index?: number;
 };
 

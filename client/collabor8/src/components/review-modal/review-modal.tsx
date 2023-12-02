@@ -43,7 +43,7 @@ function ReviewModal({ user, projectId, updateParentState, onClose }: ReviewProp
     }
   }
 
-    const response: any = await writeReview(update);
+    const response = await writeReview(update);
     if (response?.status === 200) {
       moveUserToReviewed();
       onClose();

@@ -1,10 +1,11 @@
-import './select.css';
+import { ChangeEvent } from "react";
+import "./select.css";
 
 type SelectProps = {
   isDisabled?: boolean;
   options: string[];
   selected: string;
-  onChange: any;
+  onChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 };
 
 export function Select({

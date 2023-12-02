@@ -25,7 +25,7 @@ type ManageProjectProps = {
 function ManageProject({ project, setProject }: ManageProjectProps) {
   const router = useRouter();
   const [type, setType] = useState(types[0]);
-  const [level, setLevel] = useState(project.level);
+  const [level, setLevel] = useState(project?.level);
   const [workspace, setWorkspace] = useState({ name: '', link: '' });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
