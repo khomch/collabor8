@@ -69,7 +69,8 @@ export default function MyProjects() {
                     userInfo={user}
                   />
                 ))}
-              { user.profile.projectHistory.length > 0 &&
+              { user &&
+                user.profile.projectHistory.length > 0 &&
               <div className="projects-page__subtitle">
                 <Image src={FinishedTask} width={25} height={25} alt="Team member Icon" />
                 <h2>Finished tasks in</h2>
