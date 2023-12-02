@@ -11,9 +11,9 @@ export type ProjectWorkCardprops = {
 function ProjectWorkCard() {
 
   const [projectData,setProjectInfo] = useState< ProjectWorkCardprops | null>(null)
-   
+
   const projectWorkspaces = projectData?.projectWorkspaces
-  
+
   const path = usePathname()
   const pathSegments = path.split('/');
   const param = pathSegments[pathSegments.length - 1];
@@ -21,16 +21,16 @@ function ProjectWorkCard() {
   async function fetchProjectInfo(params:string) {
     try {
       const projectInfo : any = await getProjectInfo(param)
-      setProjectInfo(projectInfo.data)          
-      
+      setProjectInfo(projectInfo.data)
+
     } catch (error) {
       console.log(error)
     }
   }
 
   useEffect(()=>{
-    fetchProjectInfo(path)    
-  })
+    fetchProjectInfo(path)
+  },[])
 
   return (
     <VStack size="3col">

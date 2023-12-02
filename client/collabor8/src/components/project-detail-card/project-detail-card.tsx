@@ -104,10 +104,10 @@ function ProfileDetailCard() {
             />
             <span className="bodytext1 bodytext1_semibold">Team Members</span>
           </div>
-          {/* <div className="profile-detail_members bodytext2 bodytext2_medium">             
+          {/* <div className="profile-detail_members bodytext2 bodytext2_medium">
             <User icon={'😵‍💫'} />
             <User icon={'😎'} />
-            <User icon={'🥹'} />  
+            <User icon={'🥹'} />
           </div> */}
           <ul>
             {approvedUsers?.map((item) => {
