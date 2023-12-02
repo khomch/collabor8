@@ -1,18 +1,21 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, Dispatch, SetStateAction } from "react";
 import "./review-modal.css";
 import Input from "../input/input";
 import Button from "../button/button";
 import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
-import { TReview, TUserInProject } from "@/types/types";
+import { TReview, TUserInProject, TProjectInfo } from "@/types/types";
 import { writeReview } from "@/apiService/userService";
+import { moveFinishedToReviewed } from "@/apiService/projectServicesApi";
 
 interface ReviewProps {
   user: TUserInProject | null;
+  projectId?: string | string[];
+  updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
   onClose: () => void; // Adjust the type of onClose based on your needs
 }
 
-function ReviewModal({ user, onClose }: ReviewProps) {
+function ReviewModal({ user, projectId, updateParentState, onClose }: ReviewProps) {
   // TODO: Finish rating logic
   const [feedbackValue, setFeedbackValue] = useState("");
   const [rating, setRating] = useState(0);
@@ -30,8 +33,19 @@ function ReviewModal({ user, onClose }: ReviewProps) {
       toUserId: user!._id,
     };
 
+  const moveUserToReviewed = async () => {
+    const response = await moveFinishedToReviewed({
+      userId: user!._id,
+      projectId: projectId,
+    })
+    if (response!.status === 200 ) {
+      updateParentState!(response!.data)
+    }
+  }
+
     const response: any = await writeReview(update);
     if (response?.status === 200) {
+      moveUserToReviewed();
       onClose();
     }
     setFeedbackValue("");

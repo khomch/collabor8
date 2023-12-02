@@ -59,7 +59,6 @@ function ProjectCard({
         toast("Applied!");
         updateParentState!(response!.data);
       } else {
-        console.log(response);
         toast("⛔️ " + response?.error);
       }
     } catch (err) {}

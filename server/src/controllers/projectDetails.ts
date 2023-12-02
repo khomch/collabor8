@@ -252,6 +252,31 @@ async function finishUserTask(req: RequestWithUser, res: Response) {
   }
 }
 
+async function reviewUser(req: Request, res: Response) {
+  try {
+    const projectFilter = {
+      _id: req.body.projectId,
+    };
+    const reviewedUserId = {
+      _id: req.body.userId,
+    };
+    const project = await Project.findOne(projectFilter);
+    if (!project) {
+      return res.status(404).send({ message: "Project not found" });
+    }
+    const reviewdUserIndex = project.finishedUsers.findIndex(
+      (user: TUserInProject) => user._id === reviewedUserId._id
+    );
+    const reviewedUser = project.finishedUsers.splice(reviewdUserIndex, 1);
+    project.reviewedUsers.push(...reviewedUser);
+    project.save();
+    res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
 export default {
   createProject,
   editProjectDetails,
@@ -264,4 +289,5 @@ export default {
   denyUser,
   getProjectOwner,
   finishUserTask,
+  reviewUser,
 };

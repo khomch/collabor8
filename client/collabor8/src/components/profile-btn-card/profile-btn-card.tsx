@@ -51,7 +51,6 @@ const handleDeny = async (userId: string) => {
       updateParentState!(response!.data)
     }
   }
-  console.log(data)
   return (
     <VStack size="3col">
       <div className="profile-btn-card">
@@ -92,7 +91,7 @@ const handleDeny = async (userId: string) => {
       </div>
       {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            <ReviewModal onClose={() => setShowModal(false)} user={reviewedUser} />
+            <ReviewModal onClose={() => setShowModal(false)} user={reviewedUser} projectId={projectId} updateParentState={updateParentState}/>
           </Modal>
         )}
     </VStack>

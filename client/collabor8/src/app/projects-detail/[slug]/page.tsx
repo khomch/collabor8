@@ -48,7 +48,6 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
-  console.log('project detail');
   return (
     openedProject._id && (
       <section className="projects-page">

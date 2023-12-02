@@ -32,7 +32,6 @@ export default function MyProjects() {
       })
       .catch((err) => console.log("error", err));
   }, []);
-  console.log(user);
   return (
     <section className="projects-page">
       <div className="projects">

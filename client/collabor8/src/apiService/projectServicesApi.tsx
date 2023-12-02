@@ -249,11 +249,35 @@ export async function getOwnerProjects() {
       });
       if (finishTask.ok) {
         const response = await finishTask.json();
-        console.log('finishTask', response)
         return { status: 200, data: response };
       } else {
         const statusCode = finishTask.status;
         const response = await finishTask.json();
+        return { status: statusCode, error: response.message };
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  export async function moveFinishedToReviewed(data: object) {
+    const token = localStorage.getItem("accessToken");
+    try {
+      const reviewedUser = await fetch(`${API_URL}/project/review`, {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      });
+      if (reviewedUser.ok) {
+        const response = await reviewedUser.json();
+        return { status: 200, data: response };
+      } else {
+        const statusCode = reviewedUser.status;
+        const response = await reviewedUser.json();
         return { status: statusCode, error: response.message };
       }
     } catch (error) {
