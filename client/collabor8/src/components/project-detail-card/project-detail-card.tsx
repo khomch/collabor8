@@ -77,6 +77,15 @@ function ProfileDetailCard() {
     return `${day} ${monthNames[monthIndex]} ${year}`;
   }
 
+  const icons = ["😵‍💫","😎","🥹","😅","🤓","😉"]
+  function getRandomIcon() {
+    const icons = ["😵‍💫","😎","🥹","😅","🤓","😉"];
+    const randomIndex = Math.floor(Math.random() * icons.length);
+    return icons[randomIndex];
+  }
+
+
+
   return (
     <VStack size="3col">
       <div className="profile-detail">
@@ -109,11 +118,13 @@ function ProfileDetailCard() {
             <User icon={'😎'} />
             <User icon={'🥹'} />  
           </div> */}
-          <ul>
+          
             {approvedUsers?.map((item) => {
-              return <ul key={item._id}>{item.username}</ul>;
+              return <div key={item._id} className="member_div">
+                
+                <ul className='member_ul'>{item.username}<div>{getRandomIcon()}</div></ul></div>;
             })}
-          </ul>
+          
         </div>
 
         <div className="profile-detail__info">
