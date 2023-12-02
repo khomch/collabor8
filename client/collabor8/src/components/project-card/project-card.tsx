@@ -49,6 +49,7 @@ function ProjectCard({
     projectId: project._id,
     username: userInfo?.userName,
     role: userInfo?.role || "Not specified",
+    company: userInfo?.company || "Not specified",
   };
 
   const handleApply = async () => {

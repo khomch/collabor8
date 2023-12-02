@@ -138,6 +138,7 @@ async function applyToProject(req: RequestWithUser, res: Response) {
       _id: req.id,
       username: req.body.username,
       role: req.body.role,
+      company: req.body.company,
     };
     const project = await Project.findOne(filter);
     if (!project) {
@@ -184,6 +185,7 @@ async function approveUser(req: Request, res: Response) {
       _id: req.body._id,
       username: req.body.username,
       role: req.body.role,
+      company: req.body.company,
     };
     const project = await Project.findOne(projectFilter);
     if (!project) {

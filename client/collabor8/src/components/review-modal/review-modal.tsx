@@ -4,11 +4,11 @@ import Input from "../input/input";
 import Button from "../button/button";
 import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
-import { TReview, TUserInfo } from "@/types/types";
+import { TReview, TUserInProject } from "@/types/types";
 import { writeReview } from "@/apiService/userService";
 
 interface ReviewProps {
-  user: TUserInfo;
+  user: TUserInProject | null;
   onClose: () => void; // Adjust the type of onClose based on your needs
 }
 
@@ -27,7 +27,7 @@ function ReviewModal({ user, onClose }: ReviewProps) {
     const update: TReview = {
       rating,
       feedback: feedbackValue,
-      toUserId: user._id,
+      toUserId: user!._id,
     };
 
     const response: any = await writeReview(update);
@@ -48,9 +48,9 @@ function ReviewModal({ user, onClose }: ReviewProps) {
       <div className="review__content">
         <UserProfile
           direction={"row"}
-          name={user.userName}
-          role={user.role}
-          company={user.company}
+          name={user!.username}
+          role={user!.role === 'Not specified' ? 'Working' : user!.role }
+          company={user!.company}
         />
         <p className="review__text bodytext1">How was the developer?</p>
 

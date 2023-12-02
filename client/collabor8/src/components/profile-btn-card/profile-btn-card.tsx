@@ -15,28 +15,24 @@ import ReviewModal from "../review-modal/review-modal";
 export type ProfileCardProps = {
   title: string;
   status: "finished" | "join";
-  data: User[] | TUserInProject[] | undefined;
+  data: TUserInProject[] | undefined;
   updateParentState?: Dispatch<SetStateAction<TProjectInfo>>;
-};
-
-export type User = {
-  _id: string;
-  username: string;
-  role: string;
 };
 
 function ProfileBtnCard({ title, status, data, updateParentState }: ProfileCardProps) {
 
   const [showModal, setShowModal] = useState(false);
+  const [reviewedUser, setReviewedUser] = useState<TUserInProject | null>(null);
 
   const params = useParams();
   const projectId = params.slug;
 
-  const handleApprove = async (user: User) => {
+  const handleApprove = async (user: TUserInProject) => {
     const response = await approveUser({
       _id: user._id,
       username: user.username,
       role: user.role,
+      company: user.company,
       projectId: projectId,
     })
     if (response!.status === 200 ) {
@@ -75,7 +71,10 @@ const handleDeny = async (userId: string) => {
                   isSmall={true}
                   variant={"primary"}
                   label={"Rate & Review"}
-                  onClick={() => setShowModal(true)}
+                  onClick={() => {
+                    setReviewedUser(item);
+                    setShowModal(true);
+                  }}
                 />
               ) : (
                 <>
@@ -93,7 +92,7 @@ const handleDeny = async (userId: string) => {
       </div>
       {showModal && (
           <Modal onClose={() => setShowModal(false)}>
-            {/* <ReviewModal onClose={() => setShowModal(false)} user={data} /> */}
+            <ReviewModal onClose={() => setShowModal(false)} user={reviewedUser} />
           </Modal>
         )}
     </VStack>

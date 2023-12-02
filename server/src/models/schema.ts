@@ -4,6 +4,15 @@ var mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
+const userInProject = new Schema(
+  {
+    _id: { type: String },
+    username: { type: String },
+    role: { type: String },
+    company: { type: String },
+  }
+)
+
 const ProjectInformation = new Schema(
   {
     projectOwnerId: { type: String, required: true, ref: 'User' },
@@ -31,27 +40,10 @@ const ProjectInformation = new Schema(
         techstack: [{ type: String }],
       },
     ],
-    appliedUsers: [
-      {
-        _id: { type: String },
-        username: { type: String },
-        role: { type: String },
-      },
-    ],
-    approvedUsers: [
-      {
-        _id: { type: String },
-        username: { type: String },
-        role: { type: String },
-      },
-    ],
-    finishedUsers: [
-      {
-        _id: { type: String },
-        username: { type: String },
-        role: { type: String },
-      },
-    ],
+    appliedUsers: [userInProject],
+    approvedUsers: [userInProject],
+    finishedUsers: [userInProject],
+    reviewedUsers: [userInProject],
   },
   { timestamps: true }
 );
