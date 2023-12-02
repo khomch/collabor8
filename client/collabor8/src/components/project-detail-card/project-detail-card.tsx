@@ -113,12 +113,7 @@ function ProfileDetailCard() {
             />
             <span className="bodytext1 bodytext1_semibold">Team Members</span>
           </div>
-          {/* <div className="profile-detail_members bodytext2 bodytext2_medium">             
-            <User icon={'😵‍💫'} />
-            <User icon={'😎'} />
-            <User icon={'🥹'} />  
-          </div> */}
-          
+                   
             {approvedUsers?.map((item) => {
               return <div key={item._id} className="member_div">
                 
