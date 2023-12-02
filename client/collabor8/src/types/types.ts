@@ -61,6 +61,7 @@ export type TUserInProject = {
   _id: string;
   username: string;
   role: string;
+  company: string;
 }
 
 export type TProjectInfo = {

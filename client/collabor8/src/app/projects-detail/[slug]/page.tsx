@@ -48,7 +48,6 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
-  console.log('project detail');
   return (
     openedProject._id && (
       <section className="projects-page">
@@ -56,14 +55,14 @@ export default function MyProjects() {
           <div className="projects__content">
             <div className="projects-page__filters">
               {openedProject.projectOwnerId === userInfo?._id &&
-              openedProject.finishedUsers === null ? (
+            openedProject.finishedUsers?.length !== 0 &&
                 <ProfileBtnCard
                   title={'Finished'}
                   status={'finished'}
                   data={openedProject.finishedUsers}
                   updateParentState={setOpenedProject}
                 />
-              ) : null}
+              }
               {openedProject.projectOwnerId === userInfo?._id &&
               openedProject.appliedUsers?.length ? (
                 <ProfileBtnCard
