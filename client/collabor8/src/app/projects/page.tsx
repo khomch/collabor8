@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import IconOwner from '../../../public/icon-owner.svg';
 import IconTeamMember from '../../../public/icon-teammember.svg';
+import FinishedTask from '../../../public/completed-task.svg';
 import './projects.css';
 import { TProjectInfo, TUserInfo } from '@/types/types';
 import { getOwnerProjects } from '@/apiService/projectServicesApi';
@@ -30,6 +31,7 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
+  console.log(user)
   return (
     <section className="projects-page">
       <div className="projects">
@@ -37,7 +39,6 @@ export default function MyProjects() {
           <div className="projects-page__filters">
             <ProfileCard {...user} />
           </div>
-
             <div className="projects-page__projects">
               {ownerProjects.length > 0 &&
               <div className="projects-page__subtitle">
@@ -61,6 +62,21 @@ export default function MyProjects() {
               }
               {user &&
                 user.profile.projects.map((project: TProjectInfo) => (
+                  <ProjectCard
+                    key={project._id}
+                    btnLabel="Show more"
+                    project={project}
+                    userInfo={user}
+                  />
+                ))}
+              { user.profile.projectHistory.length > 0 &&
+              <div className="projects-page__subtitle">
+                <Image src={FinishedTask} width={25} height={25} alt="Team member Icon" />
+                <h2>Finished tasks in</h2>
+              </div>
+              }
+              {user &&
+                user.profile.projectHistory.map((project: TProjectInfo) => (
                   <ProjectCard
                     key={project._id}
                     btnLabel="Show more"
