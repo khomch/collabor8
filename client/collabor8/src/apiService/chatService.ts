@@ -1,6 +1,7 @@
-import { TLoginDetails, TRegisterDetails, TReview } from '@/types/types';
 
 const baseUrl = 'http://localhost:3001/';
+
+// TODO add different endpoints to create and enter chat
 
 const enterChat = async (chatInfo: { chatName: string; users: string[] }) => {
   try {
