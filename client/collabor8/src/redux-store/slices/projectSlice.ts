@@ -13,7 +13,7 @@ type TPRojectsState = {
   error: string | null | undefined;
 };
 
-const initialState: TPRojectsState = {
+export const initialState: TPRojectsState = {
   projects: null,
   status: 'idle',
   error: null,
