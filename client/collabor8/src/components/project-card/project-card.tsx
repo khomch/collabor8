@@ -145,6 +145,7 @@ function ProjectCard({
               !isUserApplied &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
+                  className="project-card__apply_btn"
                   label={btnLabel}
                   variant="primary"
                   onClick={() => handleApply()}
