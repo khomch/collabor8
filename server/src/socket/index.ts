@@ -7,28 +7,23 @@ export const connectWS = async (io: Server) => {
   io.on('connection', (socket: Socket) => {
     socket.emit(
       'message',
-      buildMsg({ userName: ADMIN, text: 'Welcome to chat App' })
+      buildMsg({ userName: ADMIN, text: 'Welcome to room App' })
     );
 
-    socket.on('enterRoom', async ({ chat }) => {
-      socket.join(chat);
+    socket.on('enterRoom', async ({ room }) => {
+      socket.join(room);
     });
 
-    socket.on('message', ({ userName, text, chat, userId, chatId }) => {
-      if (chat) {
-        io.to(chat).emit('message', { userId, userName, chatId, text });
-        addMessageToChat({
-          text,
-          userId,
-          userName,
-          chatId,
-        });
+    socket.on('message', ({ userName, text, room, userId, chatId }) => {
+      if (room) {
+        io.to(room).emit('message', { userId, userName, chatId, text });
+        addMessageToChat({ userId, userName, chatId, text });
       }
     });
 
-    socket.on('activity', ({ name, chat }) => {
-      if (chat) {
-        socket.broadcast.to(chat).emit('activity', name);
+    socket.on('activity', ({ name, room }) => {
+      if (room) {
+        socket.broadcast.to(room).emit('activity', name);
       }
     });
   });

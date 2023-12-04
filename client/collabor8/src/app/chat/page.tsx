@@ -1,12 +1,16 @@
 'use client';
 
+import { getChats } from '@/apiService/chatService';
 import Button from '@/components/button/button';
-import './chat.css';
 import Input from '@/components/input/input';
-import { FormEvent, useEffect, useState } from 'react';
+import { useSelector } from '@/redux-store/customHooks';
+import { useEffect, useState } from 'react';
 import io from 'socket.io-client';
-import { useDispatch, useSelector } from '@/redux-store/customHooks';
-import { enterChat } from '@/apiService/chatService';
+import './chat.css';
+import ChatList from './components/chat-list/chat-list';
+import { TChat } from '@/types/chat-types';
+import VStack from '@/components/ui/v-stack/v-stack';
+import ChatWindow from './components/chat-window/chat-window';
 const socket = io('http://localhost:3001');
 
 type TMessage = {
@@ -28,112 +32,84 @@ type TChatData = {
 const projectOwnerId = '6569c6a7e1e67fe291d39b10';
 
 export default function Chat() {
+  const [chats, setChats] = useState([]);
   const { user } = useSelector((state) => state.userState);
   const chat = 'soundHarbor';
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [isTyping, setIsTyping] = useState(false);
   const [newMessage, setNewMessage] = useState('');
   const [chatData, setChatData] = useState<TChatData>();
-
-  useEffect(() => {
-    const handleNewMessage = (message: TMessage) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-      setIsTyping(false);
-    };
-    socket.on('message', handleNewMessage);
-    return () => {
-      socket.off('message', handleNewMessage);
-    };
-  }, []);
+  const [openedChat, setOpenedChat] = useState<TChat | null>(null);
 
   useEffect(() => {
     newMessage.length === 0 && setIsTyping(false);
   }, [newMessage]);
 
-  let activityTimer: any;
-
   useEffect(() => {
-    socket.on('activity', () => {
-      clearTimeout(activityTimer);
-      activityTimer = setTimeout(() => {
-        setIsTyping(false);
-      }, 1000);
-      setIsTyping(true);
-    });
-    return () => {
-      socket.off('activity', () => {
-        setIsTyping(false);
-      });
-    };
+    getChats().then((res) => setChats(res?.data));
   }, []);
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setNewMessage(e.target.value);
-    socket.emit('activity', {
-      name: user?.userName,
-      chat: chat,
-    });
-  };
+  // let activityTimer: any;
 
-  const handleStartChat = () => {
-    user?._id &&
-      enterChat({
-        chatName: chat,
-        users: [user?._id, projectOwnerId],
-      }).then((res) => {
-        setChatData(res);
-        setMessages(res.messages);
-      });
-  };
+  // useEffect(() => {
+  //   socket.on('activity', () => {
+  //     clearTimeout(activityTimer);
+  //     activityTimer = setTimeout(() => {
+  //       setIsTyping(false);
+  //     }, 1000);
+  //     setIsTyping(true);
+  //   });
+  //   return () => {
+  //     socket.off('activity', () => {
+  //       setIsTyping(false);
+  //     });
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    const handleEnterRoom = () => {
-      if (user?._id && chat) {
-        socket.emit('enterRoom', {
-          chat: chat,
-        });
-      }
-    };
-    handleEnterRoom();
+  // const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setNewMessage(e.target.value);
+  //   socket.emit('activity', {
+  //     name: user?.userName,
+  //     chat: chat,
+  //   });
+  // };
 
-    socket.on('enterRoom', handleEnterRoom);
+  // useEffect(() => {
+  //   const handleEnterRoom = () => {
+  //     if (user?._id && chat) {
+  //       socket.emit('enterRoom', {
+  //         chat: chat,
+  //       });
+  //     }
+  //   };
+  //   handleEnterRoom();
 
-    return () => {
-      socket.off('enterRoom');
-    };
-  }, [user?._id, chat, socket]);
+  //   socket.on('enterRoom', handleEnterRoom);
 
-  const sendMessage = (e: React.FormEvent) => {
-    e.preventDefault();
-    socket.emit('message', {
-      userName: user?.userName,
-      text: newMessage,
-      chat: chat,
-      userId: user?._id,
-      chatName: chat,
-      chatId: chatData?._id,
-      users: [user?._id, projectOwnerId],
-    });
-    setNewMessage('');
-  };
+  //   return () => {
+  //     socket.off('enterRoom');
+  //   };
+  // }, [user?._id, chat, socket]);
+
+  // const sendMessage = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   socket.emit('message', {
+  //     userName: user?.userName,
+  //     text: newMessage,
+  //     chat: chat,
+  //     userId: user?._id,
+  //     chatName: chat,
+  //     chatId: chatData?._id,
+  //     users: [user?._id, projectOwnerId],
+  //   });
+  //   setNewMessage('');
+  // };
 
   return (
     <div className="chat-page">
       <section className="chat">
-        {user && (
-          <Button
-            variant="primary"
-            label="Start chat"
-            onClick={handleStartChat}
-            type="button"
-          />
-        )}
-        {chatData && (
+        {/* {chatData && (
           <>
-            <h1>Chats</h1>
-            <form className="form__join">
-              <h2 className="h6">You — {user?.userName}</h2>
-            </form>
             <div>
               {messages.map((message, index) => {
                 return (
@@ -155,7 +131,14 @@ export default function Chat() {
               <Button variant="blue" label="Send" type="submit" />
             </form>
           </>
+        )} */}
+        {chats && (
+          <VStack size="3col">
+            <h2 className="h6">Chats</h2>
+            <ChatList chats={chats} setOpenedChat={setOpenedChat} />
+          </VStack>
         )}
+        {user && openedChat && <ChatWindow chat={openedChat} user={user} />}
       </section>
     </div>
   );

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { UserTable } from './schema';
 
 const Schema = mongoose.Schema;
 

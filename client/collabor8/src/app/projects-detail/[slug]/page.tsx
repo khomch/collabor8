@@ -12,6 +12,8 @@ import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import './projects.css';
 import Button from '@/components/button/button';
+import SendMessage from './components/send-message';
+import Modal from '@/components/modal/modal';
 
 export default function MyProjects() {
   const projectInitialData: TProjectInfo = {
@@ -38,6 +40,7 @@ export default function MyProjects() {
   };
 
   const [openedProject, setOpenedProject] = useState(projectInitialData);
+  const [isSendMessageOpened, setIsSendMessageOpened] = useState(false);
   const params = useParams();
   const userInfo = useSelector((state) => state.userState.user);
 
@@ -51,8 +54,8 @@ export default function MyProjects() {
   }, []);
 
   const handleSendMessageToOwner = () => {
-    
-  }
+    setIsSendMessageOpened(true);
+  };
 
   return (
     openedProject._id && (
@@ -80,7 +83,24 @@ export default function MyProjects() {
               ) : null}
               <ProfileDetailCard />
               <ProjectWorkCard />
-              <Button variant="blue" label="Send message to owner" type='button' onClick={handleSendMessageToOwner} />
+              <Button
+                variant="blue"
+                label="Send message to owner"
+                type="button"
+                onClick={handleSendMessageToOwner}
+              />
+              {isSendMessageOpened &&
+                openedProject.projectOwnerId &&
+                userInfo?._id && (
+                  <Modal onClose={() => setIsSendMessageOpened(false)}>
+                    <SendMessage
+                      projectTitle={openedProject.title}
+                      projectOwnerId={openedProject.projectOwnerId}
+                      userName={userInfo.userName}
+                      userId={userInfo?._id}
+                    />
+                  </Modal>
+                )}
             </div>
             <div className="projects-page__projects">
               <ProjectCard

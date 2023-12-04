@@ -1,14 +1,17 @@
+const baseUrl = 'http://localhost:3001';
 
-const baseUrl = 'http://localhost:3001/';
-
-// TODO add different endpoints to create and enter chat
-
-const enterChat = async (chatInfo: { chatName: string; users: string[] }) => {
+export const startChat = async (chatInfo: {
+  chatName: string;
+  users: string[];
+  message: string;
+}) => {
+  const token = localStorage.getItem('accessToken');
   try {
-    const response = await fetch(`${baseUrl}chat/start`, {
+    const response = await fetch(`${baseUrl}/chat/start`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(chatInfo),
     });
@@ -23,4 +26,25 @@ const enterChat = async (chatInfo: { chatName: string; users: string[] }) => {
   }
 };
 
-export { enterChat };
+export const getChats = async () => {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const chats = await fetch(`${baseUrl}/chat/get`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (chats.ok) {
+      const response = await chats.json();
+      return { status: 200, data: response };
+    } else {
+      return { status: 400, error: 'Error getting chats' };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};

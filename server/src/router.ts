@@ -6,7 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
 import review from './controllers/review';
-import { handleEnterChat } from './controllers/chat';
+import { getAllChats, handleStartChat } from './controllers/chat';
 
 // TODO authentication
 ///to update for middleware routes
@@ -167,7 +167,6 @@ router.get('/user/profile', authenticateToken, userDetails.getUserProfile);
  */
 router.post('/user/review', authenticateToken, review.writeReview);
 
-
 //project details
 
 /**
@@ -309,7 +308,11 @@ router.post('/project/apply', authenticateToken, projectDetails.applyToProject);
 
 router.post('/project/approve', authenticateToken, projectDetails.approveUser);
 router.post('/project/deny', authenticateToken, projectDetails.denyUser);
-router.post('/project/finish', authenticateToken, projectDetails.finishUserTask);
+router.post(
+  '/project/finish',
+  authenticateToken,
+  projectDetails.finishUserTask
+);
 router.post('/project/review', authenticateToken, projectDetails.reviewUser);
 
 router.get('/projects', projectDetails.getAllProjectDetails);
@@ -337,8 +340,9 @@ router.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
  *       404:
  *        description: user not found
  */
- router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
+router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
 
- router.post('/chat/start', handleEnterChat)
+router.post('/chat/start', handleStartChat);
+router.get('/chat/get', authenticateToken, getAllChats);
 
 export default router;
