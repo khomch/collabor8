@@ -8,6 +8,7 @@ export type ButtonProps = ButtonPropsOriginal & {
   label: string;
   disabled?: boolean;
   isSmall?: boolean;
+  className?: string;
 };
 
 function Button({
@@ -17,15 +18,16 @@ function Button({
   disabled,
   type,
   isSmall,
+  className,
 }: ButtonProps) {
   return (
     <button
       disabled={disabled}
       onClick={onClick}
       type={type}
-      className={`button button__${variant} ${disabled && "button_disabled"} ${
-        isSmall && "button__small"
-      }`}
+      className={`button button__${variant} ${className}  ${
+        disabled && "button_disabled"
+      } ${isSmall && "button__small"}`}
     >
       {label}
     </button>
