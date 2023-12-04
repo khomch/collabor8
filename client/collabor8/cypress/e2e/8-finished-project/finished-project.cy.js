@@ -23,14 +23,20 @@ describe("test new user approve ", () => {
   it("should check the project new user applied sucessfully", () => {
     cy.visit("http://localhost:3000/projects");
 
+    cy.get(".project-card__show_btn").should("be.visible").click();
+    cy.get(".project-card__finish_btn").should("be.visible").click();
+  });
+
+  it("should check the project new user applied sucessfully", () => {
+    cy.visit("http://localhost:3000/projects");
+
     cy.get(".projects-page__subtitle h2").should(
       "contain.text",
-      "Team member in"
+      "Finished tasks in"
     );
-
     cy.get(".project-card__title").should("contain.text", "My Awesome Project");
 
     // cy.get(".project-card__show_btn").should("be.visible").click();
-    // cy.get(".profile-btn-card__approve").should("be.visible").click();
+    // cy.get(".project-card__finish_btn").should("be.visible").click();
   });
 });

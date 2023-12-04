@@ -166,6 +166,7 @@ function ProjectCard({
               isUserParticipating &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
+                  className="project-card__finish_btn"
                   label="Finish Task"
                   variant="primary"
                   onClick={() => handleFinish()}
