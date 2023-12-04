@@ -1,11 +1,13 @@
+import Button from '@/components/button/button';
 import VStack from '@/components/ui/v-stack/v-stack';
 import { TChat, TMessage } from '@/types/chat-types';
-import './chat-window.css';
+import { TUserInfo } from '@/types/types';
 import { useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
-import Input from '@/components/input/input';
-import Button from '@/components/button/button';
-import { TUserInfo } from '@/types/types';
+import Message from '../message/message';
+import './chat-window.css';
+import { useDispatch } from '@/redux-store/customHooks';
+import { addMessageToChat } from '@/redux-store/slices/chatSlice';
 
 type ChatWindowProps = {
   chat: TChat;
@@ -14,34 +16,37 @@ type ChatWindowProps = {
 const socket = io('http://localhost:3001');
 
 export default function ChatWindow({ chat, user }: ChatWindowProps) {
-  const [messages, setMessages] = useState<TMessage[]>(chat.messages);
+  const [messages, setMessages] = useState<TMessage[]>([]);
   const [newMessage, setNewMessage] = useState('');
-  const [isTyping, setIsTyping] = useState(false);
+  const [whoIsTyping, setWhoIsTyping] = useState('');
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const handleNewMessage = (message: TMessage) => {
-      console.log('message: ', message);
       setMessages((prevMessages) => [...prevMessages, message]);
-      setIsTyping(false);
+      setWhoIsTyping('');
     };
     socket.on('message', handleNewMessage);
     return () => {
       socket.off('message', handleNewMessage);
     };
   }, []);
+  useEffect(() => {
+    setMessages(chat.messages);
+  }, [chat]);
 
   let activityTimer: any;
   useEffect(() => {
-    socket.on('activity', () => {
+    socket.on('activity', (name) => {
       clearTimeout(activityTimer);
       activityTimer = setTimeout(() => {
-        setIsTyping(false);
+        setWhoIsTyping('');
       }, 1000);
-      setIsTyping(true);
+      setWhoIsTyping(name);
     });
     return () => {
       socket.off('activity', () => {
-        setIsTyping(false);
+        setWhoIsTyping('');
       });
     };
   }, []);
@@ -50,7 +55,7 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
     setNewMessage(e.target.value);
     socket.emit('activity', {
       name: user?.userName,
-      chat: chat,
+      chatId: chat._id,
     });
   };
 
@@ -58,14 +63,13 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
     const handleEnterRoom = () => {
       if (user?._id && chat) {
         socket.emit('enterRoom', {
-          room: chat._id,
+          chatId: chat._id,
+          userId: user?._id,
         });
       }
     };
     handleEnterRoom();
-
     socket.on('enterRoom', handleEnterRoom);
-
     return () => {
       socket.off('enterRoom');
     };
@@ -78,41 +82,58 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
       userId: user?._id,
       userName: user?.userName,
       chatId: chat?._id,
-      room: chat?._id,
+      isRead: false,
     });
+    dispatch(
+      addMessageToChat({
+        chatId: chat._id,
+        text: newMessage,
+        userName: user.userName,
+      })
+    );
     setNewMessage('');
   };
 
   return (
     <VStack size="9col">
-      <h2 className="h6">{chat.chatName}</h2>
-      {chat.messages.map((message) => (
-        <p key={message._id}>{message.text}</p>
-      ))}
-      {messages && (
-        <>
-          <div>
-            {messages.map((message, index) => {
-              return (
-                <div key={index}>
-                  {message.userName}: {message.text}
-                </div>
-              );
-            })}
-          </div>
-          <form onSubmit={sendMessage} className="chat__message">
-            <Input
-              name="message"
-              type="text"
-              value={newMessage}
-              onChange={handleOnChange}
-              placeholder="..."
-            />
-            {isTyping && <p>Typing...</p>}
-            <Button variant="blue" label="Send" type="submit" />
-          </form>
-        </>
-      )}
+      <div className="chat-window">
+        <h2 className="h6">{chat.chatName}</h2>
+        {messages && (
+          <>
+            <div className="chat__messages">
+              {messages
+                .sort(
+                  (a: TMessage, b: TMessage) =>
+                    new Date(b.createdAt).getTime() -
+                    new Date(a.createdAt).getTime()
+                )
+                .map((message) => (
+                  <Message
+                    key={message._id}
+                    message={message}
+                    userId={user?._id}
+                  />
+                ))}
+            </div>
+            {whoIsTyping.length > 0 && (
+              <p className="chat__istyping">{`${whoIsTyping} is typing...`}</p>
+            )}
+          </>
+        )}
+        <form onSubmit={sendMessage} className="chat__message-form">
+          <input
+            name="message"
+            type="text"
+            value={newMessage}
+            onChange={handleOnChange}
+            className="chat__input"
+            placeholder=""
+            minLength={1}
+          />
+
+          <Button variant="primary" label="Send" type="submit" />
+        </form>
+      </div>
     </VStack>
   );
 }

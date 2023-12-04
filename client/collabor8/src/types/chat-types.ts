@@ -4,6 +4,9 @@ export type TMessage = {
   userId: string;
   userName: string;
   chatId: string;
+  isRead: boolean;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type TChat = {
@@ -13,4 +16,6 @@ export type TChat = {
   messages: TMessage[];
   createdAt: string;
   updatedAt: string;
+  unreadCount: number;
+  lastMessage: TMessage;
 };

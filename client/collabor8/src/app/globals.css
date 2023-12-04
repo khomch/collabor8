@@ -8,6 +8,7 @@
   --interface-gray400: #c4cfd4;
   --interface-gray200: #e4eaed;
   --interface-gray100: #f6f8f9;
+  --dynamic-blue-light: #9ae0fd;
   --dynamic-blue: #50c9fc;
   --dynamic-pink: #ffa1c4;
   --dynamic-orange: #ffab30;
@@ -170,7 +171,7 @@ html {
 }
 
 .children {
-  height: 100vh;
+  /* height: 100vh; */
   background-color: var(--interface-gray100);
   box-sizing: border-box;
 }

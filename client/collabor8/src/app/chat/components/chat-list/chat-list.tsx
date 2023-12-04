@@ -6,14 +6,26 @@ import { Dispatch, SetStateAction } from 'react';
 type ChatListProps = {
   chats: TChat[];
   setOpenedChat: Dispatch<SetStateAction<TChat | null>>;
+  userId: string;
 };
 
-export default function ChatList({ chats, setOpenedChat }: ChatListProps) {
+export default function ChatList({
+  chats,
+  setOpenedChat,
+  userId,
+}: ChatListProps) {
   return (
     <ul className="chat-list">
-      {chats.map((chat: TChat) => (
-        <ChatItem chat={chat} key={chat._id} setOpenedChat={setOpenedChat} />
-      ))}
+      {chats &&
+        chats.map((chat: TChat) => (
+          <div key={chat._id}>
+            <ChatItem
+              chat={chat}
+              setOpenedChat={setOpenedChat}
+              userId={userId}
+            />
+          </div>
+        ))}
     </ul>
   );
 }

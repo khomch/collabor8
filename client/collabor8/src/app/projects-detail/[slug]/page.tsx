@@ -14,6 +14,7 @@ import './projects.css';
 import Button from '@/components/button/button';
 import SendMessage from './components/send-message';
 import Modal from '@/components/modal/modal';
+import VStack from '@/components/ui/v-stack/v-stack';
 
 export default function MyProjects() {
   const projectInitialData: TProjectInfo = {
@@ -83,12 +84,16 @@ export default function MyProjects() {
               ) : null}
               <ProfileDetailCard />
               <ProjectWorkCard />
-              <Button
-                variant="blue"
-                label="Send message to owner"
-                type="button"
-                onClick={handleSendMessageToOwner}
-              />
+              {openedProject.projectOwnerId !== userInfo?._id && (
+                <VStack size='3col'>
+                  <Button
+                    variant="blue"
+                    label="Send message to owner"
+                    type="button"
+                    onClick={handleSendMessageToOwner}
+                  />
+                </VStack>
+              )}
               {isSendMessageOpened &&
                 openedProject.projectOwnerId &&
                 userInfo?._id && (

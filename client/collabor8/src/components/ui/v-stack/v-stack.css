@@ -10,8 +10,8 @@
 }
 
 .vstack_3col {
-  width: 100%;
-  max-width: 296px;
+  min-width: 296px;
+  width: 296px;
 }
 
 .vstack_6col {

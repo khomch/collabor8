@@ -48,3 +48,26 @@ export const getChats = async () => {
     console.error(error);
   }
 };
+
+export const getChatMessages = async (chatId: string) => {
+  const token = localStorage.getItem('accessToken');
+  try {
+    const messages = await fetch(`${baseUrl}/chat/get/${chatId}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (messages.ok) {
+      const response = await messages.json();
+      return { status: 200, data: response };
+    } else {
+      return { status: 400, error: 'Error getting messages' };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
