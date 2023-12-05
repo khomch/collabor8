@@ -59,7 +59,7 @@ function Profile() {
                 <ReviewsCard reviews={profile.profile?.reviews} />
               </div>
               <div className="profile-page__edit">
-                <ProfileEdit {...profile} />
+                <ProfileEdit {...data} />
               </div>
             </div>
           </div>

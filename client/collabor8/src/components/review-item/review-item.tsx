@@ -1,11 +1,15 @@
 import React, { FormEvent, useState } from "react";
 import "./review-item.css";
-import Input from "../input/input";
-import Button from "../button/button";
-import StarRating from "../star-rating/star-rating";
 import UserProfile from "../user-profile/user-profile";
 
-function ReviewItem({ userName, rating, feedback, index }: any) {
+type ReviewItemProps = {
+  userName: string;
+  rating: number;
+  feedback: string;
+  index: number;
+};
+
+function ReviewItem({ userName, rating, feedback, index }: ReviewItemProps) {
   return (
     <div className="review-item" key={index}>
       <UserProfile direction={"row"} name={userName} rating={rating} />
