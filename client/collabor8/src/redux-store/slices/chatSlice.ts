@@ -1,8 +1,6 @@
-import { getProjectListing } from '@/apiService/projectServicesApi';
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { TProjectInfo } from '../../types/types';
+import { getChats } from '@/apiService/chatService';
 import { TChat, TMessage } from '@/types/chat-types';
-import { getChatMessages, getChats } from '@/apiService/chatService';
+import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 const fetchChats = createAsyncThunk('getChats', async () => {
   const response = await getChats();
@@ -29,15 +27,6 @@ const chatsSlice = createSlice({
   name: 'chatsSlice',
   initialState,
   reducers: {
-    addMessageToChat: (state, action) => {
-      const chat = state.chats
-        ?.slice()
-        .find((chat) => chat._id === action.payload.chatId);
-      if (chat) {
-        chat.lastMessage.text = action.payload.text;
-        chat.lastMessage.userName = action.payload.userName;
-      }
-    },
     readChatMessages: (state, action) => {
       console.log('action: ', action.payload);
       const chat = state.chats
@@ -72,6 +61,6 @@ const chatsSlice = createSlice({
 
 export { fetchChats };
 
-export const { addMessageToChat, readChatMessages } = chatsSlice.actions;
+export const { readChatMessages } = chatsSlice.actions;
 
 export default chatsSlice.reducer;

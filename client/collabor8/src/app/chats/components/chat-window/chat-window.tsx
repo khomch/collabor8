@@ -7,11 +7,7 @@ import { io } from 'socket.io-client';
 import Message from '../message/message';
 import './chat-window.css';
 import { useDispatch } from '@/redux-store/customHooks';
-import {
-  addMessageToChat,
-  fetchChats,
-  readChatMessages,
-} from '@/redux-store/slices/chatSlice';
+import { fetchChats, readChatMessages } from '@/redux-store/slices/chatSlice';
 
 type ChatWindowProps = {
   chat: TChat;
@@ -91,13 +87,6 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
       chatId: chat?._id,
       isRead: false,
     });
-    dispatch(
-      addMessageToChat({
-        chatId: chat._id,
-        text: newMessage,
-        userName: user.userName,
-      })
-    );
     setNewMessage('');
   };
 
