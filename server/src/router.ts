@@ -6,7 +6,11 @@ const swaggerUi = require('swagger-ui-express');
 const swaggerJsdoc = require('swagger-jsdoc');
 import { authenticateToken } from './middlewares/auth';
 import review from './controllers/review';
-import { getAllChats, handleStartChat } from './controllers/chat';
+import {
+  getAllChats,
+  getChatMessages,
+  handleStartChat,
+} from './controllers/chat';
 
 // TODO authentication
 ///to update for middleware routes
@@ -344,5 +348,6 @@ router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
 
 router.post('/chat/start', handleStartChat);
 router.get('/chat/get', authenticateToken, getAllChats);
+router.get('/chat/get/:id', authenticateToken, getChatMessages);
 
 export default router;
