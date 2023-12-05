@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 
 import { Project, User } from "../models/schema";
-import { TRole, TUserInProject } from "../types";
+import { TProjectInfo, TRole, TUserInProject } from "../types";
 
 import { RequestWithUser } from "./userDetails";
 
@@ -112,7 +112,6 @@ async function getProjectDetails(req: Request, res: Response) {
     const lastName = user.lastName;
 
     const projectWithOwnerName = { ...project._doc, firstName, lastName };
-
     res.status(200).send(projectWithOwnerName);
   } catch (error) {
     console.error(error);
@@ -241,7 +240,8 @@ async function finishUserTask(req: RequestWithUser, res: Response) {
 
     const userToUpdate = await User.findOne(userFilter);
     const finishedProjectId = userToUpdate.profile.projects.findIndex(
-      (userProject: any) => userProject.title === project.title);
+      (userProject: TProjectInfo) => userProject.title === project.title
+    );
     const projectToMove = await userToUpdate.profile.projects.splice(finishedProjectId, 1);
     userToUpdate.profile.projectHistory.push(...projectToMove);
     userToUpdate.save();

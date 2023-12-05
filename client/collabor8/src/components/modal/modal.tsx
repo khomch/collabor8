@@ -1,25 +1,25 @@
 'use client';
-import Image from 'next/image';
-import { useEffect, useRef } from 'react';
-import IconClose from '../../../public/icon-close.svg';
-import './modal.css';
+import React, { useEffect, useRef, ReactNode } from "react";
+import Image from "next/image";
+import IconClose from "../../../public/icon-close.svg";
+import "./modal.css";
 
 type Props = {
-  onClose: () => void;
-  children: React.ReactNode;
+  onClose?: () => void;
+  children?: ReactNode;
 };
 
-export default function Modal({ onClose, children }: Props): any {
-  const modalRef = useRef<null | HTMLDialogElement>(null);
+function Modal({ onClose, children }: Props) {
+  const modalRef = useRef<HTMLDialogElement | null>(null);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         closeModal();
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function Modal({ onClose, children }: Props): any {
     }
   };
 
-  const modal: React.ReactNode = children && (
+  const modal: JSX.Element | null = children ? (
     <dialog ref={modalRef} className="modal" onClick={handleOverlayClick}>
       <div className="modal__content">
         <Image
@@ -56,6 +56,9 @@ export default function Modal({ onClose, children }: Props): any {
         {children}
       </div>
     </dialog>
-  );
+  ) : null;
+
   return modal;
 }
+
+export default Modal;
