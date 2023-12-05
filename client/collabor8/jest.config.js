@@ -173,10 +173,11 @@ const config = {
   // testRunner: "jest-circus/runner",
 
   // A map from regular expressions to paths to transformers
-  // transform: {
-  //   '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
-  //   '\\.css$': '<rootDir>/cssTransform.js',
-  // },
+  transform: {
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+    '\\.css$': '<rootDir>/cssTransform.js',
+    "^.+\\.svg$": "<rootDir>/svgTransform.js"
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
