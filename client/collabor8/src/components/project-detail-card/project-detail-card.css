@@ -34,3 +34,24 @@
     display: flex;
     justify-content: flex-start;
 }
+
+.member_div {
+     
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    margin-right: 10px;
+    width:120px;
+    
+    
+}
+
+.member_ul {
+    display: flex;
+    justify-content: space-between;
+    width:150px;
+    font-size:18px;
+    
+    
+
+}
