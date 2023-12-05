@@ -3,11 +3,6 @@ import { Types } from 'mongoose';
 import { Chat, Message } from '../models/chat';
 import { RequestWithUser } from './userDetails';
 
-const buildMessage = (messageData: TMessageData) => {
-  const { text, userId, userName, chatId, isRead } = messageData;
-  return { text, userId, userName, chatId, isRead };
-};
-
 export async function handleStartChat(req: Request, res: Response) {
   try {
     const { chatName, users, message, userName } = req.body;

@@ -1,18 +1,24 @@
 'use client';
 
 import VStack from '@/components/ui/v-stack/v-stack';
-import { useSelector } from '@/redux-store/customHooks';
+import { useDispatch, useSelector } from '@/redux-store/customHooks';
 import { TChat } from '@/types/chat-types';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './chat.css';
 import ChatList from './components/chat-list/chat-list';
 import ChatWindow from './components/chat-window/chat-window';
+import { fetchChats } from '@/redux-store/slices/chatSlice';
 
 export default function Chat() {
+  const dispatch = useDispatch();
   const { chats } = useSelector((state) => state.chatState);
   const { user } = useSelector((state) => state.userState);
   const [openedChat, setOpenedChat] = useState<TChat | null>(null);
+
+  useEffect(() => {
+    dispatch(fetchChats());
+  }, [dispatch]);
 
   return (
     <div className="chat-page">
