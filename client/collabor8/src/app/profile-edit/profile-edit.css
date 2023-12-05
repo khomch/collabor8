@@ -12,7 +12,7 @@
 .profile__title {
     color: var(--interface-black, #000);
     font-family: var(--headers-font);
-    font-size: var(--h5-size);   
+    font-size: var(--h5-size);
 }
 
 .profile__input {
@@ -40,10 +40,19 @@
 
 .profile__tag {
     display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-top: 10px;
     overflow: hidden;
     overflow-x: scroll;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
     max-width: 540px;
+}
+
+.profile__tag::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .profile__button {

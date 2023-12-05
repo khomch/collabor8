@@ -60,6 +60,14 @@
     overflow-x: scroll;
     gap: 4px;
     margin-top: 4px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    max-width: 540px;
+}
+
+.profile-card__techs::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .profile-card__btn {
