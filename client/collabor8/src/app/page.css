@@ -25,6 +25,7 @@ body {
   flex-direction: column;
   gap: var(--xl);
   max-width: 460px;
+  animation: fadeIn 1s ease-in-out, slideIn 0.8s ease-in-out; 
 }
 
 .cta__button {
@@ -135,6 +136,7 @@ body {
   flex-direction: column;
   justify-content: space-around;
   height: 220px;
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
 }
 
 .about__text-desc {
@@ -173,4 +175,47 @@ body {
 .join__btn {
   flex: 1;
   text-align: right;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(50%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+
+.animate {
+  transform: translateY(0);
+  animation: fadeIn 1s ease-in-out, slideIn 0.8s ease-in-out; 
+}
+
+.animate2 {
+  transform: translateY(0);
+  animation: fadeIn 1s ease-in-out, slideRight 0.8s ease-in-out; 
+}
+
+.about__text-title {
+  transform: translateY(0);
 }

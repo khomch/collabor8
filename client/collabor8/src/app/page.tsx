@@ -15,8 +15,13 @@ import TubeShape from '../../public/shapes/tube.svg';
 import SqaureShape from '../../public/shapes/square.svg';
 import CurveShape from '../../public/shapes/curve.svg';
 import './page.css';
+import { useInView } from "react-intersection-observer";
 
 export default function LandingPage() {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+  });
+
   return (
     <div className="landing-page">
       <div className="cta">
@@ -38,7 +43,7 @@ export default function LandingPage() {
             Connect with developers, build projects, and enhance your skills
             together.
           </p>
-          <Link className={'cta__button'} href={'/register'}>
+          <Link className={"cta__button"} href={"/register"}>
             <Button variant="primary" label="Get started" />
           </Link>
         </div>
@@ -66,8 +71,8 @@ export default function LandingPage() {
         <div className="about__info">
           <h2 className="h2">Our Service</h2>
           <div className="about__wrapper" style={{ marginTop: 50 }}>
-            <div className="about__text">
-              <div className="about__text-title h4">
+            <div className={`about__text ${inView ? "animate" : ""}`} ref={ref}>
+              <div className={`about__text-title h4`}>
                 Connect with developers, build projects!
               </div>
               <div className="about__text-desc sub2 ">
@@ -90,7 +95,11 @@ export default function LandingPage() {
               alt="Landing3"
             />
 
-            <div className="about__text" style={{ marginLeft: 100 }}>
+            <div
+              className={`about__text ${inView ? "animate2" : ""}`}
+              ref={ref}
+              style={{ marginLeft: 100 }}
+            >
               <div className="about__text-title h4">
                 Verified users only for reviews
               </div>
@@ -140,7 +149,7 @@ export default function LandingPage() {
               <span className="sub2">
                 Sign up for free by clicking the button below.
               </span>
-              <a href={'/register'} className={'cta__button'}>
+              <a href={"/register"} className={"cta__button"}>
                 <Button variant="primary" label="Register" />
               </a>
             </div>
