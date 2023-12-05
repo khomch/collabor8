@@ -1,5 +1,6 @@
 'use client';
 
+import { TProjectInfo } from "@/types/types";
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -13,12 +14,12 @@ import Tag from '../tag/tag';
 import VStack from '../ui/v-stack/v-stack';
 import './project-detail-card.css';
 export type ProfileCardProps = {
-  direction: 'column' | 'row';
+  direction: "column" | "row";
   name: string;
   role: string;
   company: string;
   projectinfo: string;
-  estimatedDeadline: any;
+  estimatedDeadline: string;
   openedRoles: { _id: string; role: string }[];
   teamMembers: string[];
   status: string;
@@ -30,20 +31,22 @@ export type ProfileCardProps = {
 function ProfileDetailCard() {
   const [projectData, setProjectInfo] = useState<ProfileCardProps | null>(null);
 
-  const estimatedDeadline = formatDate(projectData?.estimatedDeadline);
+  const estimatedDeadline = formatDate(projectData?.estimatedDeadline || "");
   const openedroles = projectData?.openedRoles;
   const approvedUsers = projectData?.approvedUsers;
   const firstName = projectData?.firstName;
   const lastName = projectData?.lastName;
 
   const path = usePathname();
-  const pathSegments = path.split('/');
+  const pathSegments = path.split("/");
   const param = pathSegments[pathSegments.length - 1];
 
   const fetchProjectInfo = useCallback(async (params: string) => {
     try {
-      const projectInfo: any = await getProjectInfo(params);
-      setProjectInfo(projectInfo.data);
+      const resoponse = await getProjectInfo(params);
+      if (resoponse?.status === 200) {
+        setProjectInfo(resoponse.data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -60,18 +63,18 @@ function ProfileDetailCard() {
     const year = date.getFullYear();
 
     const monthNames = [
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
     ];
 
     return `${day} ${monthNames[monthIndex]} ${year}`;
@@ -132,7 +135,7 @@ function ProfileDetailCard() {
             <span className="bodytext1 bodytext1_semibold">Status</span>
           </div>
           <div className="profile-detail__tag">
-            <Tag color={'green'} label={'New project'} />
+            <Tag color={"green"} label={"New project"} />
           </div>
         </div>
 

@@ -45,7 +45,7 @@ const register = async (user: TRegisterDetails) => {
 const writeReview = async (update: TReview) => {
   try {
     const token = localStorage.getItem("accessToken");
-    const response: { status: number } = await fetch(`${baseUrl}user/review`, {
+    const response = await fetch(`${baseUrl}user/review`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -53,11 +53,12 @@ const writeReview = async (update: TReview) => {
       },
       body: JSON.stringify(update),
     });
-    return response;
-  } catch (err) {
-    console.log("error from apiServie", err);
-    return err;
-  }
+    if (response.ok) {
+      return { status: 200, data: response };
+    } else {
+      return { status: 405, error: "Something is wrong" };
+    }
+  } catch (err) {}
 };
 
 export { login, register, writeReview };
