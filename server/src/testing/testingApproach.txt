@@ -1,0 +1,4 @@
+Testing split in to 3 sections - TBC
+1 - registration and login
+2-  user profile
+3- project management and user interaction endpoints
