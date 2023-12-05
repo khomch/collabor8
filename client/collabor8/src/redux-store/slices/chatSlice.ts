@@ -28,7 +28,6 @@ const chatsSlice = createSlice({
   initialState,
   reducers: {
     readChatMessages: (state, action) => {
-      console.log('action: ', action.payload);
       const chat = state.chats
         ?.slice()
         .find((chat) => chat._id === action.payload.chatId);
