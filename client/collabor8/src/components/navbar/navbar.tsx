@@ -11,11 +11,16 @@ import './navbar.css';
 import Button from '../button/button';
 import { useRouter } from 'next/navigation';
 import { resetUserState } from '@/redux-store/slices/userSlice';
+import { fetchChats } from '@/redux-store/slices/chatSlice';
 
 const menuItems = [
   {
     label: 'Home',
     path: '/',
+  },
+  {
+    label: 'Chats',
+    path: '/chats',
   },
   {
     label: 'Dashboard',
@@ -45,11 +50,13 @@ const unauthMenuItems = [
 function Navbar() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
+  const { newMessages } = useSelector((state) => state.chatState);
   const router = useRouter();
 
   useEffect(() => {
     dispatch(fetchUserDetails());
-  }, []);
+    dispatch(fetchChats());
+  }, [dispatch]);
 
   const handleLogout = () => {
     localStorage.removeItem('accessToken');
@@ -86,6 +93,11 @@ function Navbar() {
                     >
                       {item.label}
                     </Link>
+                    {item.path === '/chats' && newMessages > 0 && (
+                      <span className="navbar__new-messages">
+                        {newMessages}
+                      </span>
+                    )}
                   </li>
                 ))}
                 <li className="navbar__menu-link">

@@ -31,6 +31,7 @@
   display: flex;
   text-decoration: none;
   border-bottom: var(--xs) solid transparent;
+  position: relative;
 }
 
 .navbar__menu-link {
@@ -45,4 +46,17 @@
 
 .navbar__menu-link:hover {
   color: var(--interface-black);
+}
+
+.navbar__new-messages {
+  position: absolute;
+  right: -10px;
+  top: 10px;
+  width: 16px;
+  height: 16px;
+  font-size: smaller;
+  background-color: var(--dynamic-blue);
+  color: var(--white);
+  text-align: center;
+  border-radius: 50%;
 }
