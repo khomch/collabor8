@@ -18,7 +18,7 @@ import { fetchUserDetails } from "@/redux-store/slices/userSlice";
 
 export default function MyProjects() {
   const dispatch = useDispatch();
-  const user: TUserInfo | null = useSelector((state) => state.userState.user);
+  const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const [ownerProjects, setOwnerProjects] = useState([]);
   useEffect(() => {
     dispatch(fetchProjects());
@@ -39,41 +39,77 @@ export default function MyProjects() {
           <div className="projects-page__filters">
             <ProfileCard {...user} />
           </div>
-
           <div className="projects-page__projects">
             {ownerProjects.length > 0 && (
-              <>
-                <div className="projects-page__subtitle">
-                  <Image src={IconOwner} alt="Icon Project Owner" />
-                  <h2>Project Owner</h2>
-                </div>
-
-                {ownerProjects?.map((project: TProjectInfo) => (
-                  <ProjectCard
-                    key={project._id}
-                    btnLabel="Show more"
-                    project={project}
-                    userInfo={user}
-                  />
-                ))}
-              </>
+              <div className="projects-page__subtitle">
+                <Image src={IconOwner} alt="Icon Project Owner" />
+                <h2>Project Owner</h2>
+              </div>
             )}
-            {user?.profile?.projects && (
-              <>
-                <div className="projects-page__subtitle">
-                  <Image src={IconTeamMember} alt="Team member Icon" />
-                  <h2>Team member in</h2>
-                </div>
-                {user?.profile?.projects?.map((project: TProjectInfo) => (
-                  <ProjectCard
-                    key={project?._id}
-                    btnLabel="Show more"
-                    project={project}
-                    userInfo={user}
-                  />
-                ))}
-              </>
+            {ownerProjects?.map((project: TProjectInfo) => (
+              <ProjectCard
+                key={project._id}
+                btnLabel="Show more"
+                project={project}
+                userInfo={user}
+              />
+            ))}
+            {user.profile.projects.length > 0 && (
+              <div className="projects-page__subtitle">
+                <Image src={IconTeamMember} alt="Team member Icon" />
+                <h2>Team member in</h2>
+              </div>
             )}
+            {user &&
+              user.profile.projects.map((project: TProjectInfo) => (
+                <ProjectCard
+                  key={project._id}
+                  btnLabel="Show more"
+                  project={project}
+                  userInfo={user}
+                />
+              ))}
+            {user && user.profile.projectHistory.length > 0 && (
+              <div className="projects-page__subtitle">
+                <Image
+                  src={FinishedTask}
+                  width={25}
+                  height={25}
+                  alt="Finished Task Icon"
+                />
+                <h2>Finished tasks in</h2>
+              </div>
+            )}
+            {user &&
+              user.profile.projectHistory.map((project: TProjectInfo) => (
+                <ProjectCard
+                  key={project._id}
+                  btnLabel="Show more"
+                  project={project}
+                  userInfo={user}
+                />
+              ))}
+            {ownerProjects.length === 0 &&
+              user.profile.projects.length === 0 &&
+              user.profile.projectHistory.length === 0 && (
+                <div
+                  className="projects-page__subtitle"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "24px",
+                  }}
+                >
+                  <Image
+                    src={InfoBubble}
+                    width={25}
+                    height={25}
+                    alt="Finished Task Icon"
+                  />
+                  <h2>You are not participating in any projects yet.</h2>
+                </div>
+              )}
           </div>
         </div>
       </div>
