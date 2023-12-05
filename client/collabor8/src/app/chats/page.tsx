@@ -27,11 +27,7 @@ export default function Chat() {
           {user?._id && (
             <VStack size="3col">
               <h2 className="h6">Chats</h2>
-              <ChatList
-                chats={chats}
-                setOpenedChat={setOpenedChat}
-                userId={user?._id}
-              />
+              <ChatList setOpenedChat={setOpenedChat} userId={user?._id} />
             </VStack>
           )}
           {user && openedChat && <ChatWindow chat={openedChat} user={user} />}

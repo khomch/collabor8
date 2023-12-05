@@ -88,7 +88,7 @@ export async function getAllChats(req: RequestWithUser, res: Response) {
         });
         chat.unreadCount = count;
         chat.lastMessage = await Message.findById(
-          chat.messages[chat.messages.length - 1]
+          chat.messages[chat.messages.length - 1]._id
         );
         return chat;
       })

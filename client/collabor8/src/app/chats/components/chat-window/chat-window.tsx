@@ -9,6 +9,7 @@ import './chat-window.css';
 import { useDispatch } from '@/redux-store/customHooks';
 import {
   addMessageToChat,
+  fetchChats,
   readChatMessages,
 } from '@/redux-store/slices/chatSlice';
 
@@ -28,6 +29,7 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
     const handleNewMessage = (message: TMessage) => {
       setMessages((prevMessages) => [...prevMessages, message]);
       setWhoIsTyping('');
+      dispatch(fetchChats());
     };
     socket.on('message', handleNewMessage);
     return () => {

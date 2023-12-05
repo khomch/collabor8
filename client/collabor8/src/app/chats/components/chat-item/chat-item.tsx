@@ -1,19 +1,14 @@
-import { TChat } from '@/types/chat-types';
-import './chat-item.css';
-import { Dispatch, SetStateAction, useState } from 'react';
 import { getChatMessages } from '@/apiService/chatService';
+import { TChat } from '@/types/chat-types';
+import { Dispatch, SetStateAction, useState } from 'react';
+import './chat-item.css';
 
 type ChatItemProps = {
   chat: TChat;
   setOpenedChat: Dispatch<SetStateAction<TChat | null>>;
-  userId: string;
 };
 
-export default function ChatItem({
-  chat,
-  setOpenedChat,
-  userId,
-}: ChatItemProps) {
+export default function ChatItem({ chat, setOpenedChat }: ChatItemProps) {
   const [counter, setCounter] = useState(chat.unreadCount || 0);
   const handleChatClick = () => {
     getChatMessages(chat._id).then((res) => {
