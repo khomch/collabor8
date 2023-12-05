@@ -11,6 +11,7 @@ import {
   getChatMessages,
   handleStartChat,
 } from './controllers/chat';
+import { generateRoles } from './controllers/openAI';
 
 // TODO authentication
 ///to update for middleware routes
@@ -221,6 +222,27 @@ router.post('/project/create', authenticateToken, projectDetails.createProject);
 router.post('/project/role', authenticateToken, projectDetails.addRole);
 /**
  * @swagger
+ *  /project/roles:
+ *    post:
+ *      tags:
+ *      - project
+ *      description: add multiple roles to the project
+ *      produces:
+ *      - application/json
+ *      parameters:
+ *        - in: query
+ *          schema:
+ *            type: string
+ *            description: add another params
+ *      responses:
+ *       201:
+ *        description: success
+ *       400:
+ *        description: error
+ */
+router.post('/project/roles', authenticateToken, projectDetails.addRoles);
+/**
+ * @swagger
  *  /project/role:
  *    delete:
  *      tags:
@@ -349,5 +371,6 @@ router.get('/project-owner', authenticateToken, projectDetails.getProjectOwner);
 router.post('/chat/start', handleStartChat);
 router.get('/chat/get', authenticateToken, getAllChats);
 router.get('/chat/get/:id', authenticateToken, getChatMessages);
+router.post('/ai/roles', authenticateToken, generateRoles);
 
 export default router;

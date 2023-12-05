@@ -1,38 +1,30 @@
 import Tag from '@/components/tag/tag';
-import './role.css';
-import IconClose from '../../../../public/icon-close.svg';
-import Image from 'next/image';
-import { Dispatch, SetStateAction } from 'react';
 import { TRole } from '@/types/types';
-import { removeRole } from '@/apiService/projectServicesApi';
+import Image from 'next/image';
+import IconClose from '../../../../public/icon-close.svg';
+import './role.css';
 
 type RoleProps = {
   roleData: TRole;
-  projectId: string;
-  setOpenedRoles: Dispatch<SetStateAction<TRole[]>>;
+  isTemporary?: boolean;
+  handleDeleteRole: (roleId: string | undefined) => void;
 };
 
-function Role({ roleData, setOpenedRoles, projectId }: RoleProps) {
-  const handleDeleteRole = () => {
-    removeRole({
-      projectOwnerId: '6565d9f4b9b5b51e51036c50',
-      projectId,
-      roleToDeleteId: roleData._id,
-    }).then((res) => {
-      if (res?.data.openedRoles) {
-        setOpenedRoles(res.data.openedRoles);
-      }
-    });
+function Role({ roleData, handleDeleteRole, isTemporary }: RoleProps) {
+  const handleRemoveRole = () => {
+    if (roleData._id || roleData.id) {
+      handleDeleteRole(roleData._id || roleData.id);
+    }
   };
   return (
     roleData.role && (
-      <div className="role">
+      <div className={`role ${isTemporary && 'role_temporary'}`}>
         <div className="role__header">
           <p className="bodytext3 bodytext3_medium">{roleData.role}</p>
           <button
             type="button"
             className="role__close-btn"
-            onClick={handleDeleteRole}
+            onClick={handleRemoveRole}
           >
             <Image src={IconClose} alt="Icon Close" width={14} />
           </button>

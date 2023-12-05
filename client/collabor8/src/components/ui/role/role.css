@@ -27,3 +27,8 @@
   flex-wrap: wrap;
   gap: var(--xxs);
 }
+
+.role_temporary {
+  opacity: 0.5;
+  border: 1px dashed var(--interface-gray400);
+}
