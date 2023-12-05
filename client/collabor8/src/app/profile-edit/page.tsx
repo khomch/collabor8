@@ -117,7 +117,7 @@ function ProfileEdit(data: TUserInfo) {
             <div className="profile__title h5">Edit Profile</div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="userName"
@@ -128,7 +128,7 @@ function ProfileEdit(data: TUserInfo) {
                   onChange={handleChange}
                 />
               </div>
-              <div className="prifile__item">
+              <div className="profile__item">
                 <Input
                   type="text"
                   name="emailAddress"
@@ -142,7 +142,7 @@ function ProfileEdit(data: TUserInfo) {
             </div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="firstName"
@@ -153,7 +153,7 @@ function ProfileEdit(data: TUserInfo) {
                   onChange={handleChange}
                 />
               </div>
-              <div className="prifile__item">
+              <div className="profile__item">
                 <Input
                   type="text"
                   name="lastName"
@@ -167,7 +167,7 @@ function ProfileEdit(data: TUserInfo) {
             </div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="website"
@@ -178,7 +178,7 @@ function ProfileEdit(data: TUserInfo) {
                   onChange={handleChange}
                 />
               </div>
-              <div className="prifile__item">
+              <div className="profile__item">
                 <Input
                   type="text"
                   name="company"
@@ -194,7 +194,7 @@ function ProfileEdit(data: TUserInfo) {
             <div className="profile__title h5 top">Additional info</div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="role"
@@ -205,11 +205,11 @@ function ProfileEdit(data: TUserInfo) {
                   onChange={handleChange}
                 />
               </div>
-              <div className="prifile__item"></div>
+              <div className="profile__item"></div>
             </div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="bio"
@@ -223,7 +223,7 @@ function ProfileEdit(data: TUserInfo) {
             </div>
 
             <div className="profile__input">
-              <div className="prifile__item right">
+              <div className="profile__item right">
                 <Input
                   type="text"
                   name="tech"
