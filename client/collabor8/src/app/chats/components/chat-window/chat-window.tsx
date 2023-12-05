@@ -7,7 +7,10 @@ import { io } from 'socket.io-client';
 import Message from '../message/message';
 import './chat-window.css';
 import { useDispatch } from '@/redux-store/customHooks';
-import { addMessageToChat } from '@/redux-store/slices/chatSlice';
+import {
+  addMessageToChat,
+  readChatMessages,
+} from '@/redux-store/slices/chatSlice';
 
 type ChatWindowProps = {
   chat: TChat;
@@ -31,9 +34,11 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
       socket.off('message', handleNewMessage);
     };
   }, []);
+
   useEffect(() => {
     setMessages(chat.messages);
-  }, [chat]);
+    dispatch(readChatMessages({ chatId: chat._id }));
+  }, [chat, dispatch]);
 
   let activityTimer: any;
   useEffect(() => {
@@ -107,12 +112,8 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
                     new Date(b.createdAt).getTime() -
                     new Date(a.createdAt).getTime()
                 )
-                .map((message) => (
-                  <Message
-                    key={message._id}
-                    message={message}
-                    userId={user?._id}
-                  />
+                .map((message, index) => (
+                  <Message key={index} message={message} userId={user?._id} />
                 ))}
             </div>
             {whoIsTyping.length > 0 && (
@@ -129,6 +130,7 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
             className="chat__input"
             placeholder=""
             minLength={1}
+            required
           />
 
           <Button variant="primary" label="Send" type="submit" />

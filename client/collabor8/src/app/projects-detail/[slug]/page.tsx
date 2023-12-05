@@ -85,7 +85,7 @@ export default function MyProjects() {
               <ProfileDetailCard />
               <ProjectWorkCard />
               {openedProject.projectOwnerId !== userInfo?._id && (
-                <VStack size='3col'>
+                <VStack size="3col">
                   <Button
                     variant="blue"
                     label="Send message to owner"

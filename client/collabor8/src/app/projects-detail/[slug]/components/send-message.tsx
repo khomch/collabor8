@@ -3,6 +3,7 @@ import Input from '@/components/input/input';
 import { FormEvent, useState } from 'react';
 import './send-message.css';
 import { startChat } from '@/apiService/chatService';
+import Link from 'next/link';
 
 type SendMessageProps = {
   projectOwnerId: string;
@@ -18,6 +19,7 @@ export default function SendMessage({
   userName,
 }: SendMessageProps) {
   const [message, setMessage] = useState('');
+  const [messageWasSend, setMessageWasSend] = useState(false);
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     const chatInfo = {
@@ -26,9 +28,12 @@ export default function SendMessage({
       message: message,
       userName,
     };
-    startChat(chatInfo);
-    console.log(projectOwnerId, userId, message);
-    setMessage('');
+    startChat(chatInfo)
+      .then(() => {
+        setMessageWasSend(true);
+        setMessage('');
+      })
+      .catch((e) => console.log('Error while starting chat', e));
   };
 
   return (
@@ -40,18 +45,27 @@ export default function SendMessage({
         </p>
       </div>
       <div className="send-message__content">
-        <form className="review__form" onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            name="feedback"
-            value={message}
-            label="Your message"
-            placeholder="Enter your message to the project owner"
-            status="default"
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <Button variant="primary" type="submit" label="Submit" />
-        </form>
+        {messageWasSend ? (
+          <p className="send-message__text">
+            Message was successfully send.{' '}
+            <Link className="send-message__link" href="/chats">
+              Go to Chats
+            </Link>
+          </p>
+        ) : (
+          <form className="review__form" onSubmit={handleSubmit}>
+            <Input
+              type="text"
+              name="feedback"
+              value={message}
+              label="Your message"
+              placeholder="Enter your message to the project owner"
+              status="default"
+              onChange={(e) => setMessage(e.target.value)}
+            />
+            <Button variant="primary" type="submit" label="Submit" />
+          </form>
+        )}
       </div>
     </div>
   );

@@ -29,11 +29,11 @@ export default function ChatItem({
       <div>
         <p className="chat-item__title">{chat.chatName}</p>
 
-        <p className="chat-item__text chat-item__text_header">
-          {chat.lastMessage.userId === userId
-            ? 'You'
-            : chat.lastMessage.userName}
-        </p>
+        {chat.lastMessage && (
+          <p className="chat-item__text chat-item__text_header">
+            {chat.lastMessage.userName}
+          </p>
+        )}
         <p className="chat-item__text">{chat.lastMessage.text}</p>
       </div>
       {counter !== 0 && <span className="chat-item__counter">{counter}</span>}

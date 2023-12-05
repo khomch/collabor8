@@ -14,6 +14,7 @@ type TChatState = {
   status: 'idle' | 'loading' | 'succeeded' | 'failed';
   error: string | null | undefined;
   lastMessage: TMessage | null;
+  newMessages: number;
 };
 
 const initialState: TChatState = {
@@ -21,6 +22,7 @@ const initialState: TChatState = {
   status: 'idle',
   error: null,
   lastMessage: null,
+  newMessages: 0,
 };
 
 const chatsSlice = createSlice({
@@ -36,6 +38,16 @@ const chatsSlice = createSlice({
         chat.lastMessage.userName = action.payload.userName;
       }
     },
+    readChatMessages: (state, action) => {
+      console.log('action: ', action.payload);
+      const chat = state.chats
+        ?.slice()
+        .find((chat) => chat._id === action.payload.chatId);
+      if (chat) {
+        state.newMessages -= chat.unreadCount;
+        chat.unreadCount = 0;
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -45,6 +57,11 @@ const chatsSlice = createSlice({
       .addCase(fetchChats.fulfilled, (state, action: PayloadAction<any>) => {
         state.status = 'succeeded';
         state.chats = action?.payload?.data;
+        state.newMessages =
+          state.chats?.reduce(
+            (acc, curr) => acc + (curr.unreadCount || 0),
+            0
+          ) || 0;
       })
       .addCase(fetchChats.rejected, (state, action) => {
         state.status = 'failed';
@@ -55,6 +72,6 @@ const chatsSlice = createSlice({
 
 export { fetchChats };
 
-export const { addMessageToChat } = chatsSlice.actions;
+export const { addMessageToChat, readChatMessages } = chatsSlice.actions;
 
 export default chatsSlice.reducer;
