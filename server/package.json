@@ -6,7 +6,7 @@
   "scripts": {
     "watch": "tsc -w",
     "build": "npx tsc",
-    "start": "nodemon ./dist/index.js",
+    "start": "npm run build && node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "test": "jest"
   },

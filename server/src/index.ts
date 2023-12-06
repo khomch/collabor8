@@ -36,11 +36,15 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(router);
 
+app.get('/', (req, res) => {
+  res.send('Hello World');
+});
+
 export const startServer = async () => {
   try {
     await connectDB();
     const SERVER_PORT = process.env.SERVER_PORT || 3001;
-    
+
     app.listen(SERVER_PORT, () => {
       console.log(`Server running on port ${SERVER_PORT}`);
     });
