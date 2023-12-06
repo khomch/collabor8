@@ -1,27 +1,24 @@
-'use client';
+"use client";
 
-import { projectsMock } from '@/_MOCK-DATA_/mock-data';
-import ProfileCard from '@/components/profile-card/profile-card';
-import ProjectCard from '@/components/project-card/project-card';
-import { useDispatch, useSelector } from '@/redux-store/customHooks';
-import { fetchProjects } from '@/redux-store/slices/projectSlice';
-import Image from 'next/image';
-import { useEffect, useState } from 'react';
-import IconOwner from '../../../public/icon-owner.svg';
-import IconTeamMember from '../../../public/icon-teammember.svg';
-import FinishedTask from '../../../public/completed-task.svg';
-import InfoBubble from '../../../public/information-bubble.svg';
-import './projects.css';
-import { TProjectInfo, TUserInfo } from '@/types/types';
-import { getOwnerProjects } from '@/apiService/projectServicesApi';
-import { fetchUserDetails } from '@/redux-store/slices/userSlice';
-import Loader from '@/components/ui/loader/loader';
+import { projectsMock } from "@/_MOCK-DATA_/mock-data";
+import ProfileCard from "@/components/profile-card/profile-card";
+import ProjectCard from "@/components/project-card/project-card";
+import { useDispatch, useSelector } from "@/redux-store/customHooks";
+import { fetchProjects } from "@/redux-store/slices/projectSlice";
+import Image from "next/image";
+import { useEffect, useState } from "react";
+import IconOwner from "../../../public/icon-owner.svg";
+import IconTeamMember from "../../../public/icon-teammember.svg";
+import FinishedTask from "../../../public/completed-task.svg";
+import InfoBubble from "../../../public/information-bubble.svg";
+import "./projects.css";
+import { TProjectInfo, TUserInfo } from "@/types/types";
+import { getOwnerProjects } from "@/apiService/projectServicesApi";
+import { fetchUserDetails } from "@/redux-store/slices/userSlice";
 
 export default function MyProjects() {
   const dispatch = useDispatch();
   const user: TUserInfo | any = useSelector((state) => state.userState.user);
-  const userStatus = useSelector((state) => state.userState.status);
-  const projectsStatus = useSelector((state) => state.projectsInfo.status);
   const [ownerProjects, setOwnerProjects] = useState([]);
   useEffect(() => {
     dispatch(fetchProjects());
@@ -33,11 +30,9 @@ export default function MyProjects() {
       .then((res) => {
         setOwnerProjects(res?.data);
       })
-      .catch((err) => console.log('error', err));
+      .catch((err) => console.log("error", err));
   }, []);
-  return (userStatus || projectsStatus) === ('idle' || 'loading') ? (
-    <Loader />
-  ) : (
+  return (
     <section className="projects-page">
       <div className="projects">
         <div className="projects__content">
@@ -100,10 +95,10 @@ export default function MyProjects() {
                 <div
                   className="projects-page__subtitle"
                   style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '24px',
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginTop: "24px",
                   }}
                 >
                   <Image
