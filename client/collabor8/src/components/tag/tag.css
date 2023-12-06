@@ -1,0 +1,39 @@
+.tag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9px;
+}
+
+.tag__item {
+  border-radius: 9px;
+  padding: 8px 20px;
+  color: var(--black);
+  font-size: var(--body3-size);
+  display: flex;
+  align-items: center;
+}
+
+.tag__icon {
+  margin-left: 8px;
+}
+
+.tag__gray {
+  background-color: var(--interface-gray200);
+}
+
+.tag__blue {
+  background-color: var(--dynamic-blue);
+}
+
+.tag__pink {
+  background-color: var(--dynamic-pink);
+}
+
+.tag__green {
+  background-color: var(--dynamic-green);
+}
+
+.tag__orange {
+  background-color: var(--dynamic-orange);
+}

@@ -1,0 +1,48 @@
+.register-page {
+  margin-top: var(--xxl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 57px;
+}
+
+.register-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: fit-content;
+  flex-shrink: 0;
+  border-radius: 24px;
+  background: var(--interface-white, #FFF);
+  box-shadow: var(--shadow);
+  padding: var(--xxl) var(--l);
+  row-gap: var(--xl);
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--l);
+}
+
+.register-form__error {
+  text-align: center;
+}
+
+.error {
+  color: var(--dynamic-red);
+}
+
+.register-form__button {
+  margin-top: var(--m);
+}
+
+.login {
+  align-self: center;
+}
+
+.login__link {
+  text-decoration: none;
+  color: var(--interface-gray-800, #333);
+}

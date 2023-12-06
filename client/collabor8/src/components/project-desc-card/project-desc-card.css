@@ -1,0 +1,15 @@
+.project-desc-card {
+    display: flex;
+    flex-direction: column;
+    padding: var(--xs);
+  }
+  
+  .project-desc-card__title {
+    margin-top: var(--xs);
+  }
+  
+  .project-desc-card__type {
+    margin-top: var(--xs);
+    margin-bottom: var(--xs);
+  }
+  

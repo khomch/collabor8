@@ -1,0 +1,31 @@
+.projects-page {
+  display: flex;
+  margin-top: var(--xl);
+  justify-content: center;
+}
+
+.projects {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--width-xxl);
+  width: calc(100% - var(--m) * 2);
+  margin-bottom: var(--xl);
+}
+
+.projects__content {
+  display: flex;
+  gap: var(--m);
+}
+
+.projects-page__projects {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s);
+  width: 100%;
+}
+
+.projects-page__subtitle {
+  display: flex;
+  gap: var(--xs);
+  align-items: center;
+}

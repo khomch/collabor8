@@ -1,0 +1,32 @@
+.vstack {
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  border-radius: var(--border-radius);
+  padding: var(--m);
+  height: max-content;
+  background-color: var(--white);
+  width: 100%;
+}
+
+.vstack_3col {
+  min-width: 296px;
+  width: 296px;
+}
+
+.vstack_6col {
+  width: 100%;
+  max-width: 608px;
+}
+
+.vstack_9col {
+  max-width: 920px;
+}
+
+.vstack_12col {
+  max-width: 1232px;
+}
+
+.vstack__bottom {
+  margin-bottom: var(--m);
+}

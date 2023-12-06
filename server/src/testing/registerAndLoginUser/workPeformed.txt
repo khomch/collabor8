@@ -1,0 +1,60 @@
+## In this file we will document the testing approach for our server routes using supertest.
+
+Work peformed:
+
+Registering users 
+
+files: registeringUserTest.test.tsx and loginUserTest.tsx for the full test result.
+
+We have used the following mock data to peform these test.
+
+{
+  "emailAddress":"test@gmail.com",
+  "userName":"testuser",
+  "password":"password123",
+  "firstName":"test-firstname",
+  "lastName":"test-lastname"
+}
+
+1. We have tested that all new users can be registered sucessfully - 
+   refer to registeringUserTest.tsx
+
+2. We have tested that a registered user cannot re-register if they have already been registered 
+    - refer to registeringUserTest.tsx 
+
+3. We have tested that a user will recieve an error message if the incorrect 
+   password has been entered loginUserTest.tsx
+
+4. We have tested that a user can login in sucessfully with the correct username 
+   and password: refer to loginUserTest.tsx
+
+Login users
+
+
+We have used the following mock data to peform this test
+
+for incorrect credentials 
+{"emailAddress":"false@gmail.com",
+ "password":"test"
+}
+
+for incorrect password
+
+{"emailAddress":"test@gmail.com",
+ "password":"test"
+}
+
+for correct login
+
+{"emailAddress":"test@gmail.com",
+ "password":"password123"
+}
+
+1. We have tested that if a user does not exist when logging in an error message is returned if user does not exist.
+   Refer to LoginUser.test.tsx
+
+2. We have tested that registered users using invalid credentials return an error message
+   Refer to LoginUser.test.tsx
+
+3. We have tested that a sucessful logged in message and token is returned if correct credentials are entered
+   Refer to LoginUser.test.tsx

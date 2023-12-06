@@ -1,0 +1,31 @@
+.dashboard-page {
+  display: flex;
+  margin-top: var(--xl);
+  justify-content: center;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  max-width: var(--width-xxl);
+  width: calc(100% - var(--m) * 2);
+}
+
+.dashboard__content {
+  display: flex;
+  gap: var(--m);
+  margin-bottom: var(--xl);
+}
+
+.dashboard-page__projects {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.dashboard-page__filters {
+  align-self: flex-start;
+  position: sticky;
+  top: var(--m);
+}

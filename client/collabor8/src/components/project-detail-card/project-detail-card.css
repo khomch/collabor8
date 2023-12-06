@@ -1,0 +1,57 @@
+.profile-detail {
+    width: 100%;
+}
+.profile-detail__info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+    line-height: 25px;
+}
+
+.profile-detail__title  {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.profile-detail_members {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.profile-detail__icon {
+    margin-right: 5px;
+}
+
+.profile-detail__roles {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-detail__tag {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.member_div {
+     
+    display: flex;
+    justify-content: flex-start;
+    position: relative;
+    margin-right: 10px;
+    width:120px;
+    
+    
+}
+
+.member_ul {
+    display: flex;
+    justify-content: space-between;
+    width:150px;
+    font-size:18px;
+    
+    
+
+}

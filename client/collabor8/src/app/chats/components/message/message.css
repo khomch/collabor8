@@ -1,0 +1,33 @@
+.message {
+  display: flex;
+  list-style: none;
+  max-width: 608px;
+  padding: var(--xs);
+  margin-bottom: var(--xxs);
+  flex-direction: column;
+  flex-shrink: 1;
+}
+
+.message_incoming {
+  align-self: flex-start;
+  text-align: left;
+  background-color: var(--interface-gray100);
+  border-radius: var(--m) var(--m) var(--m) 0;
+}
+
+.message_outgoing {
+  align-self: flex-end;
+  text-align: right;
+  background-color: var(--dynamic-blue-light);
+  border-radius: var(--m) var(--m) 0 var(--m);
+}
+
+.message__text {
+}
+
+.message__time {
+  margin-top: var(--xxs);
+  text-align: right;
+  color: var(--interface-gray800);
+  font-size: x-small;
+}

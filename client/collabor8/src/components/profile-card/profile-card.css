@@ -1,0 +1,75 @@
+.profile-card {
+    width: 100%;
+}
+
+.profile-card__reviews {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 23px;
+}
+
+.profile-card__star_wrapper {
+    display: flex;
+    align-items: center;
+    color: var(--dynamic-orange);
+    font-weight: bold;
+}
+
+.profile-card__star {
+    margin-right: 9px;
+}
+
+.profile-card__review-btn {
+    border: 1px solid var(--interface-gray400);
+    padding: 4px 28px;
+    border-radius: 9px;
+    cursor: pointer;
+}
+
+.profile-card__info {
+    display: flex;
+    flex-direction: column;
+    margin-top: 18px;
+    line-height: 25px;
+}
+
+.profile-card__title {
+    display: flex;
+    align-items: center;
+}
+
+.profile-card__icon {
+    margin-right: 5px;
+}
+
+.profile-card__links {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-card__link {
+    text-decoration: underline;
+    color: var(--interface-gray800);
+}
+
+.profile-card__techs {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    overflow-x: scroll;
+    gap: 4px;
+    margin-top: 4px;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    max-width: 540px;
+}
+
+.profile-card__techs::-webkit-scrollbar { /* WebKit */
+    width: 0;
+    height: 0;
+}
+
+.profile-card__btn {
+    margin-top: 38px;
+}

@@ -1,0 +1,22 @@
+.profile-btn-card {
+    width: 100%;
+}
+
+.profile-btn-card__wrapper {
+    border-radius: 6px;
+    padding: 15px 6px;
+    background-color: var(--interface-gray100) ;
+    margin-top: 6px;
+}
+
+.profile-btn-card__btn {
+    margin-top: 20px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-btn-card__items {
+    flex: 1;
+    margin-right: 3px;
+}
