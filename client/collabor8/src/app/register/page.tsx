@@ -81,7 +81,7 @@ export default function Register() {
       <div className="register-page">
         <div className="logo-container">
           <Image
-            src={'/new-logo-yellow.png'}
+            src={"/new-logo-yellow.png"}
             alt="Collabor8 Logo"
             width={249}
             height={61}
@@ -147,8 +147,8 @@ export default function Register() {
               placeholder="Your password"
               status={
                 error.errorMessage === `Passwords did not match.`
-                  ? 'error'
-                  : 'default'
+                  ? "error"
+                  : "default"
               }
               onChange={(e) => {
                 handleChange(e);
@@ -163,8 +163,8 @@ export default function Register() {
               placeholder="Repeat your password"
               status={
                 error.errorMessage === `Passwords did not match.`
-                  ? 'error'
-                  : 'default'
+                  ? "error"
+                  : "default"
               }
               onChange={(e) => {
                 handleChange(e);
@@ -188,7 +188,7 @@ export default function Register() {
           </form>
           <div className="login">
             <span className="bodytext2">
-              Already have and account?&nbsp;
+              Already have and account?
               <Link href="/login">
                 <span className="login__link">Login</span>
               </Link>

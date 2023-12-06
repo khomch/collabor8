@@ -31,15 +31,15 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
     return () => {
       socket.off('message', handleNewMessage);
     };
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     setMessages(chat.messages);
     dispatch(readChatMessages({ chatId: chat._id }));
   }, [chat, dispatch]);
 
+  let activityTimer: any;
   useEffect(() => {
-    let activityTimer: any;
     socket.on('activity', (name) => {
       clearTimeout(activityTimer);
       activityTimer = setTimeout(() => {
@@ -76,7 +76,7 @@ export default function ChatWindow({ chat, user }: ChatWindowProps) {
     return () => {
       socket.off('enterRoom');
     };
-  }, [user?._id, chat]);
+  }, [user?._id, chat, socket]);
 
   const sendMessage = (e: React.FormEvent) => {
     e.preventDefault();

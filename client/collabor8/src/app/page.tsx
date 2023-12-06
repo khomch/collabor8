@@ -1,20 +1,20 @@
 // landing-page.js
 
-'use client';
+"use client";
 
-import Button from '@/components/button/button';
-import Image from 'next/image';
-import Link from 'next/link';
-import InterfaceImage from '../../public/interface.png';
-import LandingImage1 from '../../public/landing1.png';
-import LandingImage2 from '../../public/landing2.png';
-import LandingImage3 from '../../public/landing3.png';
-import LandingImage4 from '../../public/landing4.png';
-import CubeShape from '../../public/shapes/cube.svg';
-import TubeShape from '../../public/shapes/tube.svg';
-import SqaureShape from '../../public/shapes/square.svg';
-import CurveShape from '../../public/shapes/curve.svg';
-import './page.css';
+import Button from "@/components/button/button";
+import Image from "next/image";
+import Link from "next/link";
+import InterfaceImage from "../../public/interface.png";
+import LandingImage1 from "../../public/landing1.png";
+import LandingImage2 from "../../public/landing2.png";
+import LandingImage3 from "../../public/landing3.png";
+import LandingImage4 from "../../public/landing4.png";
+import CubeShape from "../../public/shapes/cube.svg";
+import TubeShape from "../../public/shapes/tube.svg";
+import SqaureShape from "../../public/shapes/square.svg";
+import CurveShape from "../../public/shapes/curve.svg";
+import "./page.css";
 
 export default function LandingPage() {
   return (
@@ -38,7 +38,7 @@ export default function LandingPage() {
             Connect with developers, build projects, and enhance your skills
             together.
           </p>
-          <Link className={'cta__button'} href={'/register'}>
+          <Link className={"cta__button"} href={"/register"}>
             <Button variant="primary" label="Get started" />
           </Link>
         </div>
@@ -109,7 +109,8 @@ export default function LandingPage() {
               </div>
               <div className="about__text-desc sub2 ">
                 Grow your skills with Collabor8. Connect, collaborate, and
-                elevate your coding as a team. Whether you&apos;re a pro or beginner,
+                {/* eslint-disable-next-line react/no-unescaped-entities */}
+                elevate your coding as a team. Whether you"re a pro or beginner,
                 join us to take your skills higher!
               </div>
             </div>
@@ -140,7 +141,7 @@ export default function LandingPage() {
               <span className="sub2">
                 Sign up for free by clicking the button below.
               </span>
-              <a href={'/register'} className={'cta__button'}>
+              <a href={"/register"} className={"cta__button"}>
                 <Button variant="primary" label="Register" />
               </a>
             </div>

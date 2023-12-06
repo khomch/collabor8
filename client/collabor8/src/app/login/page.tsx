@@ -1,23 +1,23 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
-import Input from '../../components/input/input';
-import Button from '../../components/button/button';
-import { login } from '../../apiService/userService';
-import './page.css';
-import { useDispatch } from '@/redux-store/customHooks';
-import { fetchUserDetails } from '@/redux-store/slices/userSlice';
+import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import Input from "../../components/input/input";
+import Button from "../../components/button/button";
+import { login } from "../../apiService/userService";
+import "./page.css";
+import { useDispatch } from "@/redux-store/customHooks";
+import { fetchUserDetails } from "@/redux-store/slices/userSlice";
 
 export default function Login() {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [error, setError] = useState({ isError: false, errorMessage: '' });
+  const [error, setError] = useState({ isError: false, errorMessage: "" });
 
   const router = useRouter();
 
@@ -28,17 +28,17 @@ export default function Login() {
       password: password,
     };
     const response = await login(user);
-    if (response.name === 'Error') {
+    if (response.name === "Error") {
       setError({ isError: true, errorMessage: response.message });
-      setEmail('');
-      setPassword('');
+      setEmail("");
+      setPassword("");
       return;
     } else {
-      setError({ isError: false, errorMessage: '' });
-      setEmail('');
-      setPassword('');
+      setError({ isError: false, errorMessage: "" });
+      setEmail("");
+      setPassword("");
       dispatch(fetchUserDetails());
-      router.push('/dashboard');
+      router.push("/dashboard");
     }
   };
 
@@ -46,8 +46,9 @@ export default function Login() {
     <>
       <div className="login-page">
         <div className="logo-container">
+          {/* eslint-disable-next-line react/no-unescaped-entities */}
           <Image
-            src={'/new-logo-yellow.png'}
+            src={"/new-logo-yellow.png"}
             alt="Collabor8 Logo"
             width={249}
             height={61}
@@ -98,7 +99,8 @@ export default function Login() {
           </form>
           <div className="register">
             <span className="bodytext2">
-              Don&apos;t have an account? 
+              {/* eslint-disable-next-line react/no-unescaped-entities */}
+              Don't have an account?
               <Link href="/register">
                 <span className="register__link">Register</span>
               </Link>
