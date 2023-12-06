@@ -106,11 +106,6 @@ function ProfileCard(data: TUserInfo) {
             <Button variant={"primary"} label={"Edit Profile"} />
           </Link>
         </div>
-        {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <ReviewModal onClose={() => setShowModal(false)} user={data} />
-          </Modal>
-        )}
       </div>
     </VStack>
   );
