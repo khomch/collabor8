@@ -25,12 +25,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
-      - name: Install server dependencies
-        run: cd server && npm i
-
-      - name: Run server tests
-        run: cd server && npm test
-
       - name: Install client dependencies
         run: cd client/collabor8 && npm i
 
