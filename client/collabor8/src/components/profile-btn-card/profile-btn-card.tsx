@@ -78,10 +78,21 @@ const handleDeny = async (userId: string) => {
               ) : (
                 <>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="green" label={"Approve"} onClick={() => handleApprove(item)}/>
+                    <Button
+                      className="profile-btn-card__approve"
+                      isSmall={true}
+                      variant="green"
+                      label={"Approve"}
+                      onClick={() => handleApprove(item)}
+                    />
                   </div>
                   <div className="profile-btn-card__items">
-                    <Button isSmall={true} variant="gray" label={"Deny"} onClick={() => handleDeny(item._id)}/>
+                    <Button
+                      isSmall={true}
+                      variant="gray"
+                      label={"Deny"}
+                      onClick={() => handleDeny(item._id)}
+                    />
                   </div>
                 </>
               )}
@@ -90,10 +101,15 @@ const handleDeny = async (userId: string) => {
         ))}
       </div>
       {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <ReviewModal onClose={() => setShowModal(false)} user={reviewedUser} projectId={projectId} updateParentState={updateParentState}/>
-          </Modal>
-        )}
+        <Modal onClose={() => setShowModal(false)}>
+          <ReviewModal
+            onClose={() => setShowModal(false)}
+            user={reviewedUser}
+            projectId={projectId}
+            updateParentState={updateParentState}
+          />
+        </Modal>
+      )}
     </VStack>
   );
 }

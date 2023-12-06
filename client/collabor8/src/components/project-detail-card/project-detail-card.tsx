@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { TProjectInfo } from "@/types/types";
 import Image from 'next/image';
