@@ -7,30 +7,36 @@ import {
 import Button from '@/components/button/button';
 import Input from '@/components/input/input';
 import Tag from '@/components/tag/tag';
-import VStack from "@/components/ui/v-stack/v-stack";
-import { TUserInfo } from '@/types/types';
-import { useRouter } from 'next/navigation';
+import VStack from '@/components/ui/v-stack/v-stack';
 import React, { useEffect, useState } from 'react';
-import toast from "react-hot-toast";
-import "./profile-edit.css";
+import toast from 'react-hot-toast';
+import './profile-edit.css';
+import { TUserInfo } from '@/types/types';
+import { useSelector } from '@/redux-store/customHooks';
+import userSlice from '@/redux-store/slices/userSlice';
 
-function ProfileEdit(data: TUserInfo) {
+type ProfileEditProps = {
+  data: any;
+};
+
+function ProfileEdit() {
+  const { user } = useSelector((state) => state.userState);
   const [profile, setProfile] = useState<TUserInfo>({
-    userName: "",
-    emailAddress: "",
-    firstName: "",
-    lastName: "",
-    website: "",
-    company: "",
-    role: "",
-    bio: "",
-    password: "",
+    userName: '',
+    emailAddress: '',
+    firstName: '',
+    lastName: '',
+    website: '',
+    company: '',
+    role: '',
+    bio: '',
+    password: '',
   });
 
-  const [techInput, setTechInput] = useState<string>("");
+  const [techInput, setTechInput] = useState<string>('');
   const [tech, setTech] = useState<string[]>([]);
   useEffect(() => {
-    if (!data?.emailAddress) {
+    if (!user?.emailAddress) {
       const fetchData = async () => {
         try {
           const response = await getUserProfile();
@@ -47,10 +53,10 @@ function ProfileEdit(data: TUserInfo) {
 
       fetchData();
     } else {
-      setProfile(data);
-      setTech(data?.profile?.technologyStack as string[]);
+      setProfile(user);
+      setTech(user?.profile?.technologyStack as string[]);
     }
-  }, [data]);
+  }, [user]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -61,10 +67,10 @@ function ProfileEdit(data: TUserInfo) {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === 'Enter') {
       const enteredTech = (e.target as HTMLInputElement).value;
       setTech((prev: string[]) => [...prev, enteredTech]);
-      setTechInput("");
+      setTechInput('');
     }
   };
 
@@ -105,7 +111,7 @@ function ProfileEdit(data: TUserInfo) {
       toast(response.error);
       return;
     } else {
-      toast("Saved successfully! ✅");
+      toast('Saved successfully! ✅');
     }
   };
 
@@ -241,7 +247,7 @@ function ProfileEdit(data: TUserInfo) {
                       key={index}
                       onClick={() => handelTagRemove(index)}
                       isIcon={true}
-                      color={"gray"}
+                      color={'gray'}
                       label={item}
                     />
                   ))}
@@ -252,8 +258,8 @@ function ProfileEdit(data: TUserInfo) {
             <div className="profile__button">
               <Button
                 className="profile__btn"
-                variant={"primary"}
-                label={"Save"}
+                variant={'primary'}
+                label={'Save'}
                 onClick={handelSubmit}
               />
             </div>
@@ -265,4 +271,5 @@ function ProfileEdit(data: TUserInfo) {
     <></>
   );
 }
+
 export default ProfileEdit;
