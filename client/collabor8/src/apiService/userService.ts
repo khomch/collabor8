@@ -3,7 +3,7 @@ import { TLoginDetails, TRegisterDetails, TReview } from '@/types/types';
 
 const login = async (user: TLoginDetails) => {
   try {
-    const response = await fetch(`${BASE_URL}user/login`, {
+    const response = await fetch(`${BASE_URL}/user/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ const login = async (user: TLoginDetails) => {
 
 const register = async (user: TRegisterDetails) => {
   try {
-    const response = await fetch(`${BASE_URL}user/register`, {
+    const response = await fetch(`${BASE_URL}/user/register`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ const register = async (user: TRegisterDetails) => {
 const writeReview = async (update: TReview) => {
   try {
     const token = localStorage.getItem('accessToken');
-    const response = await fetch(`${BASE_URL}user/review`, {
+    const response = await fetch(`${BASE_URL}/user/review`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
