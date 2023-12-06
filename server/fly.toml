@@ -1,15 +1,19 @@
-# fly.toml app configuration file generated for collabor8-server on 2023-12-06T10:01:31Z
+# fly.toml app configuration file generated for servercollabor8 on 2023-12-06T12:11:49Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "collabor8-server"
+app = "servercollabor8"
 primary_region = "lhr"
 
 [build]
 
+[env]
+  SERVER_PORT = "8080"
+
+
 [http_service]
-  internal_port = 3000
+  internal_port = 8080
   force_https = true
   auto_stop_machines = true
   auto_start_machines = true
