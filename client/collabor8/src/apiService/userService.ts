@@ -1,13 +1,12 @@
-import { TLoginDetails, TRegisterDetails, TReview } from "@/types/types";
-
-const baseUrl = "http://localhost:3001/";
+import { BASE_URL } from '@/constants/api';
+import { TLoginDetails, TRegisterDetails, TReview } from '@/types/types';
 
 const login = async (user: TLoginDetails) => {
   try {
-    const response = await fetch(`${baseUrl}user/login`, {
-      method: "POST",
+    const response = await fetch(`${BASE_URL}user/login`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     });
@@ -15,7 +14,7 @@ const login = async (user: TLoginDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
-    localStorage.setItem("accessToken", responseData.token);
+    localStorage.setItem('accessToken', responseData.token);
     return responseData;
   } catch (err) {
     return err;
@@ -24,10 +23,10 @@ const login = async (user: TLoginDetails) => {
 
 const register = async (user: TRegisterDetails) => {
   try {
-    const response = await fetch(`${baseUrl}user/register`, {
-      method: "POST",
+    const response = await fetch(`${BASE_URL}user/register`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(user),
     });
@@ -35,7 +34,7 @@ const register = async (user: TRegisterDetails) => {
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }
-    localStorage.setItem("accessToken", responseData.token);
+    localStorage.setItem('accessToken', responseData.token);
     return responseData;
   } catch (err) {
     return err;
@@ -44,11 +43,11 @@ const register = async (user: TRegisterDetails) => {
 
 const writeReview = async (update: TReview) => {
   try {
-    const token = localStorage.getItem("accessToken");
-    const response = await fetch(`${baseUrl}user/review`, {
-      method: "POST",
+    const token = localStorage.getItem('accessToken');
+    const response = await fetch(`${BASE_URL}user/review`, {
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(update),
@@ -56,7 +55,7 @@ const writeReview = async (update: TReview) => {
     if (response.ok) {
       return { status: 200, data: response };
     } else {
-      return { status: 405, error: "Something is wrong" };
+      return { status: 405, error: 'Something is wrong' };
     }
   } catch (err) {}
 };
