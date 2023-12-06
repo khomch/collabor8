@@ -25,13 +25,19 @@ export type ProfileCardProps = {
 
 function ProfileCard(data: TUserInfo) {
   const [showModal, setShowModal] = useState(false);
-  const ratings: any =
-    data?.profile?.reviews?.map((review) => review.rating) || [];
+  const ratings: number[] = (
+    data?.profile?.reviews?.map((review) => review.rating) || []
+  ).filter((rating): rating is number => rating !== undefined);
+
   const avgRating =
     ratings.length > 0
       ? ratings.reduce((sum: number, rating: number) => sum + rating, 0) /
         ratings.length
       : 0;
+  let formattedRating = avgRating?.toFixed(1);
+  formattedRating = formattedRating.endsWith(".0")
+    ? formattedRating + "0"
+    : formattedRating;
 
   return (
     <VStack size="3col">
@@ -46,14 +52,14 @@ function ProfileCard(data: TUserInfo) {
         <div className="profile-card__reviews">
           <div className="profile-card__star_wrapper">
             <Image className="profile-card__star" src={Star} alt="Star" />
-            {avgRating ? `${avgRating}.00` : "no reviews"}
+            {formattedRating ? `${formattedRating}` : "no reviews"}
           </div>
-          <div
+          {/* <div
             onClick={() => setShowModal(true)}
             className="profile-card__review-btn bodytext2 bodytext2_semibold"
           >
             Reviews
-          </div>
+          </div> */}
         </div>
 
         <div className="profile-card__info">
@@ -100,11 +106,6 @@ function ProfileCard(data: TUserInfo) {
             <Button variant={"primary"} label={"Edit Profile"} />
           </Link>
         </div>
-        {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-            <ReviewModal onClose={() => setShowModal(false)} user={data} />
-          </Modal>
-        )}
       </div>
     </VStack>
   );

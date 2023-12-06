@@ -1,0 +1,44 @@
+.send-message {
+  display: flex;
+  flex-direction: column;
+}
+
+.send-message__header {
+  background-color: var(--primary-color);
+  padding: var(--l);
+}
+
+.send-message__content {
+  margin-top: var(--m);
+  padding: var(--l);
+}
+
+.send-message__rating {
+  margin-top: var(--s);
+  display: flex;
+  gap: var(--xs);
+}
+
+.send-message__form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--xxl);
+}
+
+.send-message__text {
+  margin-top: 24px;
+}
+
+.send-message__rating {
+  margin-top: 15px;
+}
+
+.send-message__link {
+  color: var(--black);
+  font-weight: bold;
+}
+
+.send-message__text {
+  text-align: center;
+  margin-bottom: var(--l);
+}

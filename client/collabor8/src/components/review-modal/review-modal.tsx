@@ -1,12 +1,12 @@
-import React, { FormEvent, useState, Dispatch, SetStateAction } from "react";
-import "./review-modal.css";
-import Input from "../input/input";
-import Button from "../button/button";
-import StarRating from "../star-rating/star-rating";
-import UserProfile from "../user-profile/user-profile";
-import { TReview, TUserInProject, TProjectInfo } from "@/types/types";
-import { writeReview } from "@/apiService/userService";
-import { moveFinishedToReviewed } from "@/apiService/projectServicesApi";
+import React, { FormEvent, useState, Dispatch, SetStateAction } from 'react';
+import './review-modal.css';
+import Input from '../input/input';
+import Button from '../button/button';
+import StarRating from '../star-rating/star-rating';
+import UserProfile from '../user-profile/user-profile';
+import { TReview, TUserInProject, TProjectInfo } from '@/types/types';
+import { writeReview } from '@/apiService/userService';
+import { moveFinishedToReviewed } from '@/apiService/projectServicesApi';
 
 interface ReviewProps {
   user: TUserInProject | null;
@@ -15,9 +15,14 @@ interface ReviewProps {
   onClose: () => void; // Adjust the type of onClose based on your needs
 }
 
-function ReviewModal({ user, projectId, updateParentState, onClose }: ReviewProps) {
+function ReviewModal({
+  user,
+  projectId,
+  updateParentState,
+  onClose,
+}: ReviewProps) {
   // TODO: Finish rating logic
-  const [feedbackValue, setFeedbackValue] = useState("");
+  const [feedbackValue, setFeedbackValue] = useState('');
   const [rating, setRating] = useState(0);
 
   const handleFeedback = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,22 +38,22 @@ function ReviewModal({ user, projectId, updateParentState, onClose }: ReviewProp
       toUserId: user!._id,
     };
 
-  const moveUserToReviewed = async () => {
-    const response = await moveFinishedToReviewed({
-      userId: user!._id,
-      projectId: projectId,
-    })
-    if (response!.status === 200 ) {
-      updateParentState!(response!.data)
-    }
-  }
+    const moveUserToReviewed = async () => {
+      const response = await moveFinishedToReviewed({
+        userId: user!._id,
+        projectId: projectId,
+      });
+      if (response!.status === 200) {
+        updateParentState!(response!.data);
+      }
+    };
 
-    const response: any = await writeReview(update);
+    const response = await writeReview(update);
     if (response?.status === 200) {
       moveUserToReviewed();
       onClose();
     }
-    setFeedbackValue("");
+    setFeedbackValue('');
   };
 
   return (
@@ -61,9 +66,9 @@ function ReviewModal({ user, projectId, updateParentState, onClose }: ReviewProp
       </div>
       <div className="review__content">
         <UserProfile
-          direction={"row"}
+          direction={'row'}
           name={user!.username}
-          role={user!.role === 'Not specified' ? 'Working' : user!.role }
+          role={user!.role === 'Not specified' ? 'Working' : user!.role}
           company={user!.company}
         />
         <p className="review__text bodytext1">How was the developer?</p>

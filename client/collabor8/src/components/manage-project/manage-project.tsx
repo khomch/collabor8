@@ -25,8 +25,8 @@ type ManageProjectProps = {
 function ManageProject({ project, setProject }: ManageProjectProps) {
   const router = useRouter();
   const [type, setType] = useState(types[0]);
-  const [level, setLevel] = useState(project.level);
-  const [workspace, setWorkspace] = useState({ name: '', link: '' });
+  const [level, setLevel] = useState(project?.level);
+  const [workspace, setWorkspace] = useState({ name: "", link: "" });
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -87,7 +87,7 @@ function ManageProject({ project, setProject }: ManageProjectProps) {
           onChange={handleChange}
         />
         <Input
-          type={'datetime-local'}
+          type={"datetime-local"}
           name="estimatedDeadline"
           label="Estimated deadline"
           placeholder="Write a short sentence that describes your project"
@@ -161,7 +161,7 @@ function ManageProject({ project, setProject }: ManageProjectProps) {
         <Button
           variant="primary"
           type="submit"
-          label={project._id ? 'Save' : 'Create new project'}
+          label={project._id ? "Save" : "Create new project"}
         />
       </form>
     </VStack>

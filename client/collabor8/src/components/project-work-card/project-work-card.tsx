@@ -20,8 +20,10 @@ function ProjectWorkCard() {
 
   async function fetchProjectInfo(params:string) {
     try {
-      const projectInfo : any = await getProjectInfo(param)
-      setProjectInfo(projectInfo.data)
+      const response = await getProjectInfo(param);
+      if (response?.status === 200) {
+        setProjectInfo(response.data);
+      }
 
     } catch (error) {
       console.log(error)

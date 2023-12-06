@@ -18,7 +18,7 @@ export type TUserProfile = {
   links?: string[];
   projectHistory?: string[];
   references?: string[];
-  projects?: string[];
+  projects?: TProjectInfo[];
   reviews?: TReview[];
 };
 
@@ -37,6 +37,7 @@ export type TUserInfo = {
   bio?: string;
   yearsExperience?: string;
   profile?: TUserProfile;
+  username?: string;
 };
 
 export type TUserState = {
@@ -62,7 +63,7 @@ export type TUserInProject = {
   username: string;
   role: string;
   company: string;
-}
+};
 
 export type TProjectInfo = {
   _id?: string;
@@ -87,7 +88,8 @@ export type TProjectInfo = {
 };
 
 export type TReview = {
-  toUserId?: string;
-  rating?: Number;
-  feedback?: string;
+  toUserId: string;
+  rating: Number;
+  feedback: string;
+  fromUserName?: string;
 };

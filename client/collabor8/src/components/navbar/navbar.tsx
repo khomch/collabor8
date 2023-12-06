@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useDispatch, useSelector } from '@/redux-store/customHooks';
 import { fetchUserDetails } from '@/redux-store/slices/userSlice';
@@ -11,56 +11,63 @@ import './navbar.css';
 import Button from '../button/button';
 import { useRouter } from 'next/navigation';
 import { resetUserState } from '@/redux-store/slices/userSlice';
+import { fetchChats } from '@/redux-store/slices/chatSlice';
 
 const menuItems = [
   {
-    label: 'Home',
-    path: '/',
+    label: "Home",
+    path: "/",
+  },
+  {
+    label: 'Chats',
+    path: '/chats',
   },
   {
     label: 'Dashboard',
     path: '/dashboard',
   },
   {
-    label: 'My Projects',
-    path: '/projects',
+    label: "My Projects",
+    path: "/projects",
   },
   {
-    label: 'Profile',
-    path: '/profile',
+    label: "Profile",
+    path: "/profile",
   },
 ];
 
 const unauthMenuItems = [
   {
-    label: 'Login',
-    path: '/login',
+    label: "Login",
+    path: "/login",
   },
   {
-    label: 'Register',
-    path: '/register',
+    label: "Register",
+    path: "/register",
   },
 ];
 
 function Navbar() {
   const dispatch = useDispatch();
   const isLogged = useSelector((state) => state.userState.isLogged);
+  const { newMessages } = useSelector((state) => state.chatState);
   const router = useRouter();
 
   useEffect(() => {
     dispatch(fetchUserDetails());
-  }, []);
+    dispatch(fetchChats());
+  }, [dispatch]);
 
   const handleLogout = () => {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem("accessToken");
     dispatch(resetUserState());
-    router.push('/login');
+    router.push("/login");
   };
   const pathname = usePathname();
   return (
     <nav className="navbar">
       <div className="navbar__container">
-        <Link href={'/'}>
+        <Link href={"/"}>
           <Image
             src={LogoSmallYellow}
             alt="Collabor8 Logo"
@@ -76,7 +83,7 @@ function Navbar() {
                 {menuItems.map((item, index) => (
                   <li
                     className={`navbar__menu-item ${
-                      pathname === item.path && 'navbar__menu-item_active'
+                      pathname === item.path && "navbar__menu-item_active"
                     }`}
                     key={item.path}
                   >
@@ -86,15 +93,22 @@ function Navbar() {
                     >
                       {item.label}
                     </Link>
+                    {item.path === '/chats' && newMessages > 0 && (
+                      <span className="navbar__new-messages">
+                        {newMessages}
+                      </span>
+                    )}
                   </li>
                 ))}
-                <li className="navbar__menu-link">
-                  <Button
-                    variant="primary"
-                    label="Logout"
-                    onClick={() => handleLogout()}
-                    type="button"
-                  />
+                <li className="navbar__menu-item">
+                  <div className="navbar__menu-link">
+                    <Button
+                      variant="primary"
+                      label="Logout"
+                      onClick={() => handleLogout()}
+                      type="button"
+                    />
+                  </div>
                 </li>
               </>
             ) : (
@@ -102,7 +116,7 @@ function Navbar() {
                 {unauthMenuItems.map((item, index) => (
                   <li
                     className={`navbar__menu-item ${
-                      pathname === item.path && 'navbar__menu-item_active'
+                      pathname === item.path && "navbar__menu-item_active"
                     }`}
                     key={item.path}
                   >
