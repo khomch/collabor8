@@ -36,6 +36,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(router);
 
+app.get("/", (req, res) => {
+  res.send({
+    message: "Hello, World!",
+  });
+})
+
 export const startServer = async () => {
   try {
     await connectDB();
