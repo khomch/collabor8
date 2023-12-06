@@ -81,7 +81,11 @@ function ProjectCard({
                 href={`/project-settings/${project._id}`}
                 className="project-card__edit-btn"
               >
-                <Image src={EditIcon} alt="Icon edit" />
+                <Image
+                  className="project-card__edit-icon"
+                  src={EditIcon}
+                  alt="Icon edit"
+                />
               </Link>
             )}
           </h2>
@@ -129,7 +133,11 @@ function ProjectCard({
             </div>
             {btnLabel === "Show more" && (
               <Link href={`/projects-detail/${project._id}`}>
-                <Button label={btnLabel} variant="primary" />
+                <Button
+                  className="project-card__show_btn"
+                  label={btnLabel}
+                  variant="primary"
+                />
               </Link>
             )}
             {btnLabel === "Apply" &&
@@ -137,6 +145,7 @@ function ProjectCard({
               !isUserApplied &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
+                  className="project-card__apply_btn"
                   label={btnLabel}
                   variant="primary"
                   onClick={() => handleApply()}
@@ -157,12 +166,12 @@ function ProjectCard({
               isUserParticipating &&
               userInfo?._id !== project.projectOwnerId && (
                 <Button
+                  className="project-card__finish_btn"
                   label="Finish Task"
                   variant="primary"
                   onClick={() => handleFinish()}
                 />
               )}
-
           </div>
         </div>
       </div>
