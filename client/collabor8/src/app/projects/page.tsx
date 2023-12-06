@@ -22,7 +22,6 @@ export default function MyProjects() {
   const user: TUserInfo | any = useSelector((state) => state.userState.user);
   const userStatus = useSelector((state) => state.userState.status);
   const projectsStatus = useSelector((state) => state.projectsInfo.status);
-  const [isLoading, setIsLoading] = useState(true);
   const [ownerProjects, setOwnerProjects] = useState([]);
   useEffect(() => {
     dispatch(fetchProjects());
@@ -36,7 +35,7 @@ export default function MyProjects() {
       })
       .catch((err) => console.log('error', err));
   }, []);
-  return (userStatus && projectsStatus) === ('idle' || 'loading') ? (
+  return (userStatus || projectsStatus) === ('idle' || 'loading') ? (
     <Loader />
   ) : (
     <section className="projects-page">
