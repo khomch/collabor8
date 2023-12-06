@@ -29,7 +29,7 @@ export async function createProject(data: object) {
 export async function addRole(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const createProject = await fetch(`${API_URL}/project/role`, {
+    const addRole = await fetch(`${API_URL}/project/role`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -39,8 +39,32 @@ export async function addRole(data: object) {
       body: JSON.stringify(data),
     });
 
-    if (createProject.ok) {
-      const response = await createProject.json();
+    if (addRole.ok) {
+      const response = await addRole.json();
+      return { status: 201, data: response };
+    } else {
+      return { status: 400, error: "Error adding member" };
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+export async function addRoles(data: object) {
+  const token = localStorage.getItem("accessToken");
+  try {
+    const addRoles = await fetch(`${API_URL}/project/roles`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (addRoles.ok) {
+      const response = await addRoles.json();
       return { status: 201, data: response };
     } else {
       return { status: 400, error: "Error adding member" };

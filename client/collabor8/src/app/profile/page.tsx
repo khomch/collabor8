@@ -46,7 +46,7 @@ function Profile() {
       }
     };
     fetchData();
-  }, []);
+  }, [router]);
 
   return (
     profile.emailAddress && (

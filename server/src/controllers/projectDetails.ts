@@ -1,9 +1,9 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
 
-import { Project, User } from "../models/schema";
-import { TProjectInfo, TRole, TUserInProject } from "../types";
+import { Project, User } from '../models/schema';
+import { TProjectInfo, TRole, TUserInProject } from '../types';
 
-import { RequestWithUser } from "./userDetails";
+import { RequestWithUser } from './userDetails';
 
 async function createProject(req: RequestWithUser, res: Response) {
   try {
@@ -20,7 +20,7 @@ async function createProject(req: RequestWithUser, res: Response) {
       techstack: req.body.techstack,
       projectWorkspaces: req.body.workspace,
       openedRoles: req.body.openedRoles,
-      status: "New Project",
+      status: 'New Project',
     });
 
     const addProject = await newProject.save();
@@ -53,7 +53,7 @@ async function editProjectDetails(req: RequestWithUser, res: Response) {
     });
 
     if (!projectDetails) {
-      return res.status(404).send({ message: "User not found" });
+      return res.status(404).send({ message: 'User not found' });
     }
     res.status(200).send(projectDetails);
   } catch (error) {
@@ -70,11 +70,30 @@ async function addRole(req: RequestWithUser, res: Response) {
     };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     project.openedRoles.push(req.body.newRoleData);
     project.save();
     res.status(201).send(project);
+  } catch (error) {
+    console.error(error);
+    res.status(400).send();
+  }
+}
+
+async function addRoles(req: RequestWithUser, res: Response) {
+  try {
+    const filter = {
+      projectOwnerId: req.id,
+      _id: req.body.projectId,
+    };
+    const project = await Project.findOne(filter);
+    if (!project) {
+      return res.status(404).send({ message: 'Project not found' });
+    }
+    project.openedRoles.push(...req.body.newRolesData);
+    project.save();
+    res.status(200).send(project);
   } catch (error) {
     console.error(error);
     res.status(400).send();
@@ -89,7 +108,7 @@ async function removeRole(req: RequestWithUser, res: Response) {
     };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     const newRoles = project.openedRoles.filter(
       (role: TRole) => role._id !== req.body.roleToDeleteId
@@ -141,7 +160,7 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     };
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     const isAlreadyApplied = project.appliedUsers.some(
       (user: TUserInProject) => user._id === req.id
@@ -152,8 +171,8 @@ async function applyToProject(req: RequestWithUser, res: Response) {
     if (isAlreadyApplied | isAlreadyApproved) {
       return res.status(409).send({
         message: isAlreadyApplied
-          ? "User already applied"
-          : "User already participating in the project",
+          ? 'User already applied'
+          : 'User already participating in the project',
       });
     }
     project.appliedUsers.push(user);
@@ -188,7 +207,7 @@ async function approveUser(req: Request, res: Response) {
     };
     const project = await Project.findOne(projectFilter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     const userToApprove = await User.findOne({ _id: req.body._id });
     project.approvedUsers.push(appliedUser);
@@ -214,7 +233,7 @@ async function denyUser(req: Request, res: Response) {
     const idToDeny = req.body._id;
     const project = await Project.findOne(filter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     const indexToDeny = project.appliedUsers.findIndex(
       (user: TUserInProject) => user._id === idToDeny
@@ -229,20 +248,25 @@ async function denyUser(req: Request, res: Response) {
 }
 
 async function finishUserTask(req: RequestWithUser, res: Response) {
-  const userFilter = { _id: req.id }
-  const projectFilter = { _id: req.body._id }
+  const userFilter = { _id: req.id };
+  const projectFilter = { _id: req.body._id };
   try {
     const project = await Project.findOne(projectFilter);
-    const finishedId = await project.approvedUsers.findIndex((user: TUserInProject) => user._id === req.id)
+    const finishedId = await project.approvedUsers.findIndex(
+      (user: TUserInProject) => user._id === req.id
+    );
     const finishedUser = await project.approvedUsers.splice(finishedId, 1);
     project.finishedUsers.push(...finishedUser);
-    project.save()
+    project.save();
 
     const userToUpdate = await User.findOne(userFilter);
     const finishedProjectId = userToUpdate.profile.projects.findIndex(
       (userProject: TProjectInfo) => userProject.title === project.title
     );
-    const projectToMove = await userToUpdate.profile.projects.splice(finishedProjectId, 1);
+    const projectToMove = await userToUpdate.profile.projects.splice(
+      finishedProjectId,
+      1
+    );
     userToUpdate.profile.projectHistory.push(...projectToMove);
     userToUpdate.save();
     res.status(201).send(project);
@@ -262,7 +286,7 @@ async function reviewUser(req: Request, res: Response) {
     };
     const project = await Project.findOne(projectFilter);
     if (!project) {
-      return res.status(404).send({ message: "Project not found" });
+      return res.status(404).send({ message: 'Project not found' });
     }
     const reviewdUserIndex = project.finishedUsers.findIndex(
       (user: TUserInProject) => user._id === reviewedUserId._id
@@ -290,4 +314,5 @@ export default {
   getProjectOwner,
   finishUserTask,
   reviewUser,
+  addRoles,
 };

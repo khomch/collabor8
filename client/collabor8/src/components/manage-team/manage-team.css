@@ -17,3 +17,14 @@
   flex-direction: column;
   gap: var(--m);
 }
+
+.manage-team__ai {
+  margin-top: var(--l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--s);
+}
+
+.manage-team__title {
+  margin-bottom: var(--l);
+}

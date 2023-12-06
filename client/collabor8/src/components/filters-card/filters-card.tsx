@@ -51,7 +51,7 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
           )
       );
     }
-  }, [selectedTags]);
+  }, [selectedTags, projects, setProjectsToRender]);
 
   useEffect(() => {
     if (role.length === 0) {
@@ -66,13 +66,13 @@ function FiltersCard({ projects, setProjectsToRender }: FiltersCardProps) {
           )
       );
     }
-  }, [role]);
+  }, [role, projects, setProjectsToRender]);
 
   useEffect(() => {
     setProjectsToRender(
       projects && projects.filter((project) => project.level === level)
     );
-  }, [level]);
+  }, [level, projects, setProjectsToRender]);
 
   const techstack = Array.from(new Set(techstackArrWithDuplicates));
 

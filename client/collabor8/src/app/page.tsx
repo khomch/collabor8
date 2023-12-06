@@ -109,7 +109,7 @@ export default function LandingPage() {
               </div>
               <div className="about__text-desc sub2 ">
                 Grow your skills with Collabor8. Connect, collaborate, and
-                elevate your coding as a team. Whether you're a pro or beginner,
+                elevate your coding as a team. Whether you&apos;re a pro or beginner,
                 join us to take your skills higher!
               </div>
             </div>

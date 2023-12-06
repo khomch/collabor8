@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useRef, ReactNode } from "react";
+import React, { useEffect, useRef, ReactNode, useCallback } from "react";
 import Image from "next/image";
 import IconClose from "../../../public/icon-close.svg";
 import "./modal.css";
@@ -12,6 +12,11 @@ type Props = {
 function Modal({ onClose, children }: Props) {
   const modalRef = useRef<HTMLDialogElement | null>(null);
 
+  const closeModal = useCallback(() => {
+    modalRef.current?.close();
+    onClose && onClose();
+  }, [onClose]);
+
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -20,7 +25,7 @@ function Modal({ onClose, children }: Props) {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, []);
+  }, [closeModal]);
 
   useEffect(() => {
     if (children) {
@@ -29,12 +34,8 @@ function Modal({ onClose, children }: Props) {
     } else {
       closeModal();
     }
-  }, [children]);
+  }, [children, closeModal]);
 
-  const closeModal = () => {
-    modalRef.current?.close();
-    onClose && onClose();
-  };
 
   const handleOverlayClick: React.MouseEventHandler<HTMLDialogElement> = (
     e

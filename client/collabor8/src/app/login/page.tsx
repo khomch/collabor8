@@ -98,7 +98,7 @@ export default function Login() {
           </form>
           <div className="register">
             <span className="bodytext2">
-              Don't have an account?&nbsp;
+              Don&apos;t have an account? 
               <Link href="/register">
                 <span className="register__link">Register</span>
               </Link>

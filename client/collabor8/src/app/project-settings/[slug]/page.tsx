@@ -51,7 +51,7 @@ export default function ProjectEdit() {
           .catch((err) => console.log('error', err));
       }
     }
-  }, []);
+  }, [params.slug]);
 
   return (
     <div className="project-edit-page">
