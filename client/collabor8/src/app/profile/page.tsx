@@ -20,11 +20,15 @@ export type ProfileProps = {
 
 function Profile() {
   const data: TUserInfo = {
-    userName: '',
-    firstName: '',
-    lastName: '',
-    emailAddress: '',
-    password: '',
+    userName: "",
+    emailAddress: "",
+    firstName: "",
+    lastName: "",
+    website: "",
+    company: "",
+    role: "",
+    bio: "",
+    password: "",
   };
   const [profile, setProfile] = useState<TUserInfo>(data);
   const router = useRouter();
@@ -37,7 +41,7 @@ function Profile() {
           setProfile(response?.data);
         } else {
           console.log(response?.error);
-          router.push('/login');
+          router.push("/login");
         }
       } catch (error) {
         console.log(`Error fetching user profile: ${JSON.stringify(error)}`);

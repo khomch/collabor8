@@ -53,7 +53,14 @@ function ProfileEdit() {
 
       fetchData();
     } else {
-      setProfile(user);
+      const updatedUser = Object.assign({}, user, {
+        website: user?.website || "",
+        company: user?.company || "",
+        role: user?.role || "",
+        bio: user?.bio || "",
+      });
+
+      setProfile(updatedUser);
       setTech(user?.profile?.technologyStack as string[]);
     }
   }, [user]);
@@ -67,10 +74,10 @@ function ProfileEdit() {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       const enteredTech = (e.target as HTMLInputElement).value;
       setTech((prev: string[]) => [...prev, enteredTech]);
-      setTechInput('');
+      setTechInput("");
     }
   };
 
@@ -111,7 +118,7 @@ function ProfileEdit() {
       toast(response.error);
       return;
     } else {
-      toast('Saved successfully! ✅');
+      toast("Saved successfully! ✅");
     }
   };
 
@@ -247,7 +254,7 @@ function ProfileEdit() {
                       key={index}
                       onClick={() => handelTagRemove(index)}
                       isIcon={true}
-                      color={'gray'}
+                      color={"gray"}
                       label={item}
                     />
                   ))}
@@ -258,8 +265,8 @@ function ProfileEdit() {
             <div className="profile__button">
               <Button
                 className="profile__btn"
-                variant={'primary'}
-                label={'Save'}
+                variant={"primary"}
+                label={"Save"}
                 onClick={handelSubmit}
               />
             </div>
