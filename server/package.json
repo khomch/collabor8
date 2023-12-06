@@ -5,8 +5,8 @@
   "main": "./dist/index.js",
   "scripts": {
     "watch": "tsc -w",
-    "build": "npx tsc",
-    "start": "npm run build && node ./dist/index.js",
+    "build": "tsc",
+    "start": "node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
     "test": "jest"
   },
