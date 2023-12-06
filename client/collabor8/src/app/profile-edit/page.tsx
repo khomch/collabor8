@@ -249,14 +249,13 @@ function ProfileEdit(data: TUserInfo) {
               </div>
             </div>
 
-              <div className="profile__button">
-                <Button
-                  className="profile__btn"
-                  variant={"primary"}
-                  label={"Save"}
-                  onClick={handelSubmit}
-                />
-              </div>
+            <div className="profile__button">
+              <Button
+                className="profile__btn"
+                variant={"primary"}
+                label={"Save"}
+                onClick={handelSubmit}
+              />
             </div>
           </div>
         </div>
