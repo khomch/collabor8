@@ -23,7 +23,7 @@ export default function MyProjects() {
   useEffect(() => {
     dispatch(fetchProjects());
     dispatch(fetchUserDetails());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getOwnerProjects()

@@ -21,7 +21,7 @@ export default function Dashboard() {
 
   useEffect(() => {
     dispatch(fetchProjects());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     setProjectsToRender(projects);

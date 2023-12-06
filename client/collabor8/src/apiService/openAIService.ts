@@ -13,7 +13,6 @@ export const generateRoles = async (projectId: { projectId: string }) => {
       body: JSON.stringify(projectId),
     });
     const responseData = await response.json();
-    console.log('responseData: ', responseData);
     if (!response.ok) {
       throw new Error(responseData.errorMsg);
     }

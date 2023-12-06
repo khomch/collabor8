@@ -50,7 +50,7 @@ function ProfileEdit(data: TUserInfo) {
       setProfile(data);
       setTech(data?.profile?.technologyStack as string[]);
     }
-  }, []);
+  }, [data]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

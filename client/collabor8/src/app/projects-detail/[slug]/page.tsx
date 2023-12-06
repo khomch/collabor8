@@ -52,7 +52,7 @@ export default function MyProjects() {
         setOpenedProject(response?.data);
       })
       .catch((err) => console.log('error', err));
-  }, []);
+  }, [params.slug]);
 
   const handleSendMessageToOwner = () => {
     setIsSendMessageOpened(true);
