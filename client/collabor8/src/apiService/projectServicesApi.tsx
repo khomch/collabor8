@@ -1,11 +1,10 @@
+import { BASE_URL } from "@/constants/api";
 import toast from "react-hot-toast";
-
-export const API_URL = "http://localhost:3001";
 
 export async function createProject(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const createProject = await fetch(`${API_URL}/project/create`, {
+    const createProject = await fetch(`${BASE_URL}/project/create`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -29,7 +28,7 @@ export async function createProject(data: object) {
 export async function addRole(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const addRole = await fetch(`${API_URL}/project/role`, {
+    const addRole = await fetch(`${BASE_URL}/project/role`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -53,7 +52,7 @@ export async function addRole(data: object) {
 export async function addRoles(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const addRoles = await fetch(`${API_URL}/project/roles`, {
+    const addRoles = await fetch(`${BASE_URL}/project/roles`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -77,7 +76,7 @@ export async function addRoles(data: object) {
 export async function removeRole(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const createProject = await fetch(`${API_URL}/project/role`, {
+    const createProject = await fetch(`${BASE_URL}/project/role`, {
       method: "DELETE",
       mode: "cors",
       headers: {
@@ -101,7 +100,7 @@ export async function removeRole(data: object) {
 export async function updateProject(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const editProject = await fetch(`${API_URL}/project/edit`, {
+    const editProject = await fetch(`${BASE_URL}/project/edit`, {
       method: "PUT",
       mode: "cors",
       headers: {
@@ -125,7 +124,7 @@ export async function updateProject(data: object) {
 
 export async function getProjectInfo(id: string) {
   try {
-    const projectInfo = await fetch(`${API_URL}/project/${id}`, {
+    const projectInfo = await fetch(`${BASE_URL}/project/${id}`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -146,7 +145,7 @@ export async function getProjectInfo(id: string) {
 
 export async function getProjectListing() {
   try {
-    const projectListingInfo = await fetch(`${API_URL}/projects`, {
+    const projectListingInfo = await fetch(`${BASE_URL}/projects`, {
       method: "GET",
       mode: "cors",
       headers: { "Content-Type": "application/json" },
@@ -165,7 +164,7 @@ export async function getProjectListing() {
 export async function applyToProject(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const applyToProject = await fetch(`${API_URL}/project/apply`, {
+    const applyToProject = await fetch(`${BASE_URL}/project/apply`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -189,7 +188,7 @@ export async function applyToProject(data: object) {
 export async function approveUser(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const approveUser = await fetch(`${API_URL}/project/approve`, {
+    const approveUser = await fetch(`${BASE_URL}/project/approve`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -214,7 +213,7 @@ export async function approveUser(data: object) {
 export async function denyUser(data: object) {
   const token = localStorage.getItem("accessToken");
   try {
-    const denyUser = await fetch(`${API_URL}/project/deny`, {
+    const denyUser = await fetch(`${BASE_URL}/project/deny`, {
       method: "POST",
       mode: "cors",
       headers: {
@@ -239,7 +238,7 @@ export async function denyUser(data: object) {
 export async function getOwnerProjects() {
   try {
     const token = localStorage.getItem("accessToken");
-    const projectInfo = await fetch(`${API_URL}/project-owner`, {
+    const projectInfo = await fetch(`${BASE_URL}/project-owner`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -262,7 +261,7 @@ export async function getOwnerProjects() {
   export async function finishUserTask(id: object ) {
     const token = localStorage.getItem("accessToken");
     try {
-      const finishTask = await fetch(`${API_URL}/project/finish`, {
+      const finishTask = await fetch(`${BASE_URL}/project/finish`, {
         method: "POST",
         mode: "cors",
         headers: {
@@ -287,7 +286,7 @@ export async function getOwnerProjects() {
   export async function moveFinishedToReviewed(data: object) {
     const token = localStorage.getItem("accessToken");
     try {
-      const reviewedUser = await fetch(`${API_URL}/project/review`, {
+      const reviewedUser = await fetch(`${BASE_URL}/project/review`, {
         method: "POST",
         mode: "cors",
         headers: {

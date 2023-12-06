@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3001';
+import { BASE_URL } from "@/constants/api";
 
 export const startChat = async (chatInfo: {
   chatName: string;
@@ -7,7 +7,7 @@ export const startChat = async (chatInfo: {
 }) => {
   const token = localStorage.getItem('accessToken');
   try {
-    const response = await fetch(`${baseUrl}/chat/start`, {
+    const response = await fetch(`${BASE_URL}/chat/start`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export const startChat = async (chatInfo: {
 export const getChats = async () => {
   const token = localStorage.getItem('accessToken');
   try {
-    const chats = await fetch(`${baseUrl}/chat/get`, {
+    const chats = await fetch(`${BASE_URL}/chat/get`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -52,7 +52,7 @@ export const getChats = async () => {
 export const getChatMessages = async (chatId: string) => {
   const token = localStorage.getItem('accessToken');
   try {
-    const messages = await fetch(`${baseUrl}/chat/get/${chatId}`, {
+    const messages = await fetch(`${BASE_URL}/chat/get/${chatId}`, {
       method: 'GET',
       mode: 'cors',
       headers: {
