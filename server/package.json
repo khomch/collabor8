@@ -26,6 +26,7 @@
     ]
   },
   "devDependencies": {
+    "@flydotio/dockerfile": "0.4.11",
     "@types/bcrypt": "^5.0.2",
     "@types/cookie": "^0.6.0",
     "@types/cookie-parser": "^1.4.6",
