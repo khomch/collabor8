@@ -8,12 +8,13 @@ import Message from '../message/message';
 import './chat-window.css';
 import { useDispatch } from '@/redux-store/customHooks';
 import { fetchChats, readChatMessages } from '@/redux-store/slices/chatSlice';
+import { BASE_URL } from '@/constants/api';
 
 type ChatWindowProps = {
   chat: TChat;
   user: TUserInfo;
 };
-const socket = io('http://localhost:3001');
+const socket = io(BASE_URL);
 
 export default function ChatWindow({ chat, user }: ChatWindowProps) {
   const [messages, setMessages] = useState<TMessage[]>([]);
