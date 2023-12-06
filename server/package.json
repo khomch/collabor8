@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node ./dist/index.js",
     "dev": "nodemon ./src/index.ts",
+    "deploy": "fly deploy",
     "test": "jest"
   },
   "author": "",
