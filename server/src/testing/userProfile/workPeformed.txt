@@ -1,0 +1,14 @@
+We have tested the following endpoints
+
+router.put('/user/profile')
+router.get('/user/profile')
+
+We have used the test user created in the register user page Note:
+
+An authorization token has to be appended when making the request to test the endpoint.
+
+1.  The user profile is updated when user makes changes.
+    Refer to userProfile.tsx
+
+2. The user profile is returned to the user.
+    Refer to userProfile.tsx
