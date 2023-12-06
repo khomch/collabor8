@@ -2,14 +2,12 @@
 
 import { getUserProfile } from '@/apiService/profileServiceApi';
 import ProfileCard from '@/components/profile-card/profile-card';
+import ReviewsCard from '@/components/reviews-card/reviews-card';
+import { TUserInfo } from '@/types/types';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ProfileEdit from '../profile-edit/page';
 import './profile.css';
-import { TUserInfo } from '@/types/types';
-import { useRouter } from 'next/navigation';
-import VStack from "@/components/ui/v-stack/v-stack";
-import ReviewsCard from "@/components/reviews-card/reviews-card";
-import toast, { Toaster } from "react-hot-toast";
 
 export type ProfileProps = {
   technologyStack?: string[];
@@ -23,9 +21,13 @@ export type ProfileProps = {
 function Profile() {
   const data: TUserInfo = {
     userName: "",
+    emailAddress: "",
     firstName: "",
     lastName: "",
-    emailAddress: "",
+    website: "",
+    company: "",
+    role: "",
+    bio: "",
     password: "",
   };
   const [profile, setProfile] = useState<TUserInfo>(data);
@@ -59,7 +61,7 @@ function Profile() {
                 <ReviewsCard reviews={profile.profile?.reviews} />
               </div>
               <div className="profile-page__edit">
-                <ProfileEdit {...data} />
+                <ProfileEdit />
               </div>
             </div>
           </div>

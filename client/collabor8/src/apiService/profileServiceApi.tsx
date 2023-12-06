@@ -1,10 +1,10 @@
+import { BASE_URL } from "@/constants/api";
 import { TUserInfo } from "@/types/types";
-import { API_URL } from "./projectServicesApi";
 
 export const getUserProfile = async () => {
   const token = localStorage.getItem("accessToken");
   try {
-    const userProfile = await fetch(`${API_URL}/user/profile`, {
+    const userProfile = await fetch(`${BASE_URL}/user/profile`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -27,7 +27,7 @@ export const getUserProfile = async () => {
 export const updateUserProfile = async (updateData: TUserInfo) => {
   const token = localStorage.getItem("accessToken");
   try {
-    const projectInfo = await fetch(`${API_URL}/user/profile`, {
+    const projectInfo = await fetch(`${BASE_URL}/user/profile`, {
       method: "PUT",
       mode: "cors",
       headers: {
